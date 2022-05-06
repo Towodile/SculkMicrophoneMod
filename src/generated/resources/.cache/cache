@@ -1,0 +1,9 @@
+c4425ed3d21e6c29d28f72f75bcbc707b947376c assets/backpacks/blockstates/backpack.json
+ce8e9a6861af282b91edfa52f3d20131cf68e58a assets/backpacks/lang/en_us.json
+d8c8730ed479aee4d2884dc68c79671121524373 assets/backpacks/models/block/backpack.json
+49913f00a5a852ee0f142ce11209dff4138b8a83 assets/backpacks/models/item/backpack.json
+d1574ee94b75406d5452e2103142c80a398baf42 data/backpacks/advancements/recipes/backpacks_accessories/backpack.json
+8ebed3195b4fd8455cf8fb79d42c5c2f7060e004 data/backpacks/loot_tables/blocks/backpack.json
+8681f4202bc4af315dfae376fbf5c9925041bd33 data/backpacks/recipes/backpack.json
+388fad90f8c632410d0cae27d654908206174419 data/forge/tags/blocks/storage_blocks.json
+388fad90f8c632410d0cae27d654908206174419 data/forge/tags/items/storage_blocks.json
