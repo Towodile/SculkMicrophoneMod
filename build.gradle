@@ -3,9 +3,11 @@ buildscript {
         // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
         maven { url = 'https://maven.minecraftforge.net' }
         mavenCentral()
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
@@ -14,6 +16,7 @@ plugins {
     id 'maven-publish'
 }
 apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.spongepowered.mixin'
 
 
 version = 'Alpha 1.0.0'
@@ -45,6 +48,13 @@ minecraft {
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
     runs {
+
+        mixin {
+            add sourceSets.main, "modid.refmap.json"
+
+            config "modid.mixins.json"
+        }
+
         client {
             workingDirectory project.file('run')
 
@@ -64,7 +74,7 @@ minecraft {
             property 'forge.enabledGameTestNamespaces', 'sculkmic'
 
             mods {
-                backpacks {
+                sculkmic {
                     source sourceSets.main
                 }
             }
@@ -123,10 +133,10 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', 'backpacks', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'sculkmic', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                backpacks {
+                sculkmic {
                     source sourceSets.main
                 }
             }

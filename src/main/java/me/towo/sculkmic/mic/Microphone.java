@@ -24,6 +24,9 @@ public class Microphone extends Thread{
     }
 
     public void tryStop() {
+        if (line == null)
+            return;
+
         if (line.isActive()) {
             line.stop();
             if (line.isOpen()) {
@@ -33,7 +36,7 @@ public class Microphone extends Thread{
     }
 
     public Status getStatus() {
-        if (line.isOpen()) {
+        if (line != null && line.isOpen()) {
             return Status.OK;
         }
         return Status.CLOSED;

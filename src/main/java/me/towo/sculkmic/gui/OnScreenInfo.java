@@ -1,4 +1,4 @@
-package me.towo.sculkmic.ui;
+package me.towo.sculkmic.gui;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.towo.sculkmic.SculkMicMod;
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = SculkMicMod.ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class OnScreenInfo {
 
-    private static Microphone mic = MicrophoneHandler.getMic();
+    private final static Microphone mic = MicrophoneHandler.getMic();
 
     @SubscribeEvent
     public static void onScreenGUI(RenderGameOverlayEvent.Pre e) {

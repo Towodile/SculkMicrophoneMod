@@ -20,17 +20,14 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = SculkMicMod.ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class MicListener {
 
-    private static Microphone mic = MicrophoneHandler.getMic();
+    private final static Microphone mic = MicrophoneHandler.getMic();
 
     @SubscribeEvent
     public static void onLogin(ClientPlayerNetworkEvent.LoggedInEvent e) {
         if (e.getPlayer() != null) {
             mic.start();
-            if (mic.getStatus().equals(Microphone.Status.OK)) {
-                Chat.sendMessage("Microphone has succesfully opened!", e.getPlayer());
-            } else {
-                Chat.sendMessage("ERROR: Something went wrong trying to open the microphone.", e.getPlayer());
-            }
+
+            Chat.sendMessage("Microphone has opened!", e.getPlayer());
         } else {
             e.setCanceled(true);
         }
@@ -61,7 +58,7 @@ public class MicListener {
     }
 
     private static GameEvent getGameEventByLoudness(int loudness) {
-        int eventInt = (int)((loudness - (loudness / 3)));
+        int eventInt = loudness - (loudness / 3);
 
         Object2IntMap vibrationMap = SculkSensorBlock.VIBRATION_STRENGTH_FOR_EVENT;
         int[] values = vibrationMap.values().toIntArray();
