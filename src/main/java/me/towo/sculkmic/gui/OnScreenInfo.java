@@ -2,7 +2,7 @@ package me.towo.sculkmic.gui;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.towo.sculkmic.SculkMicMod;
-import me.towo.sculkmic.config.SculkMicConfig;
+import me.towo.sculkmic.userpreferences.SculkMicConfig;
 import me.towo.sculkmic.mic.Microphone;
 import me.towo.sculkmic.mic.MicrophoneHandler;
 import me.towo.sculkmic.utils.ModColors;
@@ -15,25 +15,25 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = SculkMicMod.ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class OnScreenInfo {
 
-    private final static Microphone mic = MicrophoneHandler.getMic();
+    private final static MicrophoneHandler handler = new MicrophoneHandler();
 
     @SubscribeEvent
-    public static void onScreenGUI(RenderGameOverlayEvent.Pre e) {
+    public static void onOverlayRender(RenderGameOverlayEvent.Pre e) {
         if (!SculkMicConfig.SHOW_INFO_ON_SCREEN.get())
             return;
 
-        int level = mic.getLevelAfterCalculate();
+        int level = handler.getCurrentVolumeLevel();
         PoseStack matrix = e.getMatrixStack();
         String displayedVolume = String.valueOf(level);
-        String displayedStatus = String.valueOf(mic.getStatus());
+        String displayedStatus = String.valueOf(handler.isRunning());
         int volumeColor = ModColors.REGULAR;
         int statusColor = ModColors.REGULAR;
         if (level < 0) displayedVolume = "0";
         if (level > SculkMicConfig.THRESHOLD.get()) volumeColor = ModColors.SCULK;
-        if (mic.getStatus() != Microphone.Status.OK) statusColor = ModColors.ERROR;
+        if (!handler.isRunning()) statusColor = ModColors.ERROR;
 
         Minecraft.getInstance().font.draw(matrix, "Mic volume: " + displayedVolume, 10, 10, volumeColor);
-        Minecraft.getInstance().font.draw(matrix, "Status: " + displayedStatus, 10, 20, statusColor);
+        Minecraft.getInstance().font.draw(matrix, "Is running? " + displayedStatus, 10, 20, statusColor);
 
     }
 }

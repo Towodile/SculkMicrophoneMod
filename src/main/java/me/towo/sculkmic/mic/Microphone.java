@@ -1,6 +1,6 @@
 package me.towo.sculkmic.mic;
 
-import me.towo.sculkmic.config.SculkMicConfig;
+import me.towo.sculkmic.userpreferences.SculkMicConfig;
 
 import javax.sound.sampled.*;
 
@@ -12,15 +12,11 @@ public class Microphone extends Thread{
     }
 
     private TargetDataLine line;
-    private int level;
-
-    public int getLevelAfterCalculate() {
-        return (int)(level * SculkMicConfig.SENSITIVITY.get());
-    }
+    public int level;
 
     @Override
     public void run(){
-        openAndStart();
+        tryOpenAndStart();
     }
 
     public void tryStop() {
@@ -35,8 +31,10 @@ public class Microphone extends Thread{
         }
     }
 
-    public Status getStatus() {
-        if (line != null && line.isOpen()) {
+
+
+    private Status getStatus() {
+        if (line != null && line.isActive()) {
             return Status.OK;
         }
         return Status.CLOSED;
@@ -44,7 +42,7 @@ public class Microphone extends Thread{
 
     // below code by Dan Foad
     // https://danfoad.co.uk/blog/volume-meter-for-microphone-input-volume/
-    public void openAndStart() {
+    private void tryOpenAndStart() {
 
         // Open a TargetDataLine for getting mic input level
         AudioFormat format = new AudioFormat(42000.0f, 16, 1, true, true); // Get default line
@@ -74,7 +72,7 @@ public class Microphone extends Thread{
             }
         } catch (Exception e) {
             System.err.println(e);
-            System.exit(0);
+            System.exit(1);
         }
     }
 

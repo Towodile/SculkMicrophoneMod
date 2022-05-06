@@ -1,3 +1,11 @@
 {
-  "gui.microphone_settings": "Microphone Settings"
+  "gui.microphone_settings": "Microphone Settings...",
+
+  "options.microphoneTitle": "Microphone Settings (Sculk Mod)",
+  "options.mic.enable": "Microphone",
+  "options.mic.show_info": "On-Screen Info",
+  "options.mic.sensitivity": "Sensitivity",
+  "options.mic.sensitivityValue": "Sensitivity: ",
+  "options.mic.threshold": "Sculk Sensor Threshold",
+  "options.mic.thresholdValue": "Sculk Sensor Threshold: "
 }

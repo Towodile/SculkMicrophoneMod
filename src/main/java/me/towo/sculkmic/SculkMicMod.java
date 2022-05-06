@@ -1,7 +1,7 @@
 package me.towo.sculkmic;
 
 
-import me.towo.sculkmic.config.SculkMicConfig;
+import me.towo.sculkmic.userpreferences.SculkMicConfig;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
