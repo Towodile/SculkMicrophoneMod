@@ -1,8 +1,7 @@
-package me.towo.sculkmic.mic;
+package me.towo.sculkmic.client.mic;
 
-import me.towo.sculkmic.compatibility.VoiceChatCompatibility;
-import me.towo.sculkmic.compatibility.VoiceChatHandeler;
-import me.towo.sculkmic.userpreferences.SculkMicConfig;
+import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
+import me.towo.sculkmic.common.compatibility.VoiceChatCompatibility;
 
 public class MicrophoneHandler {
     private static Microphone microphone;
@@ -26,12 +25,12 @@ public class MicrophoneHandler {
         if (VoiceChatCompatibility.present)
             return false;
 
+        stopCurrentThread();
         microphone = new Microphone();
         if (!microphone.available()) {
             return false;
         }
 
-        stopCurrentThread();
         microphone.start();
         return true;
     }

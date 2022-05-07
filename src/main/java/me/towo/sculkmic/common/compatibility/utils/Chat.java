@@ -1,4 +1,4 @@
-package me.towo.sculkmic.utils;
+package me.towo.sculkmic.common.compatibility.utils;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;

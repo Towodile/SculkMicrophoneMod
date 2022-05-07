@@ -1,13 +1,10 @@
-package me.towo.sculkmic.gui.screen;
+package me.towo.sculkmic.client.gui.screen;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.towo.sculkmic.SculkMicMod;
-import me.towo.sculkmic.userpreferences.ModOption;
-import me.towo.sculkmic.userpreferences.SculkMicConfig;
-import net.minecraft.client.FullscreenResolutionProgressOption;
-import net.minecraft.client.GraphicsStatus;
-import net.minecraft.client.Option;
-import net.minecraft.client.Options;
+import me.towo.sculkmic.client.userpreferences.ModOption;
+import me.towo.sculkmic.common.compatibility.VoiceChatCompatibility;
+import me.towo.sculkmic.common.compatibility.utils.ModColors;
+import net.minecraft.client.*;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.OptionsList;
 import net.minecraft.client.gui.screens.OptionsSubScreen;
@@ -45,6 +42,12 @@ public class MicrophoneSettingsScreen extends OptionsSubScreen {
             this.minecraft.options.save();
             this.minecraft.setScreen(this.lastScreen);
         }));
+
+        if (VoiceChatCompatibility.present) {
+            for (Option o : OPTIONS) {
+                list.findOption(o).active = false;
+            }
+        }
     }
 
     public void render(PoseStack p_96813_, int p_96814_, int p_96815_, float p_96816_) {
@@ -57,6 +60,12 @@ public class MicrophoneSettingsScreen extends OptionsSubScreen {
             this.renderTooltip(p_96813_, list, p_96814_, p_96815_);
         }
 
+        if (VoiceChatCompatibility.present) {
+            for (int i = 1; i <= 3; i++) {
+                Minecraft.getInstance().font.draw(p_96813_, new TranslatableComponent("options.mic.info.voicechat." + i),
+                        Minecraft.getInstance().screen.width /32, (Minecraft.getInstance().screen.height /2) + (i * 14), ModColors.REGULAR);
+            }
+        }
     }
 
     @Override

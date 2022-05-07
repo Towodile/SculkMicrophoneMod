@@ -1,7 +1,7 @@
-package me.towo.sculkmic.gui;
+package me.towo.sculkmic.client.gui;
 
 import me.towo.sculkmic.SculkMicMod;
-import me.towo.sculkmic.gui.screen.MicrophoneSettingsScreen;
+import me.towo.sculkmic.client.gui.screen.MicrophoneSettingsScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button ;
 import net.minecraft.client.gui.screens.OptionsScreen;

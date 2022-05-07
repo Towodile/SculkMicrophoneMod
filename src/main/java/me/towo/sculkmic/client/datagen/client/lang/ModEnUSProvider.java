@@ -1,4 +1,4 @@
-package me.towo.sculkmic.datagen.client.lang;
+package me.towo.sculkmic.client.datagen.client.lang;
 
 import me.towo.sculkmic.SculkMicMod;
 import net.minecraft.data.DataGenerator;

@@ -1,16 +1,10 @@
-package me.towo.sculkmic.userpreferences;
+package me.towo.sculkmic.client.userpreferences;
 
 import net.minecraft.client.*;
-import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.server.command.TextComponentHelper;
-
-import java.text.DecimalFormat;
 
 @OnlyIn(Dist.CLIENT)
 public class ModOption{

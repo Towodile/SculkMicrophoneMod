@@ -1,4 +1,4 @@
-package me.towo.sculkmic.utils;
+package me.towo.sculkmic.core.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -7,20 +7,20 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import java.util.ArrayList;
 
 public class BlockEntityFinder<T extends BlockEntity> {
-    int radius;
+    int distance;
     BlockPos center;
     Level level;
     Class<T> beClass;
-    public BlockEntityFinder(Class<T> blockEntityClass, int squareRadius, BlockPos center, Level level) {
-        radius = squareRadius;
+    public BlockEntityFinder(Class<T> blockEntityClass, int distance, BlockPos center, Level level) {
+        this.distance = distance;
         this.center = center;
         this.level = level;
         beClass = blockEntityClass;
     }
 
     public <E extends T> ArrayList<T> find() {
-        Iterable<BlockPos> positions = BlockPos.betweenClosed(center.offset(-radius, -radius, -radius),
-                center.offset(radius, radius, radius));
+        Iterable<BlockPos> positions = BlockPos.betweenClosed(center.offset(-distance, -distance, -distance),
+                center.offset(distance, distance, distance));
         return getBlockEntities(positions, level);
     }
 

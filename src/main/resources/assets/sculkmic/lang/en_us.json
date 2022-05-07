@@ -7,5 +7,9 @@
   "options.mic.sensitivity": "Sensitivity",
   "options.mic.sensitivityValue": "Sensitivity: ",
   "options.mic.threshold": "Sculk Sensor Threshold",
-  "options.mic.thresholdValue": "Sculk Sensor Threshold: "
+  "options.mic.thresholdValue": "Sculk Sensor Threshold: ",
+
+  "options.mic.info.voicechat.1": "Hold on! You currently have the §6Simple Voice Chat§r mod installed,",
+  "options.mic.info.voicechat.2": "meaning there's no need for §3Sculk Sensor Microphone's§r microphone to be turned on.",
+  "options.mic.info.voicechat.3": "Open your Voice Chat settings and edit your preferences there. (Default keybind is 'V')"
 }

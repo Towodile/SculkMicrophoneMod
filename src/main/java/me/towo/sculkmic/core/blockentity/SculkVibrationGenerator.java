@@ -1,10 +1,8 @@
-package me.towo.sculkmic.utils;
+package me.towo.sculkmic.core.blockentity;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import me.towo.sculkmic.userpreferences.SculkMicConfig;
-import net.minecraft.core.BlockPos;
+import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SculkSensorBlock;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.level.gameevent.GameEvent;

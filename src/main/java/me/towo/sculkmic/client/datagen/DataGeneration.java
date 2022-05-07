@@ -1,7 +1,7 @@
-package me.towo.sculkmic.datagen;
+package me.towo.sculkmic.client.datagen;
 
 import me.towo.sculkmic.SculkMicMod;
-import me.towo.sculkmic.datagen.client.lang.ModEnUSProvider;
+import me.towo.sculkmic.client.datagen.client.lang.ModEnUSProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

@@ -1,6 +1,4 @@
-package me.towo.sculkmic.mic;
-
-import me.towo.sculkmic.userpreferences.SculkMicConfig;
+package me.towo.sculkmic.client.mic;
 
 import javax.sound.sampled.*;
 
@@ -40,7 +38,7 @@ public class Microphone extends Thread{
     public boolean available() {
         if (line != null && format != null && info != null) {
             return AudioSystem.isLineSupported(info);
-        } return false;
+        } return true;
     }
 
     // below code originally by Dan Foad

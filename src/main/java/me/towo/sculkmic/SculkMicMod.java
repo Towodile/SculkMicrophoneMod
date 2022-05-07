@@ -1,8 +1,9 @@
 package me.towo.sculkmic;
 
 
-import me.towo.sculkmic.compatibility.VoiceChatCompatibility;
-import me.towo.sculkmic.userpreferences.SculkMicConfig;
+import me.towo.sculkmic.common.compatibility.VoiceChatCompatibility;
+import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
+import me.towo.sculkmic.core.network.packet.PacketHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
@@ -35,10 +36,12 @@ public class SculkMicMod
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-
+        event.enqueueWork(PacketHandler::init);
         VoiceChatCompatibility.present = ModList.get().isLoaded("voicechat");
         if (VoiceChatCompatibility.present) {
             LOGGER.info("Found Simple Voice Chat mod!");
+            SculkMicConfig.editIfEnabled(false);
+            SculkMicConfig.editIfInfoOnScreen(false);
         }
 
     }
