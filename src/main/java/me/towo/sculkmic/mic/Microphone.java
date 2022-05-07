@@ -12,6 +12,9 @@ public class Microphone extends Thread{
     }
 
     private TargetDataLine line;
+    private AudioFormat format;
+    private DataLine.Info info;
+
     public int level;
 
     @Override
@@ -19,36 +22,37 @@ public class Microphone extends Thread{
         tryOpenAndStart();
     }
 
-    public void tryStop() {
+    public void closeAndStop() {
         if (line == null)
             return;
 
         if (line.isActive()) {
             line.stop();
-            if (line.isOpen()) {
-                line.close();
-            }
         }
+
+        if (line.isOpen()) {
+            line.close();
+        }
+
+        System.exit(0);
     }
 
-
-
-    private Status getStatus() {
-        if (line != null && line.isActive()) {
-            return Status.OK;
-        }
-        return Status.CLOSED;
+    public boolean available() {
+        if (line != null && format != null && info != null) {
+            return AudioSystem.isLineSupported(info);
+        } return false;
     }
 
-    // below code by Dan Foad
+    // below code originally by Dan Foad
     // https://danfoad.co.uk/blog/volume-meter-for-microphone-input-volume/
     private void tryOpenAndStart() {
 
         // Open a TargetDataLine for getting mic input level
-        AudioFormat format = new AudioFormat(42000.0f, 16, 1, true, true); // Get default line
-        DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
+        format = new AudioFormat(42000.0f, 16, 1, true, true); // Get default line
+        info = new DataLine.Info(TargetDataLine.class, format);
         if (!AudioSystem.isLineSupported(info)) { // If no default line
-            System.out.println("The TargetDataLine is unavailable");
+            System.out.println("SCULK MIC: The TargetDataLine is unavailable");
+            System.exit(1);
         }
 
         // Obtain and open the line.
@@ -57,7 +61,8 @@ public class Microphone extends Thread{
             line.open(format);
             line.start();
         } catch (LineUnavailableException ex) {
-            System.out.println("The TargetDataLine is Unavailable.");
+            System.out.println("SCULK MIC: The TargetDataLine is Unavailable.");
+            System.exit(1);
         }
 
 
@@ -71,8 +76,9 @@ public class Microphone extends Thread{
                 }
             }
         } catch (Exception e) {
+            System.out.println("SCULK MIC: Something went wrong! Restarting mic...");
             System.err.println(e);
-            System.exit(1);
+            System.exit(2);
         }
     }
 

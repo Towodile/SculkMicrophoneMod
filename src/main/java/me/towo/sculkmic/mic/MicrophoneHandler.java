@@ -16,15 +16,20 @@ public class MicrophoneHandler {
      * Only one thread of class 'Microphone' may be running at a time.
      * Starting a new thread of class "Microphone" will kill the current thread.
      */
-    public static void startNewThread() {
-        stopCurrentThread();
+    public static boolean startNewThread() {
         microphone = new Microphone();
+        if (!microphone.available()) {
+            return false;
+        }
+
+        stopCurrentThread();
         microphone.start();
+        return true;
     }
 
     public static void stopCurrentThread() {
         if (isRunning()) {
-            microphone.interrupt();
+            microphone.closeAndStop();
             microphone = null;
         }
     }

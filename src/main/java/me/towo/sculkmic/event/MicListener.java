@@ -39,9 +39,14 @@ public class MicListener {
         }
 
         if (SculkMicConfig.ENABLED.get() && !handler.isRunning()) {
-            handler.startNewThread();
-            if (p != null)
-                Chat.sendMessage("Microphone has been activated.", p);
+            if (handler.startNewThread()) {
+                if (p != null)
+                    Chat.sendMessage("Microphone has been activated.", p);
+            } else {
+                if (p != null)
+                    Chat.sendMessage("§4ERROR: §cMicrophone is unavailable.", p);
+                SculkMicConfig.editIfEnabled(false);
+            }
         }
     }
 
@@ -52,11 +57,12 @@ public class MicListener {
 
         int noiseLevel = handler.getCurrentVolumeLevel();
         int threshold = SculkMicConfig.THRESHOLD.get();
+        int range = 6;
         boolean playerIsLoud = noiseLevel > threshold;
 
         if (playerIsLoud) {
             BlockEntityFinder<SculkSensorBlockEntity> finder =
-                    new BlockEntityFinder<>(SculkSensorBlockEntity.class,6, e.player.blockPosition(), e.player.level);
+                    new BlockEntityFinder<>(SculkSensorBlockEntity.class, range, e.player.blockPosition(), e.player.level);
 
             for (SculkSensorBlockEntity sculk : finder.find()) {
                 VibrationListener listener = sculk.getListener();
@@ -67,7 +73,7 @@ public class MicListener {
     }
 
     private static GameEvent getGameEventByLoudness(int loudness) {
-        int eventInt = loudness - (loudness / 3);
+        int eventInt = (int)((loudness - (loudness / 3)) / SculkMicConfig.SENSITIVITY.get());
 
         Object2IntMap vibrationMap = SculkSensorBlock.VIBRATION_STRENGTH_FOR_EVENT;
         int[] values = vibrationMap.values().toIntArray();
