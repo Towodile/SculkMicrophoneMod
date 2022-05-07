@@ -3,6 +3,9 @@ A Minecraft 1.18.2 mod by Towo.
 Forge required.
 *There are currently no plans to make this mod runnable on Fabric.*
 
+## Downloads
+No downloads are available yet.
+
 ## Installation
 1. [Install Minecraft Forge](https://files.minecraftforge.net/net/minecraftforge/forge/) if you haven't already.
 2. [Download a release of Sculk Microphone]().
@@ -25,9 +28,10 @@ Note that in this Minecraft version, Sculk Sensors are unobtainable in the Creat
 	- Sculk Sensor activation threshold
 	- Enable/disable additional info on-screen for testing:
 		- Your volume and the status of your microphone (enabled/disabled) will appear in-game. When the volume threshold is met, the color of the displayed volume should appear blue.
+- Compatible with [henkelmax's *Simple Voice Chat*](https://www.curseforge.com/minecraft/mc-mods/simple-voice-chat)! (proximity chat)
+	- *A player's volume does not get carried over when using this mod.*
 
 ### To-do
- - [ ] Test compatibility with henkelmax's *Simple Voice Chat* mod
 - [ ] Option to change your preferred microphone.
 - [ ] Update mod to Minecraft version 1.19
 	- [ ] Make Warden mob from this version react to microphone sounds.
