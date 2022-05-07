@@ -27,7 +27,7 @@ Note that in this Minecraft version, Sculk Sensors are unobtainable in the Creat
 		- Your volume and the status of your microphone (enabled/disabled) will appear in-game. When the volume threshold is met, the color of the displayed volume should appear blue.
 
 ### To-do
- - [ ] Test compatibility with hankelmax's *## Simple Voice Chat* mod
+ - [ ] Test compatibility with henkelmax's *Simple Voice Chat* mod
 - [ ] Option to change your preferred microphone.
 - [ ] Update mod to Minecraft version 1.19
 	- [ ] Make Warden mob from this version react to microphone sounds.
