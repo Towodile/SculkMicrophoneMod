@@ -3,7 +3,7 @@ package me.towo.sculkmic.gui;
 import me.towo.sculkmic.SculkMicMod;
 import me.towo.sculkmic.gui.screen.MicrophoneSettingsScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Button ;
 import net.minecraft.client.gui.screens.OptionsScreen;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;

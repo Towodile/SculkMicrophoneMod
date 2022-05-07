@@ -10,6 +10,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.server.command.TextComponentHelper;
 
+import java.text.DecimalFormat;
+
 @OnlyIn(Dist.CLIENT)
 public class ModOption{
     public static final CycleOption ENABLE_MIC_LISTENING = CycleOption.createOnOff("options.mic.enable",
@@ -20,7 +22,7 @@ public class ModOption{
                 SculkMicConfig.editIfEnabled(value);
             });
 
-    public static final ProgressOption MICROPHONE_SENSITIVITY = new ProgressOption("options.mic.sensitivity", 0.01, 1.00, 1.0F,
+    public static final ProgressOption MICROPHONE_SENSITIVITY = new ProgressOption("options.mic.sensitivity", 0.01D, 1.00D, 0.01F,
             (o) -> {
         return SculkMicConfig.SENSITIVITY.get();
         },
@@ -28,11 +30,11 @@ public class ModOption{
         SculkMicConfig.editSensitivity(value);
         },
             (o, po) -> {
-        double value = po.toPct(po.get(o));
+        double value = Math.round(po.get(o)*100.0)/100.0;
         return getComponentWithValue("options.mic.sensitivityValue", value);
             });
 
-    public static final ProgressOption SCULK_THRESHOLD = new ProgressOption("options.mic.threshold", 0, 50, 50F,
+    public static final ProgressOption SCULK_THRESHOLD = new ProgressOption("options.mic.threshold", 0D, 50D, 1F,
             (o) -> {
         return SculkMicConfig.THRESHOLD.get().doubleValue();
         },
@@ -40,8 +42,8 @@ public class ModOption{
         SculkMicConfig.editThreshold(value.intValue());
         },
             (o, po) -> {
-        int value = (int)po.toPct(po.get(o));
-        return getComponentWithValue("options.mic.thresholdValue", value);
+        Double value = po.get(o);
+        return getComponentWithValue("options.mic.thresholdValue", value.intValue());
             });
 
     public static final CycleOption SHOW_ON_SCREEN_INFO = CycleOption.createOnOff("options.mic.show_info",
