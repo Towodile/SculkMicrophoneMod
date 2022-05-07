@@ -36,9 +36,6 @@ public class MicListener {
 
         if (playerIsLoud) {
             PacketHandler.INSTANCE.sendToServer(new ServerboundSculkVibrationPacket(noiseLevel));
-            //SculkVibrationGenerator.generate(e.player, range, noiseLevel);
-            //PacketHandler.INSTANCE.send(
-            //        PacketDistributor.TRACKING_CHUNK.with(() -> e.player.level.getChunkAt(e.player.blockPosition())), null)
         }
     }
 
@@ -48,7 +45,7 @@ public class MicListener {
             if (handler.isRunning()) {
                 handler.stopCurrentThread();
 
-                SculkMicMod.LOGGER.info("Microphone has been activated.");
+                SculkMicMod.LOGGER.info("Microphone has been closed.");
                 if (p != null)
                     Chat.sendMessage("Microphone has been closed.", p);
             }
