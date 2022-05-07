@@ -7,6 +7,7 @@ import me.towo.sculkmic.mic.Microphone;
 import me.towo.sculkmic.mic.MicrophoneHandler;
 import me.towo.sculkmic.utils.BlockEntityFinder;
 import me.towo.sculkmic.utils.Chat;
+import me.towo.sculkmic.utils.SculkVibrationGenerator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.SculkSensorBlock;
@@ -64,38 +65,8 @@ public class MicListener {
         boolean playerIsLoud = noiseLevel > threshold;
 
         if (playerIsLoud) {
-            BlockEntityFinder<SculkSensorBlockEntity> finder =
-                    new BlockEntityFinder<>(SculkSensorBlockEntity.class, range, e.player.blockPosition(), e.player.level);
-
-            for (SculkSensorBlockEntity sculk : finder.find()) {
-                VibrationListener listener = sculk.getListener();
-                GameEvent event = getGameEventByLoudness(noiseLevel);
-                listener.handleGameEvent(e.player.level, event, e.player, e.player.blockPosition());
-            }
+            SculkVibrationGenerator.generate(e.player, range, noiseLevel);
         }
     }
-
-    private static GameEvent getGameEventByLoudness(int loudness) {
-        int eventInt = (int)((loudness - (loudness / 3)) / SculkMicConfig.SENSITIVITY.get());
-
-        Object2IntMap vibrationMap = SculkSensorBlock.VIBRATION_STRENGTH_FOR_EVENT;
-        int[] values = vibrationMap.values().toIntArray();
-        Object[] keys = vibrationMap.keySet().toArray();
-
-        int distance = Math.abs(values[0] - eventInt);
-        int index = 0;
-        for (int i = 1; i < vibrationMap.size(); i++) {
-            int idistance = Math.abs(values[i] - eventInt);
-
-            if(idistance < distance){
-                index = i;
-                distance = idistance;
-            }
-        }
-        return (GameEvent)keys[index];
-    }
-
-
-
 
 }

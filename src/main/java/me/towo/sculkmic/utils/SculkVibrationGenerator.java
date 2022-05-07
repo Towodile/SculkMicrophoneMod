@@ -1,26 +1,45 @@
 package me.towo.sculkmic.utils;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import me.towo.sculkmic.userpreferences.SculkMicConfig;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.SculkSensorBlock;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.vibrations.VibrationListener;
 
 public class SculkVibrationGenerator {
-    private final int distance;
-    private final BlockPos position;
-    private final Level level;
-    public SculkVibrationGenerator(int distance, BlockPos position, Level level) {
-        this.distance = distance;
-        this.position = position;
-        this.level = level;
-    }
-    public void generate() {
+
+    public static void generate(Player player, int distance, int noiseLevel) {
         BlockEntityFinder<SculkSensorBlockEntity> finder =
-                new BlockEntityFinder<>(SculkSensorBlockEntity.class, range, e.player.blockPosition(), e.player.level);
+                new BlockEntityFinder<>(SculkSensorBlockEntity.class, distance, player.blockPosition(), player.level);
 
         for (SculkSensorBlockEntity sculk : finder.find()) {
             VibrationListener listener = sculk.getListener();
             GameEvent event = getGameEventByLoudness(noiseLevel);
-            listener.handleGameEvent(e.player.level, event, e.player, e.player.blockPosition());
+            listener.handleGameEvent(player.level, event, player, player.blockPosition());
         }
+    }
+
+    private static GameEvent getGameEventByLoudness(int loudness) {
+        int eventInt = (int)((loudness - (loudness / 3)) / SculkMicConfig.SENSITIVITY.get());
+
+        Object2IntMap vibrationMap = SculkSensorBlock.VIBRATION_STRENGTH_FOR_EVENT;
+        int[] values = vibrationMap.values().toIntArray();
+        Object[] keys = vibrationMap.keySet().toArray();
+
+        int distance = Math.abs(values[0] - eventInt);
+        int index = 0;
+        for (int i = 1; i < vibrationMap.size(); i++) {
+            int idistance = Math.abs(values[i] - eventInt);
+
+            if(idistance < distance){
+                index = i;
+                distance = idistance;
+            }
+        }
+        return (GameEvent)keys[index];
     }
 }
