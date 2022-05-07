@@ -32,6 +32,7 @@ public class MicListener {
             if (handler.isRunning()) {
                 handler.stopCurrentThread();
 
+                SculkMicMod.LOGGER.info("Microphone has been activated.");
                 if (p != null)
                     Chat.sendMessage("Microphone has been closed.", p);
             }
@@ -40,9 +41,11 @@ public class MicListener {
 
         if (SculkMicConfig.ENABLED.get() && !handler.isRunning()) {
             if (handler.startNewThread()) {
+                SculkMicMod.LOGGER.info("Microphone has been activated.");
                 if (p != null)
                     Chat.sendMessage("Microphone has been activated.", p);
             } else {
+                SculkMicMod.LOGGER.error("Microphone is unavailable! Microphone has been disabled.");
                 if (p != null)
                     Chat.sendMessage("§4ERROR: §cMicrophone is unavailable.", p);
                 SculkMicConfig.editIfEnabled(false);

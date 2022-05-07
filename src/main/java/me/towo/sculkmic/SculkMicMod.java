@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
 @Mod("sculkmic")
 public class SculkMicMod
 {
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
     public static final String ID = "sculkmic";
 
 

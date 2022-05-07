@@ -1,6 +1,7 @@
 package me.towo.sculkmic.mic;
 
 import me.towo.sculkmic.compatibility.VoiceChatCompatibility;
+import me.towo.sculkmic.compatibility.VoiceChatHandeler;
 import me.towo.sculkmic.userpreferences.SculkMicConfig;
 
 public class MicrophoneHandler {
@@ -8,7 +9,7 @@ public class MicrophoneHandler {
 
     public static int getCurrentVolumeLevel() {
         if (VoiceChatCompatibility.present)
-            return VoiceChatAudioHandeler.getCurrentVolumeLevel();
+            return 0;
 
 
         if (isRunning()) {
@@ -47,7 +48,7 @@ public class MicrophoneHandler {
 
     public static boolean isRunning() {
         if (VoiceChatCompatibility.present)
-            return VoiceChatAudioHandeler.isRunning();
+            return false;
 
         return microphone != null && microphone.isAlive();
     }
