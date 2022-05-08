@@ -1,8 +1,9 @@
 
 # Sculk Microphone
 A Minecraft mod by Towo.
-Forge required.
+<br><br>Forge required.
 *There are currently no plans to make this mod runnable on Fabric.*
+<br>*Microphone may not work on MacOS due to system's privacy setting*
 
 ## Downloads
 1.18.2: [Sculk Microphone v1.0.0-alpha]()
