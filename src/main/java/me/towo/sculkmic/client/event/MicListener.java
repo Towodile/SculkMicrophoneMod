@@ -40,7 +40,11 @@ public class MicListener {
     }
 
     private static void checkMicrophone() {
-        Player p = Minecraft.getInstance().player;
+        Player p = null;
+        try {
+            p = Minecraft.getInstance().player;
+        }
+        catch (NoSuchMethodError nsme){}
         if (!SculkMicConfig.ENABLED.get()) {
             if (handler.isRunning()) {
                 handler.stopCurrentThread();

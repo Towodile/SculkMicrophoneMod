@@ -2,7 +2,7 @@ package me.towo.sculkmic.core.blockentity;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.SculkSensorBlock;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -10,7 +10,7 @@ import net.minecraft.world.level.gameevent.vibrations.VibrationListener;
 
 public class SculkVibrationGenerator {
 
-    public static void generate(Player player, int distance, int noiseLevel) {
+    public static void generate(ServerPlayer player, int distance, int noiseLevel) {
         BlockEntityFinder<SculkSensorBlockEntity> finder =
                 new BlockEntityFinder<>(SculkSensorBlockEntity.class, distance, player.blockPosition(), player.level);
 

@@ -27,9 +27,9 @@ A sculk sensor's comparator output is also affected by the volume of your input.
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.sculkmic]]
-modId="voicechat"
-mandatory=true
-versionRange="[${voicechat_dependency},)"
-ordering="AFTER"
-side="BOTH"
+#[[dependencies.sculkmic]]
+#modId="voicechat"
+#mandatory=true
+#versionRange="[${voicechat_dependency},)"
+#ordering="AFTER"
+#side="BOTH"

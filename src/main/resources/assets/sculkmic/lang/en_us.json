@@ -1,7 +1,7 @@
 {
   "gui.microphone_settings": "Microphone Settings...",
 
-  "options.microphoneTitle": "Microphone Settings (Sculk Mod)",
+  "options.microphoneTitle": "Microphone Settings §o(Sculk Mic. Mod)",
   "options.mic.enable": "Microphone",
   "options.mic.show_info": "On-Screen Info",
   "options.mic.sensitivity": "Sensitivity",
@@ -9,7 +9,9 @@
   "options.mic.threshold": "Sculk Sensor Threshold",
   "options.mic.thresholdValue": "Sculk Sensor Threshold: ",
 
-  "options.mic.info.voicechat.1": "Hold on! You currently have the §6Simple Voice Chat§r mod installed,",
-  "options.mic.info.voicechat.2": "meaning there's no need for §3Sculk Sensor Microphone's§r microphone to be turned on.",
-  "options.mic.info.voicechat.3": "Open your Voice Chat settings and edit your preferences there. (Default keybind is 'V')"
+  "options.mic.info.voicechat.1": "Hold on! You currently have the §6Simple Voice Chat§r ",
+  "options.mic.info.voicechat.2": "mod installed, meaning there's no need for",
+  "options.mic.info.voicechat.3": "§3Sculk Sensor Microphone's§r microphone to be turned on.",
+  "options.mic.info.voicechat.4": "Open your Voice Chat settings and edit your preferences there." ,
+  "options.mic.info.voicechat.5": "§o(Default keybind is 'V')"
 }

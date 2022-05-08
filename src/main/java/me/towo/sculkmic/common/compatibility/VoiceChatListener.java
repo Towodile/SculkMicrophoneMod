@@ -11,8 +11,8 @@ import me.towo.sculkmic.core.network.ServerboundSculkVibrationPacket;
 import me.towo.sculkmic.core.network.packet.PacketHandler;
 
 @ForgeVoicechatPlugin
-public class VoiceChatListener implements VoicechatPlugin{
-
+public class VoiceChatListener implements VoicechatPlugin, ModInteropProxy {
+    public VoiceChatListener(){}
     @Override
     public String getPluginId() {
         return SculkMicMod.ID;

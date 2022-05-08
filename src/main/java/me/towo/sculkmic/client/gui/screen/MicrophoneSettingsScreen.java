@@ -61,9 +61,9 @@ public class MicrophoneSettingsScreen extends OptionsSubScreen {
         }
 
         if (VoiceChatCompatibility.present) {
-            for (int i = 1; i <= 3; i++) {
+            for (int i = 1; i <= 5; i++) {
                 Minecraft.getInstance().font.draw(p_96813_, new TranslatableComponent("options.mic.info.voicechat." + i),
-                        Minecraft.getInstance().screen.width /32, (Minecraft.getInstance().screen.height /2) + (i * 14), ModColors.REGULAR);
+                        Minecraft.getInstance().screen.width /32, (Minecraft.getInstance().screen.height /2) + (i * 10) + 20, ModColors.REGULAR);
             }
         }
     }

@@ -14,6 +14,7 @@ public class Microphone extends Thread{
     private DataLine.Info info;
 
     public int level;
+    private boolean run = false;
 
     @Override
     public void run(){
@@ -32,7 +33,7 @@ public class Microphone extends Thread{
             line.close();
         }
 
-        System.exit(0);
+        run = false;
     }
 
     public boolean available() {
@@ -41,9 +42,9 @@ public class Microphone extends Thread{
         } return true;
     }
 
-    // below code originally by Dan Foad
-    // https://danfoad.co.uk/blog/volume-meter-for-microphone-input-volume/
+
     private void tryOpenAndStart() {
+        run = true;
 
         // Open a TargetDataLine for getting mic input level
         format = new AudioFormat(42000.0f, 16, 1, true, true); // Get default line
@@ -67,7 +68,7 @@ public class Microphone extends Thread{
         byte tempBuffer[] = new byte[6000]; // Data buffer for raw audio
         try {
             // Continually read in mic data into buffer and calculate RMS
-            while (true) {
+            while (run) {
                 // If read in enough, calculate RMS
                 if (line.read(tempBuffer, 0, tempBuffer.length) > 0) {
                     level = calculateRMSLevel(tempBuffer);
@@ -80,6 +81,8 @@ public class Microphone extends Thread{
         }
     }
 
+    // below code by Dan Foad
+    // https://danfoad.co.uk/blog/volume-meter-for-microphone-input-volume/
     private static int calculateRMSLevel(byte[] audioData) {
         long lSum = 0;
         for(int i = 0; i < audioData.length; i++)

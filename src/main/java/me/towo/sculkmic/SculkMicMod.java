@@ -1,6 +1,8 @@
 package me.towo.sculkmic;
 
 
+import me.towo.sculkmic.common.compatibility.DummyInteropProxy;
+import me.towo.sculkmic.common.compatibility.ModInteropProxy;
 import me.towo.sculkmic.common.compatibility.VoiceChatCompatibility;
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
 import me.towo.sculkmic.core.network.packet.PacketHandler;
@@ -35,13 +37,20 @@ public class SculkMicMod
         MinecraftForge.EVENT_BUS.register(this);
     }
 
+    static ModInteropProxy modInterop;
+
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(PacketHandler::init);
         VoiceChatCompatibility.present = ModList.get().isLoaded("voicechat");
         if (VoiceChatCompatibility.present) {
+            try {
+                modInterop = Class.forName("me.towo.sculkmic.common.compatibility.VoiceChatListener").asSubclass(ModInteropProxy.class).getDeclaredConstructor().newInstance();
+            } catch (Throwable t) {}
             LOGGER.info("Found Simple Voice Chat mod!");
             SculkMicConfig.editIfEnabled(false);
             SculkMicConfig.editIfInfoOnScreen(false);
+        } else {
+            modInterop = new DummyInteropProxy();
         }
 
     }
