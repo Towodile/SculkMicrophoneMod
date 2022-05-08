@@ -9,6 +9,7 @@
   "options.mic.threshold": "Sculk Sensor Threshold",
   "options.mic.thresholdValue": "Sculk Sensor Threshold: ",
 
+  "options.microphone.unavailable.tooltip": "Hold on! You currently have the §6Simple Voice Chat§r mod installed, meaning there's no need for §3Sculk Sensor Microphone's§r microphone to be turned on. Open your Voice Chat settings and edit your preferences there. §o(Default keybind is 'V')",
   "options.mic.info.voicechat.1": "Hold on! You currently have the §6Simple Voice Chat§r ",
   "options.mic.info.voicechat.2": "mod installed, meaning there's no need for",
   "options.mic.info.voicechat.3": "§3Sculk Sensor Microphone's§r microphone to be turned on.",
