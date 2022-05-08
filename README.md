@@ -1,3 +1,4 @@
+
 # Sculk Microphone
 A Minecraft 1.18.2 mod by Towo.
 Forge required.
@@ -32,13 +33,17 @@ Note that in this Minecraft version, Sculk Sensors are unobtainable in the Creat
 - Compatible with [henkelmax's *Simple Voice Chat*](https://www.curseforge.com/minecraft/mc-mods/simple-voice-chat)! (proximity chat)
 	- *A player's volume does not get carried over when using this mod.*
 
-![Alt Text](https://s8.gifyu.com/images/ezgif-4-83adead012.gif)
-Simple Voice Chat compatibility! Notice how the microphone symbol in the bottom left corner appears just before the sculk sensor activates.
-
 ### To-do
 - [ ] Option to change your preferred microphone for users that play without the Simple Voice Chat mod.
 - [ ] Update mod to Minecraft version 1.19.
 	- [ ] Make Warden mob from this version react to microphone sounds.
+
+
+### Showcase
+<img src="https://s8.gifyu.com/images/ezgif-4-83adead012.gif" width="500"> 
+
+Simple Voice Chat compatibility! Notice how the microphone symbol in the bottom left corner appears just before the sculk sensor activates.
+<br>
 
 
 #
