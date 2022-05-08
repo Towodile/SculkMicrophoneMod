@@ -1,17 +1,18 @@
-# Sculk Microphone *v1.0.0-alpha*
+# Sculk Microphone
 A Minecraft 1.18.2 mod by Towo.
 Forge required.
 *There are currently no plans to make this mod runnable on Fabric.*
 
 ## Downloads
-No downloads are available yet.
+[Sculk Microphone v1.0.0-alpha]()
 
 ## Installation
 1. [Install Minecraft Forge](https://files.minecraftforge.net/net/minecraftforge/forge/) if you haven't already.
-2. [Download a release of Sculk Microphone]().
+2. [Download a release of Sculk Microphone](https://github.com/Towodile/SculkMicrophoneMod/releases).
 3. Put the *.jar* file in Minecraft's mod folder.
 4. Run the game using Forge.
 5. If applicable, make sure to grant the application access to your microphone.
+6. If you want, you can also install [*Simple Voice Chat*](https://www.curseforge.com/minecraft/mc-mods/simple-voice-chat)
 
 ## How it works
 Simply run the mod, and talk into your microphone! Any sculk sensor in a 6 (value is prone to change) block radius should activate. If not, try editing your settings.
