@@ -43,13 +43,16 @@ public class OptionScreenEvents {
     }
     @SubscribeEvent
     public static void renderToolTip(ScreenEvent.DrawScreenEvent e) {
-        ArrayList<Component> text = new ArrayList<>();
-        for (int i = 1; i <= 5 ; i++) {
-            text.add(new TranslatableComponent("options.mic.info.voicechat." + i));
-        }
+        if (e.getScreen() instanceof  OptionsScreen) {
+            ArrayList<Component> text = new ArrayList<>();
+            for (int i = 1; i <= 5 ; i++) {
+                text.add(new TranslatableComponent("options.mic.info.voicechat." + i));
+            }
 
-        if (btn != null && VoiceChatCompatibility.present && btn.isHoveredOrFocused())
-            e.getScreen().renderTooltip(e.getPoseStack(), text, Optional.empty(), e.getMouseX(), e.getMouseY());
+            if (btn != null && VoiceChatCompatibility.present && btn.isHoveredOrFocused())
+                e.getScreen().renderTooltip(e.getPoseStack(), text, Optional.empty(), e.getMouseX(), e.getMouseY());
+
+        }
 
     }
 }
