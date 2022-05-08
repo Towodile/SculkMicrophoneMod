@@ -40,7 +40,7 @@ Note that in this Minecraft version, Sculk Sensors are unobtainable in the Creat
 
 
 ### Showcase
-<img src="//im4.ezgif.com/tmp/ezgif-4-2ffa5936f9.gif">
+<img src="https://media4.giphy.com/media/t9tWlZaPS6yJKNoUao/giphy.mp4?cid=790b76112010ce61a21c63425cca36489254eda295c65d16&rid=giphy.mp4&ct=g">
 
 Simple Voice Chat compatibility! Notice how the microphone symbol in the bottom left corner appears just before the sculk sensor activates.
 <br>
