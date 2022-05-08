@@ -1,11 +1,11 @@
 
 # Sculk Microphone
-A Minecraft 1.18.2 mod by Towo.
+A Minecraft mod by Towo.
 Forge required.
 *There are currently no plans to make this mod runnable on Fabric.*
 
 ## Downloads
-[Sculk Microphone v1.0.0-alpha]()
+1.18.2: [Sculk Microphone v1.0.0-alpha]()
 
 ## Installation
 1. [Install Minecraft Forge](https://files.minecraftforge.net/net/minecraftforge/forge/) if you haven't already.
@@ -34,6 +34,7 @@ Note that in this Minecraft version, Sculk Sensors are unobtainable in the Creat
 	- *A player's volume does not get carried over when using this mod.*
 
 ### To-do
+- [ ] Gamerules for global sculk sensor radius and default redstone comparator output
 - [ ] Option to change your preferred microphone for users that play without the Simple Voice Chat mod.
 - [ ] Update mod to Minecraft version 1.19.
 	- [ ] Make Warden mob from this version react to microphone sounds.
