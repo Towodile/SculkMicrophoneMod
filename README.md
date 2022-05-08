@@ -32,8 +32,8 @@ Note that in this Minecraft version, Sculk Sensors are unobtainable in the Creat
 	- *A player's volume does not get carried over when using this mod.*
 
 ### To-do
-- [ ] Option to change your preferred microphone.
-- [ ] Update mod to Minecraft version 1.19
+- [ ] Option to change your preferred microphone for users that play without the Simple Voice Chat mod.
+- [ ] Update mod to Minecraft version 1.19.
 	- [ ] Make Warden mob from this version react to microphone sounds.
 
 
