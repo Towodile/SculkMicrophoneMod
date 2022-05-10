@@ -2,6 +2,7 @@ package me.towo.sculkmic.core.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.ArgumentType;
+import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
@@ -26,9 +27,12 @@ public class SetCommands {
                 .then(Commands.literal("distance").then(Commands.argument("distance", IntegerArgumentType.integer(0))
                 .executes((command) -> {
                     return setDistance(command.getSource(), IntegerArgumentType.getInteger(command, "distance"));
-                }))).then(Commands.literal("defaultVolume").then(Commands.argument("volume", IntegerArgumentType.integer(1))
+                }))).then(Commands.literal("defaultRedstoneSignal").then(Commands.argument("redstone", IntegerArgumentType.integer(1, 15))
                                 .executes((command) -> {
-                                    return setDefaultVolume(command.getSource(), IntegerArgumentType.getInteger(command, "volume"));
+                                    return setDefaultRedstoneStrength(command.getSource(), IntegerArgumentType.getInteger(command, "redstone"));
+                                }))).then(Commands.literal("doDynamicRedstone").then(Commands.argument("dynRedstone", BoolArgumentType.bool())
+                                .executes((command) -> {
+                                    return setDynamicRedstone(command.getSource(), BoolArgumentType.getBool(command,"dynRedstone"));
                                 })))));
     }
 
@@ -39,9 +43,16 @@ public class SetCommands {
         return 1;
     }
 
-    private int setDefaultVolume(CommandSourceStack source, int volume) throws CommandSyntaxException {
-        ServerSculkMicConfig.editDefaultVolume(volume);
-        Component msg = new TextComponent(new TranslatableComponent("commands.sculkmic.set.volume").getString() + volume);
+    private int setDefaultRedstoneStrength(CommandSourceStack source, int strength) throws CommandSyntaxException {
+        ServerSculkMicConfig.editDefaultRedstoneStrength(strength);
+        Component msg = new TextComponent(new TranslatableComponent("commands.sculkmic.set.comparator").getString() + strength);
+        source.sendSuccess(msg, true);
+        return 1;
+    }
+
+    private int setDynamicRedstone(CommandSourceStack source, boolean value) throws CommandSyntaxException {
+        ServerSculkMicConfig.editIfDynamicRedstone(value);
+        Component msg = new TextComponent(new TranslatableComponent("commands.sculkmic.set.comparator").getString() + value);
         source.sendSuccess(msg, true);
         return 1;
     }

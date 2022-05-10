@@ -17,5 +17,6 @@
   "options.mic.info.voicechat.5": "§o(Default keybind is 'V')",
 
   "commands.sculkmic.set.distance": "Max vibration distance succesfully set to ",
-  "commands.sculkmic.set.volume": "Default volume succesfully set to "
+  "commands.sculkmic.set.comparator": "Default comparator output succesfully set to ",
+  "commands.sculkmic.set.dynamic": "Dynamic redstone comparator output succesfully set to "
 }
