@@ -6,7 +6,7 @@ import me.towo.sculkmic.common.compatibility.VoiceChatCompatibility;
 public class MicrophoneHandler {
     private static Microphone microphone;
 
-    public static int getCurrentVolumeLevel() {
+    public int getCurrentVolumeLevel() {
         if (VoiceChatCompatibility.present)
             return 0;
 
@@ -21,7 +21,7 @@ public class MicrophoneHandler {
      * Only one thread of class 'Microphone' may be running at a time.
      * Starting a new thread of class "Microphone" will kill the current thread.
      */
-    public static boolean startNewThread() {
+    public boolean startNewThread() {
         if (VoiceChatCompatibility.present)
             return false;
 
@@ -35,7 +35,7 @@ public class MicrophoneHandler {
         return true;
     }
 
-    public static void stopCurrentThread() {
+    public void stopCurrentThread() {
         if (VoiceChatCompatibility.present)
             return;
 
@@ -45,7 +45,7 @@ public class MicrophoneHandler {
         }
     }
 
-    public static boolean isRunning() {
+    public boolean isRunning() {
         if (VoiceChatCompatibility.present)
             return false;
 

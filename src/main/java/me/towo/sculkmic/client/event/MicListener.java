@@ -19,7 +19,6 @@ public class MicListener {
 
     private final static MicrophoneHandler handler = new MicrophoneHandler();
 
-
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent e) {
         checkMicrophone();
@@ -39,12 +38,14 @@ public class MicListener {
         }
     }
 
+    // to-do make some chat messages translatable
     private static void checkMicrophone() {
         Player p = null;
         try {
             p = Minecraft.getInstance().player;
         }
         catch (NoSuchMethodError nsme){}
+
         if (!SculkMicConfig.ENABLED.get()) {
             if (handler.isRunning()) {
                 handler.stopCurrentThread();
