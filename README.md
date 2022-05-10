@@ -36,7 +36,7 @@ Best experienced with [proximity chat](https://www.curseforge.com/minecraft/mc-m
 <br>
 
 ## How it works
-Simply run the mod, and talk into your microphone! Any sculk sensor in a 6 (value is prone to change) block radius should activate. If not, try editing your settings.
+Simply run the mod, and talk into your microphone! Any nearby sculk sensor should activate. If not, try editing your settings.
 
 ### Settings
 The default settings aren't necessarily the best settings for every microphone, so feel free to change some in 'Options -> Microphone Settings...'
@@ -53,7 +53,7 @@ This value will determine at what volume level a sculk sensor will activate.
 Somethings are only configurable with commands. These are often things that affect all players in a server.
 #### /sculkmicrophone set ...
 ##### distance
-Typing */sculkmicrophone set distance [value]* will set the maximum distance at which a player will have to be to voice-activate a sculk sensors.
+Typing */sculkmicrophone set distance [value]* will set the maximum distance at which a player will have to be to voice-activate a sculk sensor.
 
 ##### doDynamicRedstone
 Typing */sculkmicrophone set doDynamicRedstone [true|false]* will enable or disable whether a redstone comparator should output a signal depending on the volume of an incoming (microphone) vibration.
