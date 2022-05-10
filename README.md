@@ -2,8 +2,9 @@
 # Sculk Microphone
 A Minecraft mod by Towo.
 <br><br>Forge required.
-*There are currently no plans to make this mod runnable on Fabric.*
 <br>*Microphone may not work on MacOS due to system's privacy setting*
+
+Best experienced with [proximity chat](https://www.curseforge.com/minecraft/mc-mods/simple-voice-chat)!
 
 ## Downloads
 1.18.2: [Sculk Microphone v1.0.0-alpha]()
@@ -16,36 +17,50 @@ A Minecraft mod by Towo.
 5. If applicable, make sure to grant the application access to your microphone.
 6. If you want, you can also install [*Simple Voice Chat*](https://www.curseforge.com/minecraft/mc-mods/simple-voice-chat)
 
-## How it works
-Simply run the mod, and talk into your microphone! Any sculk sensor in a 6 (value is prone to change) block radius should activate. If not, try editing your settings.
-
-Note that in this Minecraft version, Sculk Sensors are unobtainable in the Creative Menu. Type */give @s minecraft:sculk_sensor* to receive one.
-
 ## Features
 ### Current
 - Sculk Sensor activation when talking into your microphone.
 - Comparators linked to Sculk Sensors will output a redstone signal *(1 to 15)* based on the input volume.
-- Customisable options (Options -> Microphone Settings...).
-	- Enable/disable microphone listening
-	- Microphone sensitivity
-	- Sculk Sensor activation threshold
-	- Enable/disable additional info on-screen for testing:
-		- Your volume and the status of your microphone (enabled/disabled) will appear in-game. When the volume threshold is met, the color of the displayed volume should appear blue.
+- Customisable options.
+- Configurable with commands.
 - Compatible with [henkelmax's *Simple Voice Chat*](https://www.curseforge.com/minecraft/mc-mods/simple-voice-chat)! (proximity chat)
-	- *A player's volume does not get carried over when using this mod.*
+	
+![Simple Voice Chat compatibility](https://i.giphy.com/media/t9tWlZaPS6yJKNoUao/giphy.webp)
 
 ### To-do
-- [ ] Gamerules for global sculk sensor radius and default redstone comparator output
 - [ ] Option to change your preferred microphone for users that play without the Simple Voice Chat mod.
 - [ ] Update mod to Minecraft version 1.19.
 	- [ ] Make Warden mob from this version react to microphone sounds.
 
 
-### Showcase
-![Simple Voice Chat compatibility](https://i.giphy.com/media/t9tWlZaPS6yJKNoUao/giphy.webp)
-
-Simple Voice Chat compatibility! Notice how the microphone symbol in the bottom left corner appears just before the sculk sensor activates.
 <br>
+
+## How it works
+Simply run the mod, and talk into your microphone! Any sculk sensor in a 6 (value is prone to change) block radius should activate. If not, try editing your settings.
+
+### Settings
+The default settings aren't necessarily the best settings for every microphone, so feel free to change some in 'Options -> Microphone Settings...'
+#### Microphone
+This options simply allows you to disable the microphone whenever you wish. This option will be disabled by default whenever another microphone-using mod is installed.
+#### Sensitivity
+The greater the value, the easier it is for your volume-level to rise. If you notice your microphone picking up a lot of small sounds, try turning this down.
+#### On-Screen Info
+For testing-purposes, you can enable this setting and view your current microphone status along with your volume level. The color of this text will turn blue once the threshold for sculk listeners has been met.
+#### Sculk Sensor Threshold
+This value will determine at what volume level a sculk sensor will activate.
+
+### Commands
+Somethings are only configurable with commands. These are often things that affect all players in a server.
+#### /sculkmicrophone set ...
+##### distance
+Typing */sculkmicrophone set distance [value]* will set the maximum distance at which a player will have to be to voice-activate a sculk sensors.
+
+##### doDynamicRedstone
+Typing */sculkmicrophone set doDynamicRedstone [true|false]* will enable or disable whether a redstone comparator should output a signal depending on the volume of an incoming (microphone) vibration.
+Please note: for clients that have this mod's microphone disabled and instead have another mod's microphone enabled, this will always be *false*.
+
+##### defaultRedstoneSignal
+Typing */sculkmicrophone set defaultRedstoneSignal* will set the value a comparator outputs if it will not dynamically do so.
 
 
 #
