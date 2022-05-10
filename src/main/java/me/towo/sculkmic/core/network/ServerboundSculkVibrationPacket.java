@@ -15,7 +15,7 @@ public class ServerboundSculkVibrationPacket {
     }
 
     public ServerboundSculkVibrationPacket() {
-        this.noiseLevel = ServerSculkMicConfig.DEFAULT_NOISE_LEVEL;
+        this.noiseLevel = ServerSculkMicConfig.DEFAULT_NOISE_LEVEL.get();
     }
 
 
@@ -31,7 +31,7 @@ public class ServerboundSculkVibrationPacket {
         final var succes = new AtomicBoolean(false);
         ctx.get().enqueueWork(() -> {
             SculkVibrationGenerator.generate(ctx.get().getSender(),
-                    ServerSculkMicConfig.DEFAULT_VIBRATION_DISTANCE, noiseLevel);
+                    ServerSculkMicConfig.SCULK_VIBRATION_DISTANCE.get(), noiseLevel);
         });
 
         ctx.get().setPacketHandled(true);

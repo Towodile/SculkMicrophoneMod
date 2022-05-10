@@ -14,5 +14,8 @@
   "options.mic.info.voicechat.2": "mod installed, meaning there's no need for",
   "options.mic.info.voicechat.3": "§3Sculk Sensor Microphone's§r microphone to be turned on.",
   "options.mic.info.voicechat.4": "Open your Voice Chat settings and edit your preferences there." ,
-  "options.mic.info.voicechat.5": "§o(Default keybind is 'V')"
+  "options.mic.info.voicechat.5": "§o(Default keybind is 'V')",
+
+  "commands.sculkmic.set.distance": "Max vibration distance succesfully set to ",
+  "commands.sculkmic.set.volume": "Default volume succesfully set to "
 }

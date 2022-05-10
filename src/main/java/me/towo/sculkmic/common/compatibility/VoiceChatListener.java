@@ -32,5 +32,4 @@ public class VoiceChatListener implements VoicechatPlugin, ModInteropProxy {
     public void onClientSound(ClientSoundEvent e) {
         PacketHandler.INSTANCE.sendToServer(new ServerboundSculkVibrationPacket());
     }
-
 }
