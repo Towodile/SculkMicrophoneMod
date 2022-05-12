@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import me.towo.sculkmic.SculkMicMod;
 import me.towo.sculkmic.client.mic.MicrophoneHandler;
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
-import me.towo.sculkmic.common.compatibility.utils.ModColors;
+import me.towo.sculkmic.common.utils.ModColors;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;

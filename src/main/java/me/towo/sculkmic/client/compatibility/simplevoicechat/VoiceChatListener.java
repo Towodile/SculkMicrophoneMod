@@ -1,4 +1,4 @@
-package me.towo.sculkmic.common.compatibility;
+package me.towo.sculkmic.client.compatibility.simplevoicechat;
 
 
 import de.maxhenkel.voicechat.api.ForgeVoicechatPlugin;
@@ -7,6 +7,7 @@ import de.maxhenkel.voicechat.api.VoicechatPlugin;
 import de.maxhenkel.voicechat.api.events.ClientSoundEvent;
 import de.maxhenkel.voicechat.api.events.EventRegistration;
 import me.towo.sculkmic.SculkMicMod;
+import me.towo.sculkmic.common.compatibility.ModInteropProxy;
 import me.towo.sculkmic.server.network.ServerboundSculkVibrationPacket;
 import me.towo.sculkmic.server.network.packet.PacketHandler;
 

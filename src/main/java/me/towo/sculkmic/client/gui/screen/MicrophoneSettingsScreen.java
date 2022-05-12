@@ -3,7 +3,7 @@ package me.towo.sculkmic.client.gui.screen;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.towo.sculkmic.client.userpreferences.ModOption;
 import me.towo.sculkmic.common.compatibility.VoiceChatCompatibility;
-import me.towo.sculkmic.common.compatibility.utils.ModColors;
+import me.towo.sculkmic.common.utils.ModColors;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.OptionsList;

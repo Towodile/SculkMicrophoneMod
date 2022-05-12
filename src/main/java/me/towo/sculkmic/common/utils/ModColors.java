@@ -1,4 +1,4 @@
-package me.towo.sculkmic.common.compatibility.utils;
+package me.towo.sculkmic.common.utils;
 
 import java.awt.*;
 

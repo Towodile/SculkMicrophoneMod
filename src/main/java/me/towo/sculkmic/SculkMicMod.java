@@ -43,7 +43,7 @@ public class SculkMicMod
         VoiceChatCompatibility.present = ModList.get().isLoaded("voicechat");
         if (VoiceChatCompatibility.present) {
             try {
-                modInterop = Class.forName("me.towo.sculkmic.common.compatibility.VoiceChatListener").asSubclass(ModInteropProxy.class).getDeclaredConstructor().newInstance();
+                modInterop = Class.forName("me.towo.sculkmic.client.compatibility.simplevoicechat.VoiceChatListener").asSubclass(ModInteropProxy.class).getDeclaredConstructor().newInstance();
             } catch (Throwable t) {}
             LOGGER.info("Found Simple Voice Chat mod!");
             SculkMicConfig.editIfEnabled(false);

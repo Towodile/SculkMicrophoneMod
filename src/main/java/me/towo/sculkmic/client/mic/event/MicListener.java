@@ -1,10 +1,10 @@
-package me.towo.sculkmic.client.event;
+package me.towo.sculkmic.client.mic.event;
 
 import me.towo.sculkmic.SculkMicMod;
 import me.towo.sculkmic.common.compatibility.VoiceChatCompatibility;
 import me.towo.sculkmic.client.mic.MicrophoneHandler;
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
-import me.towo.sculkmic.common.compatibility.utils.Chat;
+import me.towo.sculkmic.common.utils.Chat;
 import me.towo.sculkmic.server.network.ServerboundSculkVibrationPacket;
 import me.towo.sculkmic.server.network.packet.PacketHandler;
 import net.minecraft.client.Minecraft;
