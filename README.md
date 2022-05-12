@@ -7,7 +7,9 @@ A Minecraft mod by Towo.
 Best experienced with [proximity chat](https://www.curseforge.com/minecraft/mc-mods/simple-voice-chat)!
 
 ## Downloads
-[CurseForge](https://www.curseforge.com/minecraft/mc-mods/sculk-microphone/files/all)
+[CurseForge](https://www.curseforge.com/minecraft/mc-mods/sculk-microphone/files/all) 
+
+[PlanetMinecraft](https://www.planetminecraft.com/mod/sculk-microphone/)
 
 ## Installation
 1. [Install Minecraft Forge](https://files.minecraftforge.net/net/minecraftforge/forge/) if you haven't already.
