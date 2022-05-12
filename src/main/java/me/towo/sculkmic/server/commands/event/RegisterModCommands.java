@@ -1,7 +1,7 @@
-package me.towo.sculkmic.core.commands.event;
+package me.towo.sculkmic.server.commands.event;
 
 import me.towo.sculkmic.SculkMicMod;
-import me.towo.sculkmic.core.commands.SetCommands;
+import me.towo.sculkmic.server.commands.SetCommands;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

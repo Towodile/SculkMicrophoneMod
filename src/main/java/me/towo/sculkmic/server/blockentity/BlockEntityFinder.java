@@ -1,4 +1,4 @@
-package me.towo.sculkmic.core.blockentity;
+package me.towo.sculkmic.server.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;

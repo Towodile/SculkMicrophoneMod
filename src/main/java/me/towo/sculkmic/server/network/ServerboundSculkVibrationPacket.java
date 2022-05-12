@@ -1,7 +1,7 @@
-package me.towo.sculkmic.core.network;
+package me.towo.sculkmic.server.network;
 
-import me.towo.sculkmic.core.userpreferences.ServerSculkMicConfig;
-import me.towo.sculkmic.core.blockentity.SculkVibrationGenerator;
+import me.towo.sculkmic.server.userpreferences.ServerSculkMicConfig;
+import me.towo.sculkmic.server.blockentity.SculkVibrationGenerator;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 

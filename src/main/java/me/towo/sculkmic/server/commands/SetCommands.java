@@ -1,11 +1,11 @@
-package me.towo.sculkmic.core.commands;
+package me.towo.sculkmic.server.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import me.towo.sculkmic.core.userpreferences.ServerSculkMicConfig;
+import me.towo.sculkmic.server.userpreferences.ServerSculkMicConfig;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;

@@ -1,7 +1,7 @@
-package me.towo.sculkmic.core.network.packet;
+package me.towo.sculkmic.server.network.packet;
 
 import me.towo.sculkmic.SculkMicMod;
-import me.towo.sculkmic.core.network.ServerboundSculkVibrationPacket;
+import me.towo.sculkmic.server.network.ServerboundSculkVibrationPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;

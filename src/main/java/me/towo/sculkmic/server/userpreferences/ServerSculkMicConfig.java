@@ -1,4 +1,4 @@
-package me.towo.sculkmic.core.userpreferences;
+package me.towo.sculkmic.server.userpreferences;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 

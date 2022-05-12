@@ -1,4 +1,4 @@
-package me.towo.sculkmic.core.blockentity;
+package me.towo.sculkmic.server.blockentity;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
