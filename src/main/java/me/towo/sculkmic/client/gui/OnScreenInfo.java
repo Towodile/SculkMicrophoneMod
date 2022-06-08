@@ -22,7 +22,7 @@ public class OnScreenInfo {
             return;
 
         int level = handler.getCurrentVolumeLevel();
-        PoseStack matrix = e.getMatrixStack();
+        PoseStack matrix = e.getPoseStack();
         String displayedVolume = String.valueOf(level);
         String displayedStatus = String.valueOf(handler.isRunning());
         int volumeColor = ModColors.REGULAR;

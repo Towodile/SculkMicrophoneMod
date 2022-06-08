@@ -1,54 +1,32 @@
 package me.towo.sculkmic.client.userpreferences;
 
 import net.minecraft.client.*;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.client.gui.components.CycleButton;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+
 @OnlyIn(Dist.CLIENT)
-public class ModOption{
-    public static final CycleOption ENABLE_MIC_LISTENING = CycleOption.createOnOff("options.mic.enable",
-            (o) -> {
-                return SculkMicConfig.ENABLED.get();
-            },
-            (o, o2, value) -> {
-                SculkMicConfig.editIfEnabled(value);
-            });
+public class ModOption {
 
-    public static final ProgressOption MICROPHONE_SENSITIVITY = new ProgressOption("options.mic.sensitivity", 0.01D, 1.00D, 0.01F,
-            (o) -> {
-        return SculkMicConfig.SENSITIVITY.get();
-        },
-            (o, value) -> {
+    public static final OptionInstance<Boolean> ENABLE_MIC_LISTENING = OptionInstance.createBoolean("options.mic.enable", SculkMicConfig.ENABLED.get(), (p_231970_) -> {
+        SculkMicConfig.editIfEnabled(p_231970_);
+    });
+
+    public static final OptionInstance<Integer> SENSITIVITY = new OptionInstance<>("options.mic.sensitivty", OptionInstance.noTooltip(), (p_231962_, p_231963_) -> {
+        return Options.genericValueLabel(p_231962_, Component.translatable("options.mic.sensitivityValue", p_231963_));
+    }, new OptionInstance.IntRange(1, 100), SculkMicConfig.SENSITIVITY.get().intValue(), (value) -> {
         SculkMicConfig.editSensitivity(value);
-        },
-            (o, po) -> {
-        double value = Math.round(po.get(o)*100.0)/100.0;
-        return getComponentWithValue("options.mic.sensitivityValue", value);
-            });
+    });
 
-    public static final ProgressOption SCULK_THRESHOLD = new ProgressOption("options.mic.threshold", 0D, 50D, 1F,
-            (o) -> {
-        return SculkMicConfig.THRESHOLD.get().doubleValue();
-        },
-            (o, value) -> {
-        SculkMicConfig.editThreshold(value.intValue());
-        },
-            (o, po) -> {
-        Double value = po.get(o);
-        return getComponentWithValue("options.mic.thresholdValue", value.intValue());
-            });
+    public static final OptionInstance<Integer> SCULK_THRESHOLD = new OptionInstance<>("options.mic.threshold", OptionInstance.noTooltip(), (p_231962_, p_231963_) -> {
+        return Options.genericValueLabel(p_231962_, Component.translatable("options.mic.decibel", p_231963_));
+    }, new OptionInstance.IntRange(1, 100), SculkMicConfig.THRESHOLD.get().intValue(), (value) -> {
+        SculkMicConfig.editThreshold(value);
+    });
 
-    public static final CycleOption SHOW_ON_SCREEN_INFO = CycleOption.createOnOff("options.mic.show_info",
-            (o) -> {
-        return SculkMicConfig.SHOW_INFO_ON_SCREEN.get();
-        },
-            (o, o2, value) -> {
+    public static final OptionInstance<Boolean> INFO_ONSCREEN = OptionInstance.createBoolean("options.mic.show_info", SculkMicConfig.SHOW_INFO_ON_SCREEN.get(), (value) -> {
         SculkMicConfig.editIfInfoOnScreen(value);
-        });
-
-    private static TextComponent getComponentWithValue(String translatableKey, double value) {
-        return new TextComponent(new TranslatableComponent(translatableKey).getString() + String.valueOf(value));
-    }
+    });
 }

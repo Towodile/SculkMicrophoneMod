@@ -9,8 +9,8 @@ import me.towo.sculkmic.server.userpreferences.ServerSculkMicConfig;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.contents.TranslatableContents;
+
 
 public class SetCommands {
     public SetCommands(CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -34,21 +34,21 @@ public class SetCommands {
 
     private int setDistance(CommandSourceStack source, int distance) throws CommandSyntaxException {
         ServerSculkMicConfig.editVibrationDistance(distance);
-        Component msg = new TextComponent(new TranslatableComponent("commands.sculkmic.set.distance").getString() + distance);
+        Component msg = Component.literal(Component.translatable("commands.sculkmic.set.distance").getString() + distance);
         source.sendSuccess(msg, true);
         return 1;
     }
 
     private int setDefaultRedstoneStrength(CommandSourceStack source, int strength) throws CommandSyntaxException {
         ServerSculkMicConfig.editDefaultRedstoneStrength(strength);
-        Component msg = new TextComponent(new TranslatableComponent("commands.sculkmic.set.comparator").getString() + strength);
+        Component msg = Component.literal(Component.translatable("commands.sculkmic.set.comparator").getString() + strength);
         source.sendSuccess(msg, true);
         return 1;
     }
 
     private int setDynamicRedstone(CommandSourceStack source, boolean value) throws CommandSyntaxException {
         ServerSculkMicConfig.editIfDynamicRedstone(value);
-        Component msg = new TextComponent(new TranslatableComponent("commands.sculkmic.set.comparator").getString() + value);
+        Component msg = Component.literal(Component.translatable("commands.sculkmic.set.comparator").getString() + value);
         source.sendSuccess(msg, true);
         return 1;
     }

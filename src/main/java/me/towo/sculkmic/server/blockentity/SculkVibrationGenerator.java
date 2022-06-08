@@ -2,6 +2,7 @@ package me.towo.sculkmic.server.blockentity;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
+import net.minecraft.client.Game;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.SculkSensorBlock;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
@@ -17,14 +18,15 @@ public class SculkVibrationGenerator {
         BlockEntityFinder<SculkSensorBlockEntity> finder =
                 new BlockEntityFinder<>(SculkSensorBlockEntity.class, distance, player.blockPosition(), player.level);
 
-        Object2IntMap vibrationMap = SculkSensorBlock.VIBRATION_STRENGTH_FOR_EVENT;
+        Object2IntMap vibrationMap = SculkSensorBlock.VIBRATION_FREQUENCY_FOR_EVENT;
         int[] values = vibrationMap.values().toIntArray();
         Object[] keys = vibrationMap.keySet().toArray();
         GameEvent event = (GameEvent)keys[getNearestInteger(comparatorSignalStrength, values)];
 
         for (SculkSensorBlockEntity sculk : finder.find()) {
             VibrationListener listener = sculk.getListener();
-            listener.handleGameEvent(player.level, event, player, player.blockPosition());
+            GameEvent.Message message = new GameEvent.Message(event, player.position(), new GameEvent.Context(player, null), listener, listener.getListenerSource().getPosition(player.level).get());
+            listener.handleGameEvent(player.getLevel().getServer().overworld(), message);
         }
     }
 
@@ -35,14 +37,16 @@ public class SculkVibrationGenerator {
         for (SculkSensorBlockEntity sculk : finder.find()) {
             VibrationListener listener = sculk.getListener();
             GameEvent event = getGameEventByLoudness(noiseLevel);
-            listener.handleGameEvent(player.level, event, player, player.blockPosition());
+            GameEvent.Message message = new GameEvent.Message(event, player.position(), new GameEvent.Context(player, null), listener, listener.getListenerSource().getPosition(player.level).get());
+            listener.handleGameEvent(player.level.getServer().overworld(), message);
+
         }
     }
 
     private static GameEvent getGameEventByLoudness(int loudness) {
         int eventInt = (int)((loudness - (loudness / 3)) / SculkMicConfig.SENSITIVITY.get());
 
-        Object2IntMap vibrationMap = SculkSensorBlock.VIBRATION_STRENGTH_FOR_EVENT;
+        Object2IntMap vibrationMap = SculkSensorBlock.VIBRATION_FREQUENCY_FOR_EVENT;
         int[] values = vibrationMap.values().toIntArray();
         Object[] keys = vibrationMap.keySet().toArray();
 

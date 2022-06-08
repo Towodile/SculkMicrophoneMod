@@ -7,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.OptionsScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -22,7 +21,7 @@ public class OptionScreenEvents {
     private static boolean showTooltip;
     @SubscribeEvent
     public static void onOptionsScreen(ScreenEvent.InitScreenEvent.Post e) {
-        btn = new Button(e.getScreen().width / 2 - 155, e.getScreen().height / 6 + 120 - 6 + 24, 150, 20, new TranslatableComponent("gui.microphone_settings"), (p_96335_) -> {
+        btn = new Button(e.getScreen().width / 2 - 155, e.getScreen().height / 6 + 120 - 6 + 24, 150, 20, Component.translatable("gui.microphone_settings"), (p_96335_) -> {
         Minecraft.getInstance().setScreen(new MicrophoneSettingsScreen(Minecraft.getInstance().screen, Minecraft.getInstance().options));
     });
 
@@ -38,7 +37,7 @@ public class OptionScreenEvents {
         if (e.getScreen() instanceof  OptionsScreen) {
             ArrayList<Component> text = new ArrayList<>();
             for (int i = 1; i <= 5 ; i++) {
-                text.add(new TranslatableComponent("options.mic.info.voicechat." + i));
+                text.add(Component.translatable("options.mic.info.voicechat." + i));
             }
 
             if (btn != null && VoiceChatCompatibility.present && btn.isHoveredOrFocused())

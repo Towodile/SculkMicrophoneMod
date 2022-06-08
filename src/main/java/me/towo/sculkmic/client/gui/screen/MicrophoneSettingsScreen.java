@@ -11,26 +11,32 @@ import net.minecraft.client.gui.screens.OptionsSubScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GpuWarnlistManager;
 import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 
 import java.util.List;
 
 public class MicrophoneSettingsScreen extends OptionsSubScreen {
-    private static final Option[] OPTIONS = new Option[]{ModOption.ENABLE_MIC_LISTENING, ModOption.MICROPHONE_SENSITIVITY, ModOption.SHOW_ON_SCREEN_INFO, ModOption.SCULK_THRESHOLD};
+    //private static final OptionsList OPTIONS = new OptionsList(){ ModOption.ENABLE_MIC_LISTENING, ModOption.MICROPHONE_SENSITIVITY, ModOption.SHOW_ON_SCREEN_INFO, ModOption.SCULK_THRESHOLD};
+    private static final OptionInstance<?>[] OPTIONS = new OptionInstance[] {
+            ModOption.ENABLE_MIC_LISTENING,
+            ModOption.SENSITIVITY,
+            ModOption.SCULK_THRESHOLD,
+            ModOption.INFO_ONSCREEN
+    };
     private final GpuWarnlistManager gpuWarnlistManager;
     private final Object oldMipmaps;
     private OptionsList list;
 
     public MicrophoneSettingsScreen(Screen lastScreen, Options options) {
-        super(lastScreen, options, new TranslatableComponent("options.microphoneTitle"));
+        super(lastScreen, options, Component.translatable("options.microphoneTitle"));
         this.gpuWarnlistManager = lastScreen.getMinecraft().getGpuWarnlistManager();
         this.gpuWarnlistManager.resetWarnings();
-        if (options.graphicsMode == GraphicsStatus.FABULOUS) {
+        if (options.graphicsMode().get() == GraphicsStatus.FABULOUS) {
             this.gpuWarnlistManager.dismissWarning();
         }
 
-        this.oldMipmaps = options.mipmapLevels;
+        this.oldMipmaps = options.mipmapLevels().get();
     }
 
     @Override
@@ -44,7 +50,7 @@ public class MicrophoneSettingsScreen extends OptionsSubScreen {
         }));
 
         if (VoiceChatCompatibility.present) {
-            for (Option o : OPTIONS) {
+            for (OptionInstance o : OPTIONS) {
                 list.findOption(o).active = false;
             }
         }
@@ -62,7 +68,7 @@ public class MicrophoneSettingsScreen extends OptionsSubScreen {
 
         if (VoiceChatCompatibility.present) {
             for (int i = 1; i <= 5; i++) {
-                Minecraft.getInstance().font.draw(p_96813_, new TranslatableComponent("options.mic.info.voicechat." + i),
+                Minecraft.getInstance().font.draw(p_96813_, Component.translatable("options.mic.info.voicechat." + i),
                         Minecraft.getInstance().screen.width /32, (Minecraft.getInstance().screen.height /2) + (i * 10) + 20, ModColors.REGULAR);
             }
         }
