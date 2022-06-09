@@ -20,7 +20,7 @@ public class SetCommands {
                 .then(Commands.literal("set").requires((source) -> {
                     return source.hasPermission(2);
                 })
-                .then(Commands.literal("distance").then(Commands.argument("distance", IntegerArgumentType.integer(0))
+                .then(Commands.literal("distance").then(Commands.argument("distance", IntegerArgumentType.integer(0, 10))
                 .executes((command) -> {
                     return setDistance(command.getSource(), IntegerArgumentType.getInteger(command, "distance"));
                 }))).then(Commands.literal("defaultRedstoneSignal").then(Commands.argument("redstone", IntegerArgumentType.integer(1, 15))

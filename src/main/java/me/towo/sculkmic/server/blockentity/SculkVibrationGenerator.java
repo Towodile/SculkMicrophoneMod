@@ -2,13 +2,14 @@ package me.towo.sculkmic.server.blockentity;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
-import net.minecraft.client.Game;
+import me.towo.sculkmic.common.utils.BlockEntityFinder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.SculkSensorBlock;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.vibrations.VibrationListener;
 
+@Deprecated()
 public class SculkVibrationGenerator {
 
     public static void generate(ServerPlayer player, int distance, int comparatorSignalStrength) {

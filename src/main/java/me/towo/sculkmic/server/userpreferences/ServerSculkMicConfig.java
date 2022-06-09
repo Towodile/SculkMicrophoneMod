@@ -14,7 +14,7 @@ public class ServerSculkMicConfig {
         BUILDER.push("These options can also be configured in-game using '/sculkmicrophone set'");
 
         SCULK_VIBRATION_DISTANCE = BUILDER.comment("The max distance a player can be from a Sculk Block/Entity to send a signal.")
-                .define("Vibration Distance", 6);
+                .defineInRange("Vibration Distance", 6, 1, 10);
 
         DEFAULT_COMPARATOR_STRENGTH = BUILDER.comment("In case of inaccessibility to this mod's microphone, this default value will be used to determine a redstone comparators output.")
                 .defineInRange("Default Comparator Output", 6, 1, 15);

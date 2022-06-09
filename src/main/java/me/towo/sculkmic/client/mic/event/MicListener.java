@@ -17,7 +17,9 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = SculkMicMod.ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class MicListener {
 
+    // to-do improve microphone and volume calculations -> use DB
     private final static MicrophoneHandler handler = new MicrophoneHandler();
+    private static int timeout = 0;
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent e) {
@@ -33,9 +35,12 @@ public class MicListener {
         int threshold = SculkMicConfig.THRESHOLD.get();
         boolean playerIsLoud = noiseLevel > threshold;
 
-        if (playerIsLoud) {
+        if (playerIsLoud && timeout == 0) {
+            timeout = 80;
             PacketHandler.INSTANCE.sendToServer(new ServerboundSculkVibrationPacket(noiseLevel));
         }
+        if (timeout > 0)
+            timeout--;
     }
 
     // to-do make some chat messages translatable

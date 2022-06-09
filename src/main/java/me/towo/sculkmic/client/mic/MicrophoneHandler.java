@@ -4,6 +4,7 @@ import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
 import me.towo.sculkmic.common.compatibility.Dependencies;
 
 public class MicrophoneHandler {
+
     private static Microphone microphone;
 
     public int getCurrentVolumeLevel() {

@@ -1,4 +1,4 @@
-package me.towo.sculkmic.server.blockentity;
+package me.towo.sculkmic.common.utils;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -22,6 +22,7 @@ public class BlockEntityFinder<T extends BlockEntity> {
         Iterable<BlockPos> positions = BlockPos.betweenClosed(center.offset(-distance, -distance, -distance),
                 center.offset(distance, distance, distance));
         return getBlockEntities(positions, level);
+
     }
 
 
