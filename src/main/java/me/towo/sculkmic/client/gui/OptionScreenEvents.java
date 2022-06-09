@@ -2,7 +2,7 @@ package me.towo.sculkmic.client.gui;
 
 import me.towo.sculkmic.SculkMicMod;
 import me.towo.sculkmic.client.gui.screen.MicrophoneSettingsScreen;
-import me.towo.sculkmic.common.compatibility.VoiceChatCompatibility;
+import me.towo.sculkmic.common.compatibility.Dependencies;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.OptionsScreen;
@@ -18,7 +18,6 @@ import java.util.Optional;
 @Mod.EventBusSubscriber(modid = SculkMicMod.ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class OptionScreenEvents {
     private static Button btn;
-    private static boolean showTooltip;
     @SubscribeEvent
     public static void onOptionsScreen(ScreenEvent.InitScreenEvent.Post e) {
         btn = new Button(e.getScreen().width / 2 - 155, e.getScreen().height / 6 + 120 - 6 + 24, 150, 20, Component.translatable("gui.microphone_settings"), (p_96335_) -> {
@@ -27,7 +26,7 @@ public class OptionScreenEvents {
 
         if (e.getScreen() instanceof OptionsScreen) {
             e.addListener(btn);
-            if (VoiceChatCompatibility.present) {
+            if (Dependencies.SIMPLE_VOICE_CHAT.isPresent()) {
                 btn.active = false;
             }
         }
@@ -40,7 +39,7 @@ public class OptionScreenEvents {
                 text.add(Component.translatable("options.mic.info.voicechat." + i));
             }
 
-            if (btn != null && VoiceChatCompatibility.present && btn.isHoveredOrFocused())
+            if (btn != null && Dependencies.SIMPLE_VOICE_CHAT.isPresent() && btn.isHoveredOrFocused())
                 e.getScreen().renderTooltip(e.getPoseStack(), text, Optional.empty(), e.getMouseX(), e.getMouseY());
 
         }

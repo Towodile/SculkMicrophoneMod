@@ -14,7 +14,7 @@ public class ModOption {
         SculkMicConfig.editIfEnabled(p_231970_);
     });
 
-    public static final OptionInstance<Integer> SENSITIVITY = new OptionInstance<>("options.mic.sensitivty", OptionInstance.noTooltip(), (p_231962_, p_231963_) -> {
+    public static final OptionInstance<Integer> SENSITIVITY = new OptionInstance<>("options.mic.sensitivity", OptionInstance.noTooltip(), (p_231962_, p_231963_) -> {
         return Options.genericValueLabel(p_231962_, Component.translatable("options.mic.sensitivityValue", p_231963_));
     }, new OptionInstance.IntRange(1, 100), SculkMicConfig.SENSITIVITY.get().intValue(), (value) -> {
         SculkMicConfig.editSensitivity(value);

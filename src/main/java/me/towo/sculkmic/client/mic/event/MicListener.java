@@ -1,7 +1,7 @@
 package me.towo.sculkmic.client.mic.event;
 
 import me.towo.sculkmic.SculkMicMod;
-import me.towo.sculkmic.common.compatibility.VoiceChatCompatibility;
+import me.towo.sculkmic.common.compatibility.Dependencies;
 import me.towo.sculkmic.client.mic.MicrophoneHandler;
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
 import me.towo.sculkmic.common.utils.Chat;
@@ -65,7 +65,7 @@ public class MicListener {
             } else {
                 SculkMicMod.LOGGER.error("Microphone is unavailable! Microphone has been disabled.");
                 if (p != null) {
-                    if (!VoiceChatCompatibility.present)
+                    if (Dependencies.SIMPLE_VOICE_CHAT.isPresent())
                         Chat.sendMessage("§4ERROR: §cMicrophone is unavailable.", p);
                     else
                         Chat.sendMessage("Hold on! You currently have the §6Simple Voice Chat§r mod installed, " +

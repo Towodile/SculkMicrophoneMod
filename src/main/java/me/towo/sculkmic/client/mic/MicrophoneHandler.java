@@ -1,13 +1,13 @@
 package me.towo.sculkmic.client.mic;
 
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
-import me.towo.sculkmic.common.compatibility.VoiceChatCompatibility;
+import me.towo.sculkmic.common.compatibility.Dependencies;
 
 public class MicrophoneHandler {
     private static Microphone microphone;
 
     public int getCurrentVolumeLevel() {
-        if (VoiceChatCompatibility.present)
+        if (Dependencies.SIMPLE_VOICE_CHAT.isPresent())
             return 0;
 
 
@@ -22,7 +22,7 @@ public class MicrophoneHandler {
      * Starting a new thread of class "Microphone" will kill the current thread.
      */
     public boolean startNewThread() {
-        if (VoiceChatCompatibility.present)
+        if (Dependencies.SIMPLE_VOICE_CHAT.isPresent())
             return false;
 
         stopCurrentThread();
@@ -36,7 +36,7 @@ public class MicrophoneHandler {
     }
 
     public void stopCurrentThread() {
-        if (VoiceChatCompatibility.present)
+        if (Dependencies.SIMPLE_VOICE_CHAT.isPresent())
             return;
 
         if (isRunning()) {
@@ -46,7 +46,7 @@ public class MicrophoneHandler {
     }
 
     public boolean isRunning() {
-        if (VoiceChatCompatibility.present)
+        if (Dependencies.SIMPLE_VOICE_CHAT.isPresent())
             return false;
 
         return microphone != null && microphone.isAlive();

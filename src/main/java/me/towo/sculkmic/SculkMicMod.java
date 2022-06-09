@@ -2,6 +2,7 @@ package me.towo.sculkmic;
 
 
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
+import me.towo.sculkmic.common.compatibility.CompatibilityRegister;
 import me.towo.sculkmic.common.compatibility.VoiceChatCompatibility;
 import me.towo.sculkmic.server.network.packet.PacketHandler;
 import me.towo.sculkmic.server.userpreferences.ServerSculkMicConfig;
@@ -36,12 +37,7 @@ public class SculkMicMod
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(PacketHandler::init);
-        VoiceChatCompatibility.present = ModList.get().isLoaded("voicechat");
-        if (VoiceChatCompatibility.present) {
-            LOGGER.info("Found Simple Voice Chat mod!");
-            SculkMicConfig.editIfEnabled(false);
-            SculkMicConfig.editIfInfoOnScreen(false);
-        }
+        new CompatibilityRegister().registerAll();
 
     }
 }

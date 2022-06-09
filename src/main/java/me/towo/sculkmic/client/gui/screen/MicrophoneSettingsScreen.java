@@ -2,7 +2,7 @@ package me.towo.sculkmic.client.gui.screen;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.towo.sculkmic.client.userpreferences.ModOption;
-import me.towo.sculkmic.common.compatibility.VoiceChatCompatibility;
+import me.towo.sculkmic.common.compatibility.Dependencies;
 import me.towo.sculkmic.common.utils.ModColors;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.components.Button;
@@ -17,7 +17,6 @@ import net.minecraft.util.FormattedCharSequence;
 import java.util.List;
 
 public class MicrophoneSettingsScreen extends OptionsSubScreen {
-    //private static final OptionsList OPTIONS = new OptionsList(){ ModOption.ENABLE_MIC_LISTENING, ModOption.MICROPHONE_SENSITIVITY, ModOption.SHOW_ON_SCREEN_INFO, ModOption.SCULK_THRESHOLD};
     private static final OptionInstance<?>[] OPTIONS = new OptionInstance[] {
             ModOption.ENABLE_MIC_LISTENING,
             ModOption.SENSITIVITY,
@@ -49,7 +48,7 @@ public class MicrophoneSettingsScreen extends OptionsSubScreen {
             this.minecraft.setScreen(this.lastScreen);
         }));
 
-        if (VoiceChatCompatibility.present) {
+        if (Dependencies.SIMPLE_VOICE_CHAT.isPresent()) {
             for (OptionInstance o : OPTIONS) {
                 list.findOption(o).active = false;
             }
@@ -66,7 +65,7 @@ public class MicrophoneSettingsScreen extends OptionsSubScreen {
             this.renderTooltip(p_96813_, list, p_96814_, p_96815_);
         }
 
-        if (VoiceChatCompatibility.present) {
+        if (Dependencies.SIMPLE_VOICE_CHAT.isPresent()) {
             for (int i = 1; i <= 5; i++) {
                 Minecraft.getInstance().font.draw(p_96813_, Component.translatable("options.mic.info.voicechat." + i),
                         Minecraft.getInstance().screen.width /32, (Minecraft.getInstance().screen.height /2) + (i * 10) + 20, ModColors.REGULAR);
