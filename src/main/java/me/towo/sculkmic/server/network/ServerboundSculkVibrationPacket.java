@@ -1,8 +1,10 @@
 package me.towo.sculkmic.server.network;
 
+import me.towo.sculkmic.SculkMicMod;
 import me.towo.sculkmic.server.blockentity.SculkVibration;
 import me.towo.sculkmic.server.userpreferences.ServerSculkMicConfig;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -25,10 +27,11 @@ public class ServerboundSculkVibrationPacket {
 
     public boolean handle(Supplier<NetworkEvent.Context> ctx) {
         final var success = new AtomicBoolean(false);
-        SculkVibration vibration = new SculkVibration(ctx.get().getSender(), ServerSculkMicConfig.SCULK_VIBRATION_DISTANCE.get());
-
+        SculkVibration vibration = new SculkVibration(ctx.get().getSender(), ServerSculkMicConfig.SCULK_VIBRATION_DISTANCE.get(), comparatorOutput);
+        MinecraftForge.EVENT_BUS.register(vibration);
         ctx.get().enqueueWork(() -> {
-            vibration.generate(comparatorOutput);
+            vibration.generateForSculkBlock();
+            vibration.generateForWarden();
         });
 
         ctx.get().setPacketHandled(true);
