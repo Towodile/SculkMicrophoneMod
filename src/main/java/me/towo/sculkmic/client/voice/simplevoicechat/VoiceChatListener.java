@@ -1,4 +1,4 @@
-package me.towo.sculkmic.client.compatibility.simplevoicechat;
+package me.towo.sculkmic.client.voice.simplevoicechat;
 
 
 import de.maxhenkel.voicechat.api.ForgeVoicechatPlugin;

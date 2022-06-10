@@ -16,11 +16,9 @@ import net.minecraft.world.level.gameevent.EntityPositionSource;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.vibrations.VibrationListener;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class SculkVibration {
@@ -29,9 +27,10 @@ public class SculkVibration {
     private final int distance;
     private final int comparatorSignal;
     private final DynamicGameEventListener<VibrationListener>[] dynamicListeners;
+    private int ticksSinceLastSpawn;
 
     /**
-     * A vibration made by a player that will travel to any nearby {@link net.minecraft.world.level.gameevent.vibrations.VibrationListener}.
+     * A vibration made by a player that will travel to any nearby {@link net.minecraft.world.level.gameevent.vibrations.VibrationListener}. This class might generate more than one vibration; it spawns vibrations for every nearby listener.
      * @param source The player from where the vibration originates.
      * @param maxListenerDistance The distance the vibration will travel; any sculk listener within this range will activate.
      * @param comparatorSignal The signal (between 1 and 15) a redstone comparator linked to a sculk sensor block will output on receiving this vibration.
@@ -65,7 +64,7 @@ public class SculkVibration {
     public void generateForWarden() {
             for (DynamicGameEventListener<VibrationListener> dynamicListener : dynamicListeners) {
                 GameEvent event = GameEvent.BLOCK_PLACE; // default game event that will get heard by the warden
-                ServerLevel level = source.level.getServer().overworld(); // world
+                ServerLevel level = source.level.getServer().getLevel(source.level.dimension()); // gets correct world
                 VibrationListener listener = dynamicListener.getListener(); // gets the vibrationlistener of all wardens
                 GameEvent.Message message = new GameEvent.Message(event, source.position(),
                         new GameEvent.Context(source, Blocks.STONE.defaultBlockState()), listener,
@@ -89,7 +88,7 @@ public class SculkVibration {
                     new GameEvent.Context(source, null), listener,
                     listener.getListenerSource().getPosition(source.level).get());
 
-            listener.handleGameEvent(source.level.getServer().overworld(), message); // handles the game event a.k.a. spawns a vibration for the listener
+            listener.handleGameEvent(source.level.getServer().getLevel(source.level.dimension()), message); // handles the game event a.k.a. spawns a vibration for the listener
         }
     }
 
@@ -101,7 +100,6 @@ public class SculkVibration {
     public void tick(TickEvent.ServerTickEvent e) {
         for (DynamicGameEventListener<VibrationListener> listener : dynamicListeners) {
             listener.getListener().tick(source.level);
-            System.out.println("Still registered.");
         }
     }
 
@@ -117,13 +115,5 @@ public class SculkVibration {
             }
         }
         return null;
-    }
-
-
-    /**
-     * @todo call this on vibration's arrival.
-     */
-    private void unregister() {
-        MinecraftForge.EVENT_BUS.unregister(this);
     }
 }
