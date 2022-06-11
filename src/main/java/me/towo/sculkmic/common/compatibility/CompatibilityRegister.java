@@ -1,5 +1,6 @@
 package me.towo.sculkmic.common.compatibility;
 
+import me.towo.sculkmic.SculkMicMod;
 import net.minecraftforge.fml.ModList;
 
 public class CompatibilityRegister {
@@ -7,9 +8,10 @@ public class CompatibilityRegister {
             Dependencies.SIMPLE_VOICE_CHAT
     };
 
-    public void registerAll() {
+    public void findAll() {
         for (ModDependency mod : dependencies) {
             if (ModList.get().isLoaded(mod.modid)){
+                SculkMicMod.LOGGER.info("Mod matching id {} succesfully located." + mod.modid);
                 mod.setPresent(true);
                 mod.onFind();
             }

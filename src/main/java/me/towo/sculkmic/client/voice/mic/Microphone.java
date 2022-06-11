@@ -1,4 +1,4 @@
-package me.towo.sculkmic.client.mic;
+package me.towo.sculkmic.client.voice.mic;
 
 import javax.sound.sampled.*;
 
@@ -65,7 +65,7 @@ public class Microphone extends Thread{
         }
 
 
-        byte tempBuffer[] = new byte[6000]; // Data buffer for raw audio
+        byte[] tempBuffer = new byte[6000]; // Data buffer for raw audio
         try {
             // Continually read in mic data into buffer and calculate RMS
             while (run) {
@@ -81,8 +81,9 @@ public class Microphone extends Thread{
         }
     }
 
-    // below code by Dan Foad
-    // https://danfoad.co.uk/blog/volume-meter-for-microphone-input-volume/
+    /**
+     * @author <a href="https://danfoad.co.uk/blog/volume-meter-for-microphone-input-volume/">Dan Foad</a>
+     */
     private static int calculateRMSLevel(byte[] audioData) {
         long lSum = 0;
         for(int i = 0; i < audioData.length; i++)

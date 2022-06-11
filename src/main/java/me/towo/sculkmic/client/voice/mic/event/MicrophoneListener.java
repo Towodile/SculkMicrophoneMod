@@ -1,46 +1,42 @@
-package me.towo.sculkmic.client.mic.event;
+package me.towo.sculkmic.client.voice.mic.event;
 
 import me.towo.sculkmic.SculkMicMod;
-import me.towo.sculkmic.common.compatibility.Dependencies;
-import me.towo.sculkmic.client.mic.MicrophoneHandler;
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
+import me.towo.sculkmic.client.voice.VibrationPacketSender;
+import me.towo.sculkmic.client.voice.mic.MicrophoneHandler;
+import me.towo.sculkmic.common.compatibility.Dependencies;
+import me.towo.sculkmic.common.event.GlobalEventHandler;
 import me.towo.sculkmic.common.utils.Chat;
-import me.towo.sculkmic.server.network.ServerboundSculkVibrationPacket;
-import me.towo.sculkmic.server.network.packet.PacketHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = SculkMicMod.ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
-public class MicListener {
+public class MicrophoneListener extends VibrationPacketSender {
 
     // to-do improve microphone and volume calculations -> use DB
     private final static MicrophoneHandler handler = new MicrophoneHandler();
-    private static int timeout = 0;
 
-    @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent e) {
+    public MicrophoneListener(int timeBetweenPacketsInTicks) {
+        super(timeBetweenPacketsInTicks);
+    }
+
+    @Override
+    protected void tick(TickEvent.ClientTickEvent e) {
         checkMicrophone();
+        super.tick(e);
 
-        if (Minecraft.getInstance().level == null)
-            return;
-
-        if (!SculkMicConfig.ENABLED.get() || !handler.isRunning())
-            return;
-
-        int noiseLevel = handler.getCurrentVolumeLevel();
         int threshold = SculkMicConfig.THRESHOLD.get();
-        boolean playerIsLoud = noiseLevel > threshold;
+        boolean playerIsLoud = getVolume() > threshold;
 
-        if (playerIsLoud && timeout == 0) {
-            timeout = 80;
-            PacketHandler.INSTANCE.sendToServer(new ServerboundSculkVibrationPacket(noiseLevel));
+        if (playerIsLoud) {
+            schedulePacket();
         }
-        if (timeout > 0)
-            timeout--;
+    }
+
+    @Override
+    protected int getVolume() {
+        return handler.getCurrentVolumeLevel();
     }
 
     // to-do make some chat messages translatable
@@ -80,6 +76,10 @@ public class MicListener {
                 SculkMicConfig.editIfEnabled(false);
             }
         }
+    }
+
+    public void kill() {
+        MinecraftForge.EVENT_BUS.unregister(this);
     }
 
 }

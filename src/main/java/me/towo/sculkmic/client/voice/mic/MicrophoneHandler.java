@@ -1,4 +1,4 @@
-package me.towo.sculkmic.client.mic;
+package me.towo.sculkmic.client.voice.mic;
 
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
 import me.towo.sculkmic.common.compatibility.Dependencies;

@@ -2,7 +2,7 @@ package me.towo.sculkmic.client.gui;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.towo.sculkmic.SculkMicMod;
-import me.towo.sculkmic.client.mic.MicrophoneHandler;
+import me.towo.sculkmic.client.voice.mic.MicrophoneHandler;
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
 import me.towo.sculkmic.common.utils.ModColors;
 import net.minecraft.client.Minecraft;

@@ -7,13 +7,16 @@ import de.maxhenkel.voicechat.api.VoicechatPlugin;
 import de.maxhenkel.voicechat.api.events.ClientSoundEvent;
 import de.maxhenkel.voicechat.api.events.EventRegistration;
 import me.towo.sculkmic.SculkMicMod;
-import me.towo.sculkmic.server.network.ServerboundSculkVibrationPacket;
-import me.towo.sculkmic.server.network.packet.PacketHandler;
+import net.minecraftforge.common.MinecraftForge;
 
 @ForgeVoicechatPlugin
 public class VoiceChatListener implements VoicechatPlugin {
-    public VoiceChatListener(){}
-    private static int timeout = 0;
+
+    public final VoiceChatPacketSender sender;
+    public VoiceChatListener (){
+        sender = new VoiceChatPacketSender(40);
+        MinecraftForge.EVENT_BUS.register(sender);
+    }
 
     @Override
     public String getPluginId() {
@@ -28,11 +31,9 @@ public class VoiceChatListener implements VoicechatPlugin {
     @Override
     public void registerEvents(EventRegistration registration) {
         registration.registerEvent(ClientSoundEvent.class, this::onClientSound);
-        SculkMicMod.LOGGER.info("ClientSoundEvent registered.");
     }
 
     public void onClientSound(ClientSoundEvent e) {
-
-        PacketHandler.INSTANCE.sendToServer(new ServerboundSculkVibrationPacket(15));
+        sender.schedulePacket();
     }
 }

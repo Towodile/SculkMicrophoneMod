@@ -27,6 +27,7 @@ public class SculkMicMod
 
         bus.addListener(this::commonSetup);
 
+
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SculkMicConfig.SPEC, "sculkmicmod-client.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerSculkMicConfig.SPEC, "sculkmicmod-server.toml");
 
@@ -35,7 +36,6 @@ public class SculkMicMod
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(PacketHandler::init);
-        new CompatibilityRegister().registerAll();
-
+        new CompatibilityRegister().findAll();
     }
 }

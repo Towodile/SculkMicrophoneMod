@@ -4,6 +4,8 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import me.towo.sculkmic.SculkMicMod;
 import me.towo.sculkmic.common.utils.BlockEntityFinder;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.GameEventTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
@@ -23,11 +25,11 @@ import java.util.List;
 
 public class SculkVibration {
 
+    private static final GameEvent DEFAULT_EVENT = GameEvent.BLOCK_PLACE;
     private final Player source;
     private final int distance;
-    private final int comparatorSignal;
+    private int comparatorSignal;
     private final DynamicGameEventListener<VibrationListener>[] dynamicListeners;
-    private int ticksSinceLastSpawn;
 
     /**
      * A vibration made by a player that will travel to any nearby {@link net.minecraft.world.level.gameevent.vibrations.VibrationListener}. This class might generate more than one vibration; it spawns vibrations for every nearby listener.
@@ -43,10 +45,10 @@ public class SculkVibration {
 
         if (comparatorSignal > 15) {
             SculkMicMod.LOGGER.warn("A comparator signal of more than 15 is not valid! Given is {}, but outputting 15.", comparatorSignal);
-            comparatorSignal = 15;
+            this.comparatorSignal = 15;
         } else if (comparatorSignal < 1) {
             SculkMicMod.LOGGER.warn("A comparator signal of less than 1 is not valid! Given is {}, but outputting 1.", comparatorSignal);
-            comparatorSignal = 1;
+            this.comparatorSignal = 1;
         }
 
         AABB aabb = new AABB(source.blockPosition().offset(-distance, -distance, -distance),  source.blockPosition().offset(distance, distance, distance));
@@ -63,10 +65,10 @@ public class SculkVibration {
      * */
     public void generateForWarden() {
             for (DynamicGameEventListener<VibrationListener> dynamicListener : dynamicListeners) {
-                GameEvent event = GameEvent.BLOCK_PLACE; // default game event that will get heard by the warden
+                GameEvent event = DEFAULT_EVENT; // default game event that will get heard by the warden
                 ServerLevel level = source.level.getServer().getLevel(source.level.dimension()); // gets correct world
                 VibrationListener listener = dynamicListener.getListener(); // gets the vibrationlistener of all wardens
-                GameEvent.Message message = new GameEvent.Message(event, source.position(),
+                GameEvent.Message message = new GameEvent.Message(event, source.position().add(0, 1, 0),
                         new GameEvent.Context(source, Blocks.STONE.defaultBlockState()), listener,
                         listener.getListenerSource().getPosition(source.level).get()); // creates a message for the event that supposedly took place
                 listener.handleGameEvent(level, message); // sends signal
@@ -78,13 +80,13 @@ public class SculkVibration {
      * This method tries to generate a sculk vibration to any sculk sensor blocks that's within the given distance.
      * */
     public void generateForSculkBlock() {
-        GameEvent event = getEventForSignal(comparatorSignal); // retrieves a game event matching the given comparator output.
+        GameEvent event = getEventForSignal(comparatorSignal, new TagKey[]{GameEventTags.IGNORE_VIBRATIONS_SNEAKING}); // retrieves a game event
         BlockEntityFinder<SculkSensorBlockEntity> finder =
                 new BlockEntityFinder<>(SculkSensorBlockEntity.class, distance, source.blockPosition().offset(0, 1, 0), source.level);
 
         for (SculkSensorBlockEntity sculk : finder.find()) { // finds all sculk within distance
             VibrationListener listener = sculk.getListener();
-            GameEvent.Message message = new GameEvent.Message(event, source.position(),
+            GameEvent.Message message = new GameEvent.Message(event, source.position().add(0, 1, 0),
                     new GameEvent.Context(source, null), listener,
                     listener.getListenerSource().getPosition(source.level).get());
 
@@ -105,15 +107,49 @@ public class SculkVibration {
 
     /**
      * @return A {@link net.minecraft.world.level.gameevent.GameEvent} matching the given comparator signal based on {@link net.minecraft.world.level.block.SculkSensorBlock#VIBRATION_FREQUENCY_FOR_EVENT}.
-     * */
-    private GameEvent getEventForSignal(int comparatorSignal) {
+     * @param comparatorSignal the redstone signal a comparator linked to a sculk sensor block will output on it receiving this event
+     * @param excludedTags An array of {@link TagKey<GameEvent>}. Any event that has any of these tags will not get returned. <br><br>
+     * <i>For example:<br>Giving an array containing {@link GameEventTags#IGNORE_VIBRATIONS_SNEAKING} will refuse to return any GameEvent that spawns a vibration that gets prevented by sneaking.<i/>
+     * @todo Look into creating a custom GameEvent that dynamically has its signal changed.
+     **/
+    private static GameEvent getEventForSignal(int comparatorSignal, TagKey<GameEvent>[] excludedTags) {
         Object2IntMap<GameEvent> vibrationMap = SculkSensorBlock.VIBRATION_FREQUENCY_FOR_EVENT;
 
         for (Object2IntMap.Entry<GameEvent> entry : vibrationMap.object2IntEntrySet()) {
             if (entry.getIntValue() == comparatorSignal) {
-                return entry.getKey();
+                GameEvent result = entry.getKey();
+                boolean valid = true;
+                for (TagKey<GameEvent> tag : excludedTags) {
+                    valid = !result.is(tag);
+                    if (!valid) {
+                        break;
+                    }
+                }
+
+                if (valid) {
+                    return entry.getKey();
+                }
             }
         }
-        return null;
+        SculkMicMod.LOGGER.warn("Failed to find GameEvent for given comparator signal " + comparatorSignal + "! Returning default event " + DEFAULT_EVENT.getName());
+        return DEFAULT_EVENT;
+    }
+
+
+    /**
+     * @return A {@link net.minecraft.world.level.gameevent.GameEvent} matching the given comparator signal based on {@link net.minecraft.world.level.block.SculkSensorBlock#VIBRATION_FREQUENCY_FOR_EVENT}.
+     * @param comparatorSignal the redstone signal a comparator linked to a sculk sensor block will output on it receiving this event
+     **/
+    private static GameEvent getEventForSignal(int comparatorSignal) {
+        Object2IntMap<GameEvent> vibrationMap = SculkSensorBlock.VIBRATION_FREQUENCY_FOR_EVENT;
+
+        for (Object2IntMap.Entry<GameEvent> entry : vibrationMap.object2IntEntrySet()) {
+            if (entry.getIntValue() == comparatorSignal) {
+                GameEvent result = entry.getKey();
+                return result;
+            }
+        }
+        SculkMicMod.LOGGER.warn("Failed to find GameEvent for given comparator signal " + comparatorSignal + "! Returning default event " + DEFAULT_EVENT.getName());
+        return DEFAULT_EVENT;
     }
 }
