@@ -11,7 +11,7 @@ public class CompatibilityRegister {
     public void findAll() {
         for (ModDependency mod : dependencies) {
             if (ModList.get().isLoaded(mod.modid)){
-                SculkMicMod.LOGGER.info("Mod matching id {} succesfully located." + mod.modid);
+                SculkMicMod.LOGGER.info("Mod matching id {} succesfully located.", mod.modid);
                 mod.setPresent(true);
                 mod.onFind();
             }

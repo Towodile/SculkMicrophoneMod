@@ -2,7 +2,7 @@ package me.towo.sculkmic.common.compatibility;
 
 import me.towo.sculkmic.SculkMicMod;
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
-import me.towo.sculkmic.common.event.GlobalEventHandler;
+import me.towo.sculkmic.common.init.GlobalEventHandler;
 import net.minecraftforge.common.MinecraftForge;
 
 

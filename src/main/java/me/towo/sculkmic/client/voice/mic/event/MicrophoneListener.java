@@ -5,7 +5,6 @@ import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
 import me.towo.sculkmic.client.voice.VibrationPacketSender;
 import me.towo.sculkmic.client.voice.mic.MicrophoneHandler;
 import me.towo.sculkmic.common.compatibility.Dependencies;
-import me.towo.sculkmic.common.event.GlobalEventHandler;
 import me.towo.sculkmic.common.utils.Chat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;

@@ -2,6 +2,7 @@ package me.towo.sculkmic.server.blockentity;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import me.towo.sculkmic.SculkMicMod;
+import me.towo.sculkmic.common.init.ModGameEvent;
 import me.towo.sculkmic.common.utils.BlockEntityFinder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.GameEventTags;
@@ -20,11 +21,13 @@ import net.minecraft.world.level.gameevent.vibrations.VibrationListener;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import org.apache.http.annotation.Obsolete;
 
 import java.util.List;
 
 public class SculkVibration {
 
+    @Obsolete
     private static final GameEvent DEFAULT_EVENT = GameEvent.BLOCK_PLACE;
     private final Player source;
     private final int distance;
@@ -65,7 +68,7 @@ public class SculkVibration {
      * */
     public void generateForWarden() {
             for (DynamicGameEventListener<VibrationListener> dynamicListener : dynamicListeners) {
-                GameEvent event = DEFAULT_EVENT; // default game event that will get heard by the warden
+                GameEvent event = ModGameEvent.TALK; // default game event that will get heard by the warden
                 ServerLevel level = source.level.getServer().getLevel(source.level.dimension()); // gets correct world
                 VibrationListener listener = dynamicListener.getListener(); // gets the vibrationlistener of all wardens
                 GameEvent.Message message = new GameEvent.Message(event, source.position().add(0, 1, 0),
@@ -80,7 +83,7 @@ public class SculkVibration {
      * This method tries to generate a sculk vibration to any sculk sensor blocks that's within the given distance.
      * */
     public void generateForSculkBlock() {
-        GameEvent event = getEventForSignal(comparatorSignal, new TagKey[]{GameEventTags.IGNORE_VIBRATIONS_SNEAKING}); // retrieves a game event
+        GameEvent event = ModGameEvent.TALK;
         BlockEntityFinder<SculkSensorBlockEntity> finder =
                 new BlockEntityFinder<>(SculkSensorBlockEntity.class, distance, source.blockPosition().offset(0, 1, 0), source.level);
 
@@ -105,6 +108,8 @@ public class SculkVibration {
         }
     }
 
+
+    @Obsolete
     /**
      * @return A {@link net.minecraft.world.level.gameevent.GameEvent} matching the given comparator signal based on {@link net.minecraft.world.level.block.SculkSensorBlock#VIBRATION_FREQUENCY_FOR_EVENT}.
      * @param comparatorSignal the redstone signal a comparator linked to a sculk sensor block will output on it receiving this event
@@ -136,6 +141,7 @@ public class SculkVibration {
     }
 
 
+    @Obsolete
     /**
      * @return A {@link net.minecraft.world.level.gameevent.GameEvent} matching the given comparator signal based on {@link net.minecraft.world.level.block.SculkSensorBlock#VIBRATION_FREQUENCY_FOR_EVENT}.
      * @param comparatorSignal the redstone signal a comparator linked to a sculk sensor block will output on it receiving this event

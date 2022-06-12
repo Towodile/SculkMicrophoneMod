@@ -1,4 +1,4 @@
-package me.towo.sculkmic.common.event;
+package me.towo.sculkmic.common.init;
 
 import me.towo.sculkmic.client.voice.mic.event.MicrophoneListener;
 import me.towo.sculkmic.client.voice.simplevoicechat.VoiceChatListener;
