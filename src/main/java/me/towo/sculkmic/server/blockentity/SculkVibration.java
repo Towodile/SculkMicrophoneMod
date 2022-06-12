@@ -47,10 +47,8 @@ public class SculkVibration {
         this.comparatorSignal = comparatorSignal;
 
         if (comparatorSignal > 15) {
-            SculkMicMod.LOGGER.warn("A comparator signal of more than 15 is not valid! Given is {}, but outputting 15.", comparatorSignal);
             this.comparatorSignal = 15;
         } else if (comparatorSignal < 1) {
-            SculkMicMod.LOGGER.warn("A comparator signal of less than 1 is not valid! Given is {}, but outputting 1.", comparatorSignal);
             this.comparatorSignal = 1;
         }
 
@@ -93,6 +91,7 @@ public class SculkVibration {
                     new GameEvent.Context(source, null), listener,
                     listener.getListenerSource().getPosition(source.level).get());
 
+            ModVibrationFrequencies.setTalkFrequency(comparatorSignal);
             listener.handleGameEvent(source.level.getServer().getLevel(source.level.dimension()), message); // handles the game event a.k.a. spawns a vibration for the listener
         }
     }

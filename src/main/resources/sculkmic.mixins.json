@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "me.towo.sculkmic.common.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "sculkmic.refmap.json",
+  "mixins": [
+    "MixinSculkSensorBlock"
+  ],
+  "client": [
+  ],
+  "minVersion": "0.8"
+}

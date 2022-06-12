@@ -1,11 +1,10 @@
 package me.towo.sculkmic.common.init;
 
 import me.towo.sculkmic.SculkMicMod;
+import me.towo.sculkmic.server.blockentity.ModVibrationFrequencies;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.GameEventTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 public class ModGameEvent {
@@ -18,6 +17,8 @@ public class ModGameEvent {
         SculkMicMod.LOGGER.info("Registering custom GameEvents");
 
         TALK = registerGameEvent(TALK_KEY.location().getNamespace() + ":" + TALK_KEY.location().getPath());
+
+        new ModVibrationFrequencies().setTalkFrequency(15);
     }
 
     private static GameEvent registerGameEvent(String p_157823_) {
