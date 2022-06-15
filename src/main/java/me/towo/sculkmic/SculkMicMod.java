@@ -3,6 +3,7 @@ package me.towo.sculkmic;
 
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
 import me.towo.sculkmic.common.compatibility.CompatibilityRegister;
+import me.towo.sculkmic.common.init.GlobalEventHandler;
 import me.towo.sculkmic.common.init.ModGameEvent;
 import me.towo.sculkmic.server.network.packet.PacketHandler;
 import me.towo.sculkmic.server.userpreferences.ServerSculkMicConfig;
@@ -29,10 +30,11 @@ public class SculkMicMod
         bus.addListener(this::commonSetup);
 
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SculkMicConfig.SPEC, "sculkmicmod-client.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SculkMicConfig.SPEC, SculkMicConfig.FILE_NAME);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerSculkMicConfig.SPEC, "sculkmicmod-server.toml");
 
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(GlobalEventHandler.MICROPHONE_LISTENER);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

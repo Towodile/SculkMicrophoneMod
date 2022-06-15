@@ -1,6 +1,9 @@
 package me.towo.sculkmic.common.utils;
 
 public class ModMath {
+    public static double factor(double min, double max, double current){
+        return (current - min) / (max - min);
+    }
     public static int getNearestInteger(int number, int[] array) {
         int distance = java.lang.Math.abs(array[0] - number);
         int index = 0;

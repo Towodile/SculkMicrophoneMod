@@ -44,15 +44,14 @@ public abstract class VibrationPacketSender {
         passedTicks++;
     }
 
-    protected abstract int getVolume();
+    protected abstract int getFrequency();
 
     /**
      * This method is called everytime {@link #passedTicks} reaches the {@link #timeout} limit while {@link #canSendPacket} is true.
      */
     private void sendPacket() {
         // to-do : calculate comparator strength based on getVolume() instead of it being a linear comparison
-        PacketHandler.INSTANCE.sendToServer(new ServerboundSculkVibrationPacket(getVolume()));
-        System.out.println("Send Vibration packet.");
+        PacketHandler.INSTANCE.sendToServer(new ServerboundSculkVibrationPacket((getFrequency())));
     }
 
     /**

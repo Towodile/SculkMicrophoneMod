@@ -1,7 +1,7 @@
 package me.towo.sculkmic.common.init;
 
 import me.towo.sculkmic.SculkMicMod;
-import me.towo.sculkmic.server.blockentity.ModVibrationFrequencies;
+import me.towo.sculkmic.server.vibration.ModVibrationFrequencies;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;

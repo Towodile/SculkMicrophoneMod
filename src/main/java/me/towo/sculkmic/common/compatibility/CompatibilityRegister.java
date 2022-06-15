@@ -5,7 +5,6 @@ import net.minecraftforge.fml.ModList;
 
 public class CompatibilityRegister {
     private final ModDependency[] dependencies = new ModDependency[]{
-            Dependencies.SIMPLE_VOICE_CHAT
     };
 
     public void findAll() {

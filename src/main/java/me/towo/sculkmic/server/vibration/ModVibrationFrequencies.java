@@ -1,4 +1,4 @@
-package me.towo.sculkmic.server.blockentity;
+package me.towo.sculkmic.server.vibration;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMaps;
