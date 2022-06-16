@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
 public class ServerboundSculkVibrationPacket {
-    private final int comparatorOutput;
+    private int comparatorOutput;
 
     public ServerboundSculkVibrationPacket(int comparatorStrength) {
         this.comparatorOutput = comparatorStrength;
@@ -26,6 +26,10 @@ public class ServerboundSculkVibrationPacket {
 
     public boolean handle(Supplier<NetworkEvent.Context> ctx) {
         final var success = new AtomicBoolean(false);
+        if (!ServerSculkMicConfig.DO_DYNAMIC_REDSTONE.get()) {
+            comparatorOutput = ServerSculkMicConfig.DEFAULT_COMPARATOR_STRENGTH.get();
+        }
+
         SculkVibration vibration = new SculkVibration(ctx.get().getSender(), ServerSculkMicConfig.SCULK_VIBRATION_DISTANCE.get(), comparatorOutput);
         MinecraftForge.EVENT_BUS.register(vibration);
         ctx.get().enqueueWork(() -> {

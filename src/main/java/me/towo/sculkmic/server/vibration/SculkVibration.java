@@ -4,6 +4,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import me.towo.sculkmic.SculkMicMod;
 import me.towo.sculkmic.common.init.ModGameEvent;
 import me.towo.sculkmic.common.utils.BlockEntityFinder;
+import me.towo.sculkmic.server.userpreferences.ServerSculkMicConfig;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.GameEventTags;
 import net.minecraft.tags.TagKey;
