@@ -1,7 +1,8 @@
 
 
 # Sculk Microphone
-A Minecraft Forge mod by Towo.
+A Minecraft Forge mod by Towo. <br>
+*Best experienced with low sensitivity microphones.*
 
 ## Downloads
 [CurseForge](https://www.curseforge.com/minecraft/mc-mods/sculk-microphone/files/all) 
@@ -23,29 +24,24 @@ A Minecraft Forge mod by Towo.
 - Configurable with commands.
 	
 ![Example using Simple Voice Chat to indicate talking](https://i.giphy.com/media/t9tWlZaPS6yJKNoUao/giphy.webp)
-<br>
+![Example using Simple Voice Chat to indicate talking](https://i.giphy.com/media/ghaaaska1fdGEwVheC/giphy.webp)
+<br> Above GIFs use the Simple Voice Chat mod to indicate the player is talking.
 
 ## How it works
-Simply run the mod, and talk into your microphone! Any nearby sculk sensor should activate. If not, try editing your settings.
+Simply run the mod, and talk into your microphone! Any nearby sculk sensor/warden should activate. If not, try editing your settings.
 
 ### Settings
-The default settings aren't necessarily the best settings for every microphone, so feel free to change some in 'Options -> Microphone Settings...'
-#### Microphone
-This options simply allows you to disable the microphone whenever you wish.
-#### Sculk Sensor Threshold
-This value will determine at what volume level a sculk sensor will activate / a Warden will hear you.
+- **Microphone** <br>This options simply allows you to disable the microphone whenever you wish.
+- **Sculk Sensor Threshold** <br>This value will determine at what volume level a sculk sensor will activate / a Warden will hear you.
+
+*After editing your settings, be sure to hit 'Apply' or 'Done' to apply your changes!*
 
 ### Commands
 Somethings are only configurable with commands. These are often things that affect all players in a server.
 #### /sculkmicrophone set ...
-##### distance
-Typing `/sculkmicrophone set distance [value]` will set the maximum distance at which a player will have to be to voice-activate a sculk sensor.
-
-##### doDynamicRedstone
-Typing `/sculkmicrophone set doDynamicRedstone [true|false]` will enable or disable whether a redstone comparator should output a signal depending on the volume of an incoming (microphone) vibration.
-
-##### defaultRedstoneSignal
-Typing `/sculkmicrophone set defaultRedstoneSignal [value]` will set the value a comparator outputs if it will not dynamically do so.
+- `/sculkmicrophone set distance [value]` will set the maximum distance at which a player will have to be to voice-activate a vibration listener.
+- `/sculkmicrophone set doDynamicRedstone [true|false]` will enable or disable whether a redstone comparator should output a signal depending on the volume of an incoming (microphone) vibration.
+- `/sculkmicrophone set defaultRedstoneSignal [value]` will set the value a comparator outputs if it will not dynamically do so.
 
 
 *This mod is still in development. There'll be more features and changes to come. Any feedback is appreciated! I hope you enjoy.*
