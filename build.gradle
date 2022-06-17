@@ -18,7 +18,7 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.spongepowered.mixin'
 
-version = '1.0.0-alpha.1'
+version = '1.0.0-alpha.2'
 group = 'me.towo.sculkmic' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'sculkmic'
 
@@ -131,7 +131,7 @@ jar {
         attributes([
                 "Specification-Title"     : "sculkmic",
                 "Specification-Vendor"    : "Towo",
-                "Specification-Version"   : "1.0.0-alpha.1",
+                "Specification-Version"   : "1.0.0-alpha.2",
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : "Towo",

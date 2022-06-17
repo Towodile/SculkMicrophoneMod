@@ -4,13 +4,12 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import me.towo.sculkmic.SculkMicMod;
 import me.towo.sculkmic.common.init.ModGameEvent;
 import me.towo.sculkmic.common.utils.BlockEntityFinder;
-import me.towo.sculkmic.server.userpreferences.ServerSculkMicConfig;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.GameEventTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.warden.Warden;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SculkSensorBlock;
@@ -30,7 +29,7 @@ public class SculkVibration {
 
     @Obsolete
     private static final GameEvent DEFAULT_EVENT = GameEvent.BLOCK_PLACE;
-    private final Player source;
+    private final ServerPlayer source;
     private final int distance;
     private int comparatorSignal;
     private final DynamicGameEventListener<VibrationListener>[] dynamicListeners;
@@ -41,7 +40,7 @@ public class SculkVibration {
      * @param maxListenerDistance The distance the vibration will travel; any sculk listener within this range will activate.
      * @param comparatorSignal The signal (between 1 and 15) a redstone comparator linked to a sculk sensor block will output on receiving this vibration.
      */
-    public SculkVibration(Player source, int maxListenerDistance, int comparatorSignal) {
+    public SculkVibration(ServerPlayer source, int maxListenerDistance, int comparatorSignal) {
 
         this.source = source;
         this.distance = maxListenerDistance;

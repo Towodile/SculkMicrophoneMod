@@ -32,21 +32,21 @@ public class SetCommands {
 
     private int setDistance(CommandSourceStack source, int distance) throws CommandSyntaxException {
         ServerSculkMicConfig.SCULK_VIBRATION_DISTANCE.set(distance);
-        Component msg = Component.literal(Component.translatable("commands.sculkmic.set.distance").getString() + distance);
+        Component msg = Component.literal("Max vibration distance succesfully set to " + distance);
         source.sendSuccess(msg, true);
         return 1;
     }
 
     private int setDefaultRedstoneStrength(CommandSourceStack source, int strength) throws CommandSyntaxException {
         ServerSculkMicConfig.DEFAULT_COMPARATOR_STRENGTH.set(strength);
-        Component msg = Component.literal(Component.translatable("commands.sculkmic.set.comparator").getString() + strength);
+        Component msg = Component.literal("Default comparator output successfully set to" + strength);
         source.sendSuccess(msg, true);
         return 1;
     }
 
     private int setDynamicRedstone(CommandSourceStack source, boolean value) throws CommandSyntaxException {
         ServerSculkMicConfig.DO_DYNAMIC_REDSTONE.set(value);
-        Component msg = Component.literal(Component.translatable("commands.sculkmic.set.comparator").getString() + value);
+        Component msg = Component.literal("Dynamic redstone comparator output successfully set to " + value);
         source.sendSuccess(msg, true);
         return 1;
     }

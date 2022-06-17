@@ -15,9 +15,5 @@
 
   "microphone.info.opened": "Microphone has been activated.",
   "microphone.info.closed": "Microphone has been closed.",
-  "microphone.error.unavailable": "§4ERROR: §cMicrophone is unavailable.",
-
-  "commands.sculkmic.set.distance": "Max vibration distance succesfully set to ",
-  "commands.sculkmic.set.comparator": "Default comparator output succesfully set to ",
-  "commands.sculkmic.set.dynamic": "Dynamic redstone comparator output succesfully set to "
+  "microphone.error.unavailable": "§4ERROR: §cMicrophone is unavailable."
 }
