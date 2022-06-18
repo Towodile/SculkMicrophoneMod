@@ -107,7 +107,6 @@ public class MicrophoneSettingsScreen extends OptionsSubScreen {
         }
     }
 
-    // UNFINISHED
     private void drawMeter(OptionInstance<?> option, PoseStack pose, int height) {
         AbstractWidget widget = list.findOption(option);
         assert widget != null;

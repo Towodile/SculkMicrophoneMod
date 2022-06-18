@@ -1,18 +1,13 @@
 package me.towo.sculkmic.server.vibration;
 
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import me.towo.sculkmic.SculkMicMod;
 import me.towo.sculkmic.common.init.ModGameEvent;
 import me.towo.sculkmic.common.utils.BlockEntityFinder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.GameEventTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SculkSensorBlock;
 import net.minecraft.world.level.block.entity.SculkSensorBlockEntity;
 import net.minecraft.world.level.gameevent.DynamicGameEventListener;
 import net.minecraft.world.level.gameevent.EntityPositionSource;
@@ -26,9 +21,6 @@ import org.apache.http.annotation.Obsolete;
 import java.util.List;
 
 public class SculkVibration {
-
-    @Obsolete
-    private static final GameEvent DEFAULT_EVENT = GameEvent.BLOCK_PLACE;
     private final ServerPlayer source;
     private final int distance;
     private int comparatorSignal;
@@ -105,56 +97,5 @@ public class SculkVibration {
         for (DynamicGameEventListener<VibrationListener> listener : dynamicListeners) {
             listener.getListener().tick(source.level);
         }
-    }
-
-
-    @Obsolete
-    /**
-     * @return A {@link net.minecraft.world.level.gameevent.GameEvent} matching the given comparator signal based on {@link net.minecraft.world.level.block.SculkSensorBlock#VIBRATION_FREQUENCY_FOR_EVENT}.
-     * @param comparatorSignal the redstone signal a comparator linked to a sculk sensor block will output on it receiving this event
-     * @param excludedTags An array of {@link TagKey<GameEvent>}. Any event that has any of these tags will not get returned. <br><br>
-     * <i>For example:<br>Giving an array containing {@link GameEventTags#IGNORE_VIBRATIONS_SNEAKING} will refuse to return any GameEvent that spawns a vibration that gets prevented by sneaking.<i/>
-     * @todo Look into creating a custom GameEvent that dynamically has its signal changed.
-     **/
-    private static GameEvent getEventForSignal(int comparatorSignal, TagKey<GameEvent>[] excludedTags) {
-        Object2IntMap<GameEvent> vibrationMap = SculkSensorBlock.VIBRATION_FREQUENCY_FOR_EVENT;
-
-        for (Object2IntMap.Entry<GameEvent> entry : vibrationMap.object2IntEntrySet()) {
-            if (entry.getIntValue() == comparatorSignal) {
-                GameEvent result = entry.getKey();
-                boolean valid = true;
-                for (TagKey<GameEvent> tag : excludedTags) {
-                    valid = !result.is(tag);
-                    if (!valid) {
-                        break;
-                    }
-                }
-
-                if (valid) {
-                    return entry.getKey();
-                }
-            }
-        }
-        SculkMicMod.LOGGER.warn("Failed to find GameEvent for given comparator signal " + comparatorSignal + "! Returning default event " + DEFAULT_EVENT.getName());
-        return DEFAULT_EVENT;
-    }
-
-
-    @Obsolete
-    /**
-     * @return A {@link net.minecraft.world.level.gameevent.GameEvent} matching the given comparator signal based on {@link net.minecraft.world.level.block.SculkSensorBlock#VIBRATION_FREQUENCY_FOR_EVENT}.
-     * @param comparatorSignal the redstone signal a comparator linked to a sculk sensor block will output on it receiving this event
-     **/
-    private static GameEvent getEventForSignal(int comparatorSignal) {
-        Object2IntMap<GameEvent> vibrationMap = SculkSensorBlock.VIBRATION_FREQUENCY_FOR_EVENT;
-
-        for (Object2IntMap.Entry<GameEvent> entry : vibrationMap.object2IntEntrySet()) {
-            if (entry.getIntValue() == comparatorSignal) {
-                GameEvent result = entry.getKey();
-                return result;
-            }
-        }
-        SculkMicMod.LOGGER.warn("Failed to find GameEvent for given comparator signal " + comparatorSignal + "! Returning default event " + DEFAULT_EVENT.getName());
-        return DEFAULT_EVENT;
     }
 }

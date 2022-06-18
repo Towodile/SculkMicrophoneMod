@@ -20,37 +20,21 @@ import java.util.stream.Stream;
 @OnlyIn(Dist.CLIENT)
 public class ModOption {
 
-    public static final OptionInstance<Boolean> ENABLE_MIC_LISTENING = OptionInstance.createBoolean("options.mic.enable", SculkMicConfig.ENABLED.get(), (p_231970_) -> {
-        SculkMicConfig.store(SculkMicConfig.ENABLED , p_231970_);
-    });
+    public static final OptionInstance<Boolean> ENABLE_MIC_LISTENING = OptionInstance.createBoolean("options.mic.enable", SculkMicConfig.ENABLED.get(),
+            (value) -> SculkMicConfig.store(SculkMicConfig.ENABLED , value));
 
-    public static final OptionInstance<Integer> SENSITIVITY = new OptionInstance<>("options.mic.sensitivity", OptionInstance.noTooltip(), (p_231962_, p_231963_) -> {
-        return Options.genericValueLabel(p_231962_, Component.translatable("options.mic.sensitivityValue", p_231963_));
-    }, new OptionInstance.IntRange(0, 100), SculkMicConfig.SENSITIVITY.get(), (value) -> {
-        SculkMicConfig.store(SculkMicConfig.SENSITIVITY, value);
-    });
+    public static final OptionInstance<Integer> SENSITIVITY = new OptionInstance<>("options.mic.sensitivity", OptionInstance.noTooltip(),
+            (p_231962_, p_231963_) -> Options.genericValueLabel(p_231962_, Component.translatable("options.mic.sensitivityValue", p_231963_)), new OptionInstance.IntRange(0, 100), SculkMicConfig.SENSITIVITY.get(),
+            (value) -> SculkMicConfig.store(SculkMicConfig.SENSITIVITY, value));
 
-    public static final OptionInstance<Integer> SCULK_THRESHOLD = new OptionInstance<>("options.mic.threshold", OptionInstance.noTooltip(), (p_231962_, p_231963_) -> {
-        return Options.genericValueLabel(p_231962_, Component.translatable("options.mic.thresholdValue", p_231963_));
-    }, new OptionInstance.IntRange(0, 120), (int)Math.round(SculkMicConfig.THRESHOLD.get()), (value) -> {
-        SculkMicConfig.store(SculkMicConfig.THRESHOLD, (double)value);
-    });
+    public static final OptionInstance<Integer> SCULK_THRESHOLD = new OptionInstance<>("options.mic.threshold", OptionInstance.noTooltip(),
+            (p_231962_, p_231963_) -> Options.genericValueLabel(p_231962_, Component.translatable("options.mic.thresholdValue", p_231963_)), new OptionInstance.IntRange(0, 120), (int)Math.round(SculkMicConfig.THRESHOLD.get()),
+            (value) -> SculkMicConfig.store(SculkMicConfig.THRESHOLD, (double)value));
 
     public static final OptionInstance<IconStatus> ICON_POSITION = new OptionInstance<>("options.mic.icon", OptionInstance.noTooltip(), OptionInstance.forOptionEnum(),
             new OptionInstance.Enum<>(Arrays.asList(IconStatus.values()),
-                    Codec.INT.xmap(IconStatus::byId, IconStatus::getId)), IconStatus.TOP_LEFT, (value) -> {
-        SculkMicConfig.store(SculkMicConfig.ICON, value.getId());
-    });
-
-
-    private static class Utils {
-        private static double decimalVolume(int p_231966_) {
-             return p_231966_ / 100d;
-        }
-        private static int noDecimalVolume(double p_231840_) {
-            return (int)Math.round(p_231840_);
-        }
-    }
+                    Codec.INT.xmap(IconStatus::byId, IconStatus::getId)), IconStatus.TOP_LEFT,
+            (value) -> SculkMicConfig.store(SculkMicConfig.ICON, value.getId()));
 
 
 }

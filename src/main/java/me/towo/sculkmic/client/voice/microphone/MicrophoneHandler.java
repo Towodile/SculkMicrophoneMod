@@ -6,13 +6,11 @@ public class MicrophoneHandler {
 
     @Nullable
     private Microphone microphone;
-    private float lastMinLevel;
 
     public float getCurrentLevel() {
         if (isRunning()) {
             assert microphone != null;
             if (microphone.level > 0) {
-                lastMinLevel = microphone.minLevel;
                 return microphone.level;
             }
         }
@@ -20,6 +18,14 @@ public class MicrophoneHandler {
         return 0;
     }
 
+    public float getMinimumLevel() {
+        if (isRunning()) {
+            assert microphone != null;
+            return microphone.minLevel;
+        }
+
+        return 0;
+    }
 
     /**
      * Will try to start the microphone. If one is already running, it will restart it.

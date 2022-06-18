@@ -51,7 +51,7 @@ public class Microphone extends Thread{
 
         format = new AudioFormat(42000.0f, 16, 1, true, false);
         info = new DataLine.Info(TargetDataLine.class, format);
-        if (!AudioSystem.isLineSupported(info)) { // If no default line
+        if (!AudioSystem.isLineSupported(info)) {
             System.out.println("SCULK MIC: The TargetDataLine is unavailable");
             System.exit(1);
         }
@@ -69,12 +69,15 @@ public class Microphone extends Thread{
         byte[] tempBuffer = new byte[6000];
         try {
             while (run) {
-                // If read in enough, calculate RMS
                 if (line.read(tempBuffer, 0, tempBuffer.length) > 0) {
                     level = calculateRMSLevel(tempBuffer);
 
                     if (level < minLevel) {
                         minLevel = level;
+                    }
+
+                    if (minLevel < level) {
+                        minLevel += .3f;
                     }
 
                     if (level > maxLevel) {

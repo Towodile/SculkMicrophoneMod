@@ -3,31 +3,42 @@ package me.towo.sculkmic.server.commands;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import me.towo.sculkmic.server.userpreferences.ServerSculkMicConfig;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.contents.TranslatableContents;
 
 
 public class SetCommands {
     public SetCommands(CommandDispatcher<CommandSourceStack> dispatcher) {
+        // /sculkmicrophone
         dispatcher.register(Commands.literal("sculkmicrophone")
-                .then(Commands.literal("set").requires((source) -> {
-                    return source.hasPermission(2);
-                })
-                .then(Commands.literal("distance").then(Commands.argument("distance", IntegerArgumentType.integer(0, 10))
-                .executes((command) -> {
-                    return setDistance(command.getSource(), IntegerArgumentType.getInteger(command, "distance"));
-                }))).then(Commands.literal("defaultRedstoneSignal").then(Commands.argument("redstone", IntegerArgumentType.integer(1, 15))
-                                .executes((command) -> {
-                                    return setDefaultRedstoneStrength(command.getSource(), IntegerArgumentType.getInteger(command, "redstone"));
-                                }))).then(Commands.literal("doDynamicRedstone").then(Commands.argument("dynRedstone", BoolArgumentType.bool())
-                                .executes((command) -> {
-                                    return setDynamicRedstone(command.getSource(), BoolArgumentType.getBool(command,"dynRedstone"));
-                                })))));
+                // /sculkmicrophone set
+                .then(Commands.literal("set")
+                        // '/sculkmicrophone set' requires permission 2.
+                        .requires((source) -> source.hasPermission(2))
+
+                            // /sculkmicrophone set distance
+                            .then(Commands.literal("distance")
+                                // /sculkmicrophone set distance <value>
+                                .then(Commands.argument("distance", IntegerArgumentType.integer(0, 10))
+                                     // on execution: calls setDistance
+                                    .executes((command) -> setDistance(command.getSource(), IntegerArgumentType.getInteger(command, "distance")))))
+
+                            // /sculkmicrophone set defaultRedstoneSignal
+                            .then(Commands.literal("defaultRedstoneSignal")
+                                 // /sculkmicrophone set defaultRedstoneSignal <value>
+                                .then(Commands.argument("redstone", IntegerArgumentType.integer(1, 15))
+                                     // on execution: calls setDefaultRedstoneStrength
+                                    .executes((command) -> setDefaultRedstoneStrength(command.getSource(), IntegerArgumentType.getInteger(command, "redstone")))))
+
+                            // /sculkmicrophone set doDynamicRedstone
+                            .then(Commands.literal("doDynamicRedstone")
+                                 // /sculkmicrophone set doDynamicRedstone <value>
+                                .then(Commands.argument("dynRedstone", BoolArgumentType.bool())
+                                     // on execution: calls setDynamicRedstone
+                                    .executes((command) -> setDynamicRedstone(command.getSource(), BoolArgumentType.getBool(command,"dynRedstone")))))));
     }
 
     private int setDistance(CommandSourceStack source, int distance) throws CommandSyntaxException {

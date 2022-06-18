@@ -12,12 +12,12 @@ public abstract class VibrationPacketSender {
     private final int timeout;
 
     /**
-     * A timer. Gets incremented every tick, until it hits the same value as {@link #timeout}. In that case, it will be 0 again.
+     * A timer. Gets incremented every tick, until it hits the same value as {@link #timeout}. In that case, it will be reset to 0 and start over.
      */
     private int passedTicks;
 
     /**
-     * If true, a packet can be send.
+     * If true, a packet can be sent.
      */
     private final AtomicBoolean canSendPacket;
 
@@ -27,7 +27,7 @@ public abstract class VibrationPacketSender {
     }
 
     /**
-     * An event fired every (client-side) tick; in this event, {@link #sendPacket()} gets called when enough time passes.
+     * An event fired every (client-side) tick; in this event, {@link #sendPacket()} gets called when {@link #timeout} is exceeded and a packet is scheduled.
      */
     @SubscribeEvent
     protected void tick(TickEvent.ClientTickEvent e) {
@@ -50,8 +50,7 @@ public abstract class VibrationPacketSender {
      * This method is called everytime {@link #passedTicks} reaches the {@link #timeout} limit while {@link #canSendPacket} is true.
      */
     private void sendPacket() {
-        // to-do : calculate comparator strength based on getVolume() instead of it being a linear comparison
-        PacketHandler.INSTANCE.sendToServer(new ServerboundSculkVibrationPacket((getFrequency())));
+        PacketHandler.INSTANCE.sendToServer(new ServerboundSculkVibrationPacket(getFrequency()));
     }
 
     /**

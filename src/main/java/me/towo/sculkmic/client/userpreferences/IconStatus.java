@@ -1,12 +1,10 @@
 package me.towo.sculkmic.client.userpreferences;
 
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectMaps;
 import me.towo.sculkmic.client.gui.components.Icon;
 import net.minecraft.Util;
-import net.minecraft.client.ParticleStatus;
 import net.minecraft.util.Mth;
 import net.minecraft.util.OptionEnum;
 

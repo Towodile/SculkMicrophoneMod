@@ -1,7 +1,6 @@
 package me.towo.sculkmic.client.voice.microphone;
 
 import me.towo.sculkmic.SculkMicMod;
-import me.towo.sculkmic.client.gui.components.Icon;
 import me.towo.sculkmic.client.gui.init.ModScreenIcon;
 import me.towo.sculkmic.client.userpreferences.IconStatus;
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
@@ -58,8 +57,8 @@ public class MicrophoneListener extends VibrationPacketSender {
 
     @Override
     protected int getFrequency() {
-        double floor = 20;
-        double roof = 100; // handler.maxLevel
+        double floor = handler.getMinimumLevel();
+        double roof = 100;
         float current = handler.getCurrentLevel();
 
         double factor = (current - floor) / (roof - floor);
