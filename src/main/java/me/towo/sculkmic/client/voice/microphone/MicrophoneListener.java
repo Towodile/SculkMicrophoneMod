@@ -32,7 +32,7 @@ public class MicrophoneListener extends VibrationPacketSender {
 
         if (playerIsLoud) {
             if (SculkMicConfig.ICON.get() != 0) {
-                ModScreenIcon.THRESHOLD_ALERT.setPosition(IconStatus.byId(SculkMicConfig.ICON.get()).toPositionType());
+                ModScreenIcon.THRESHOLD_ALERT.setPosition(IconStatus.byId(SculkMicConfig.ICON.get()).getCorrespondingPosition());
                 ModScreenIcon.THRESHOLD_ALERT.show();
             }
             schedulePacket();

@@ -1,6 +1,11 @@
 package me.towo.sculkmic.client.userpreferences;
 
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectMaps;
 import me.towo.sculkmic.client.gui.components.Icon;
+import net.minecraft.Util;
 import net.minecraft.client.ParticleStatus;
 import net.minecraft.util.Mth;
 import net.minecraft.util.OptionEnum;
@@ -17,6 +22,16 @@ public enum IconStatus implements OptionEnum {
     MIDDLE_RIGHT(5, "options.mic.icon.middle_right"),
     BOTTOM_RIGHT(6, "options.mic.icon.bottom_right"),
     TOP_CENTER(7, "options.mic.icon.top_center");
+
+    private final static Object2ObjectMap<IconStatus, Icon.Position> POSITION_WITH_OPTION_STATUS = Object2ObjectMaps.unmodifiable(Util.make(new Object2ObjectArrayMap<>(), (map) -> {
+        map.put(TOP_LEFT, Icon.Position.TOP_LEFT);
+        map.put(MIDDLE_LEFT, Icon.Position.MIDDLE_LEFT);
+        map.put(BOTTOM_LEFT, Icon.Position.BOTTOM_LEFT);
+        map.put(TOP_RIGHT, Icon.Position.TOP_RIGHT);
+        map.put(MIDDLE_RIGHT, Icon.Position.MIDDLE_RIGHT);
+        map.put(BOTTOM_RIGHT, Icon.Position.BOTTOM_RIGHT);
+        map.put(TOP_CENTER, Icon.Position.TOP_CENTER);
+    }));
 
     private int id;
     private String key;
@@ -42,7 +57,7 @@ public enum IconStatus implements OptionEnum {
         return BY_ID[Mth.positiveModulo(id, BY_ID.length)];
     }
 
-    public Icon.Position.PositionType toPositionType() {
-        return Icon.Position.PositionType.values()[id - 1];
+    public Icon.Position getCorrespondingPosition() {
+        return POSITION_WITH_OPTION_STATUS.get(this);
     }
 }

@@ -1,6 +1,5 @@
 package me.towo.sculkmic.client.gui.components;
 
-import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -51,13 +50,10 @@ public class Icon {
         this.y = y;
     }
 
-    public void setPosition(Position.PositionType positionType) {
-        Position pos = Position.getForIcon(this, positionType);
-        if (pos == null)
-            return;
-
-        this.x = pos.x;
-        this.y = pos.y;
+    public void setPosition(Position position) {
+        Position.XYValue xy = position.getValues(this);
+        this.x = xy.x;
+        this.y =  xy.y;
     }
 
     @SubscribeEvent
@@ -79,40 +75,6 @@ public class Icon {
         }
     }
 
-    public static class Position {
-        public enum PositionType {
-            TOP_LEFT,
-            MIDDLE_LEFT,
-            BOTTOM_LEFT,
-            TOP_RIGHT,
-            MIDDLE_RIGHT,
-            BOTTOM_RIGHT,
-            TOP_CENTER
-        }
-
-        private static final int margin = 20;
-        public final int x;
-        public final int y;
-        public Position(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public static Position getForIcon(Icon icon, PositionType positionType) {
-            Window window = Minecraft.getInstance().getWindow();
-            int screenWidth = window.getGuiScaledWidth();
-            int screenHeight = window.getGuiScaledHeight();
-            if (positionType == PositionType.TOP_LEFT) return new Icon.Position(margin, margin);
-            if (positionType == PositionType.MIDDLE_LEFT) return new Icon.Position(margin,(screenHeight/2) - (icon.height/2));
-            if (positionType == PositionType.BOTTOM_LEFT) return new Icon.Position(margin,screenHeight - margin - icon.height);
-            if (positionType == PositionType.TOP_RIGHT) return new Icon.Position(screenWidth - margin - icon.width, margin);
-            if (positionType == PositionType.MIDDLE_RIGHT) return new Icon.Position(screenWidth - margin- icon.width,screenHeight/2- (icon.height/2));
-            if (positionType == PositionType.BOTTOM_RIGHT) return new Icon.Position(screenWidth - margin- icon.width,screenHeight - margin - icon.height);
-            if (positionType == PositionType.TOP_CENTER) return new Icon.Position(screenWidth/2- (icon.width/2), margin);
-            return null;
-        }
-    }
-
     private static class IconList {
         private static final ArrayList<Icon> list = new ArrayList<>();
 
@@ -127,5 +89,23 @@ public class Icon {
         static Icon[] get() {
             return list.toArray(new Icon[0]);
         }
+    }
+
+    public interface Position {
+        int margin = 20;
+        private static int screenWidth() { return Minecraft.getInstance().getWindow().getGuiScaledWidth(); }
+        private static int screenHeight() { return Minecraft.getInstance().getWindow().getGuiScaledHeight(); }
+
+        Position TOP_LEFT = (icon) -> new XYValue(margin, margin);
+        Position MIDDLE_LEFT = (icon) -> new XYValue(margin, (screenHeight()/2) - (icon.height/2));
+        Position BOTTOM_LEFT = (icon) -> new XYValue(margin, screenHeight() - margin - icon.height);
+        Position TOP_RIGHT = (icon) -> new XYValue(screenWidth() - margin - icon.width, margin);
+        Position MIDDLE_RIGHT = (icon) -> new XYValue(screenWidth() - margin - icon.width, screenHeight()/2 - (icon.height/2));
+        Position BOTTOM_RIGHT = (icon) -> new XYValue(screenWidth() - margin - icon.width, screenHeight() - margin - icon.height);
+        Position TOP_CENTER = (icon) -> new XYValue(screenWidth()/2 - (icon.width/2), margin);
+
+        XYValue getValues(Icon icon);
+
+        record XYValue(int x, int y) { }
     }
 }
