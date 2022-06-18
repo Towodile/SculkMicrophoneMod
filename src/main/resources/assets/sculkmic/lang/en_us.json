@@ -1,6 +1,7 @@
 {
   "gui.microphone_settings": "Microphone Settings...",
 
+
   "options.microphoneTitle": "Microphone Settings §o(Sculk Microphone)",
   "options.mic.enable": "Microphone",
   "options.mic.show_info": "Show Icon",
@@ -13,7 +14,18 @@
   "options.mic.test.current_level": "Your current volume: ",
   "options.mic.test.no_mic": "Microphone is currently not running.",
 
+  "options.mic.icon": "Icon",
+  "options.mic.icon.off": "OFF",
+  "options.mic.icon.top_left": "Top Left",
+  "options.mic.icon.middle_left": "Middle Left",
+  "options.mic.icon.bottom_left": "Bottom Left",
+  "options.mic.icon.top_right": "Top Right",
+  "options.mic.icon.middle_right": "Middle Right",
+  "options.mic.icon.bottom_right": "Bottom Right",
+  "options.mic.icon.top_center": "Top Center",
+
   "microphone.info.opened": "Microphone has been activated.",
   "microphone.info.closed": "Microphone has been closed.",
+
   "microphone.error.unavailable": "§4ERROR: §cMicrophone is unavailable."
 }

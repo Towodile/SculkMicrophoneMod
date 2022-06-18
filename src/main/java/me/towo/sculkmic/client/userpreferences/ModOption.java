@@ -1,11 +1,20 @@
 package me.towo.sculkmic.client.userpreferences;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.*;
+import net.minecraft.client.renderer.GpuWarnlistManager;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @OnlyIn(Dist.CLIENT)
@@ -27,9 +36,12 @@ public class ModOption {
         SculkMicConfig.store(SculkMicConfig.THRESHOLD, (double)value);
     });
 
-    public static final OptionInstance<Boolean> DO_ICON = OptionInstance.createBoolean("options.mic.show_info", SculkMicConfig.SHOW_ICON.get(), (value) -> {
-        SculkMicConfig.store(SculkMicConfig.SHOW_ICON, value);
+    public static final OptionInstance<IconStatus> ICON_POSITION = new OptionInstance<>("options.mic.icon", OptionInstance.noTooltip(), OptionInstance.forOptionEnum(),
+            new OptionInstance.Enum<>(Arrays.asList(IconStatus.values()),
+                    Codec.INT.xmap(IconStatus::byId, IconStatus::getId)), IconStatus.TOP_LEFT, (value) -> {
+        SculkMicConfig.store(SculkMicConfig.ICON, value.getId());
     });
+
 
     private static class Utils {
         private static double decimalVolume(int p_231966_) {

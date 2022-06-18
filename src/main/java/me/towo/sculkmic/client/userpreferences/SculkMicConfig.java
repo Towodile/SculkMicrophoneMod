@@ -14,7 +14,7 @@ public final class SculkMicConfig {
     public static final ForgeConfigSpec.ConfigValue<Boolean> ENABLED;
     public static final ForgeConfigSpec.ConfigValue<Double> THRESHOLD;
     public static final ForgeConfigSpec.ConfigValue<Integer> SENSITIVITY;
-    public static final ForgeConfigSpec.ConfigValue<Boolean> SHOW_ICON;
+    public static final ForgeConfigSpec.ConfigValue<Integer> ICON;
 
     private static final HashMap<ForgeConfigSpec.ConfigValue, Object> STORED_DATA = new HashMap<>();
 
@@ -32,8 +32,8 @@ public final class SculkMicConfig {
         SENSITIVITY = BUILDER.comment("The higher you set this factor, the easier your volume level will raise.")
                 .defineInRange("Sensitivity", 1, 1, 100);
 
-        SHOW_ICON = BUILDER.comment("If 'true', an icon will appear on your screen once the volume threshold has been met.")
-                .define("Show Info", false);
+        ICON = BUILDER.comment("A value that determines where the icon that shows up when the sculk threshold has been reached will appear. 0 will disable the icon.")
+                .defineInRange("Icon Position", 1, 0, 7);
 
         BUILDER.pop();
         SPEC = BUILDER.build();

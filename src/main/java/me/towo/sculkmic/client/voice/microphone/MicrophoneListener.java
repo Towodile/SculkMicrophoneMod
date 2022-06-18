@@ -1,6 +1,9 @@
 package me.towo.sculkmic.client.voice.microphone;
 
 import me.towo.sculkmic.SculkMicMod;
+import me.towo.sculkmic.client.gui.components.Icon;
+import me.towo.sculkmic.client.gui.init.ModScreenIcon;
+import me.towo.sculkmic.client.userpreferences.IconStatus;
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
 import me.towo.sculkmic.client.voice.VibrationPacketSender;
 import me.towo.sculkmic.common.utils.Chat;
@@ -12,11 +15,11 @@ import net.minecraftforge.event.TickEvent;
 
 public class MicrophoneListener extends VibrationPacketSender {
 
-    // to-do improve microphone and volume calculations -> use DB
     private final static MicrophoneHandler handler = new MicrophoneHandler();
 
     public MicrophoneListener(int timeBetweenPacketsInTicks) {
         super(timeBetweenPacketsInTicks);
+        ModScreenIcon.THRESHOLD_ALERT.create();
     }
 
     @Override
@@ -28,8 +31,12 @@ public class MicrophoneListener extends VibrationPacketSender {
         boolean playerIsLoud = handler.getCurrentLevel() > threshold;
 
         if (playerIsLoud) {
+            if (SculkMicConfig.ICON.get() != 0) {
+                ModScreenIcon.THRESHOLD_ALERT.setPosition(IconStatus.byId(SculkMicConfig.ICON.get()).toPositionType());
+                ModScreenIcon.THRESHOLD_ALERT.show();
+            }
             schedulePacket();
-        }
+        } else ModScreenIcon.THRESHOLD_ALERT.hide();
     }
 
     public void kill() {
@@ -42,7 +49,6 @@ public class MicrophoneListener extends VibrationPacketSender {
         }
 
         SculkMicConfig.ENABLED.set(false);
-        SculkMicConfig.SHOW_ICON.set(false);
         MinecraftForge.EVENT_BUS.unregister(this);
     }
 

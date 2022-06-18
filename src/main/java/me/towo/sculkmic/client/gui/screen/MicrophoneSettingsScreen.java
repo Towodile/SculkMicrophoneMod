@@ -25,17 +25,8 @@ import net.minecraft.util.FormattedCharSequence;
 import java.util.List;
 
 public class MicrophoneSettingsScreen extends OptionsSubScreen {
-
-    // UGLY CODE AHEAD -- YOU HAVE BEEN WARNED
-
-    private static final OptionInstance<?>[] BIG_OPTIONS = new OptionInstance[] {
-            ModOption.ENABLE_MIC_LISTENING,
-            ModOption.SCULK_THRESHOLD
-    };
-
     private static final OptionInstance<?>[] SMALL_OPTIONS = new OptionInstance[] {
-            ModOption.SENSITIVITY,
-            ModOption.DO_ICON
+            ModOption.ICON_POSITION
     };
     private final MicrophoneHandler microphone;
     private OptionsList list;
@@ -55,16 +46,20 @@ public class MicrophoneSettingsScreen extends OptionsSubScreen {
     protected void init() {
         this.list = new OptionsList(this.minecraft, this.width, this.height, 32, this.height - 32, 25);
 
-        this.list.addBig(BIG_OPTIONS[0]);
-        this.list.addBig(BIG_OPTIONS[1]);
+        this.list.addBig(ModOption.ENABLE_MIC_LISTENING);
+        this.list.addBig(ModOption.SCULK_THRESHOLD);
+        this.list.addSmall(SMALL_OPTIONS);
 
         this.addWidget(this.list);
+
+        // DONE
         this.addRenderableWidget(new Button(this.width / 2, this.height - 27, 100, 20, CommonComponents.GUI_DONE, (p_96827_) -> {
             this.minecraft.options.save();
             this.minecraft.setScreen(this.lastScreen);
             SculkMicConfig.saveStoredToConfig();
         }));
 
+        // APPLY
         this.addRenderableWidget(new Button(this.width / 2 - 100, this.height - 27, 100, 20, Component.translatable("options.mic.apply"), (p_96827_) -> {
             this.minecraft.options.save();
             SculkMicConfig.saveStoredToConfig();
@@ -81,7 +76,7 @@ public class MicrophoneSettingsScreen extends OptionsSubScreen {
             this.renderTooltip(p_96813_, list, p_96814_, p_96815_);
         }
         drawText(p_96813_);
-        drawMeter(BIG_OPTIONS[1], p_96813_, 5);
+        drawMeter(ModOption.SCULK_THRESHOLD, p_96813_, 5);
     }
 
     private void drawText(PoseStack matrix) {
