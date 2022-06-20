@@ -1,6 +1,8 @@
 package me.towo.sculkmic.client.userpreferences;
 
 import me.towo.sculkmic.SculkMicMod;
+import me.towo.sculkmic.client.voice.AudioManager;
+import me.towo.sculkmic.common.init.GlobalEventHandler;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.util.HashMap;
@@ -13,7 +15,7 @@ public final class SculkMicConfig {
 
     public static final ForgeConfigSpec.ConfigValue<Boolean> ENABLED;
     public static final ForgeConfigSpec.ConfigValue<Double> THRESHOLD;
-    public static final ForgeConfigSpec.ConfigValue<Integer> SENSITIVITY;
+    public static final ForgeConfigSpec.ConfigValue<String> INPUT_DEVICE;
     public static final ForgeConfigSpec.ConfigValue<Integer> ICON;
 
     private static final HashMap<ForgeConfigSpec.ConfigValue, Object> STORED_DATA = new HashMap<>();
@@ -29,8 +31,8 @@ public final class SculkMicConfig {
         THRESHOLD = BUILDER.comment("This value determines at what level (RMS) sculk sensors get activated.")
                 .defineInRange("Sculk Threshold", 50, 0, 120d);
 
-        SENSITIVITY = BUILDER.comment("The higher you set this factor, the easier your volume level will raise.")
-                .defineInRange("Sensitivity", 1, 1, 100);
+        INPUT_DEVICE = BUILDER.comment("The name of the device that's used for recording your voice.")
+                .define("Input Device", AudioManager.Input.defaultDeviceName());
 
         ICON = BUILDER.comment("A value that determines where the icon that shows up when the sculk threshold has been reached will appear. 0 will disable the icon.")
                 .defineInRange("Icon Position", 1, 0, 7);
@@ -53,14 +55,14 @@ public final class SculkMicConfig {
      */
     public static void saveStoredToConfig() {
         if (!hasStoredChanges()) {
-            SculkMicMod.LOGGER.info("Attempted to save stored data to config, but there were no changes!");
             return;
         }
+
         for (Map.Entry<ForgeConfigSpec.ConfigValue, Object> entry : STORED_DATA.entrySet()) {
             entry.getKey().set(entry.getValue());
         }
 
-        SculkMicMod.LOGGER.info("New client-side settings saved to config file " + FILE_NAME);
+        SculkMicMod.LOGGER.debug("Stored settings saved to config file " + FILE_NAME);
         clearStored();
     }
 
@@ -70,5 +72,16 @@ public final class SculkMicConfig {
 
     public static boolean hasStoredChanges() {
         return STORED_DATA.size() > 0;
+    }
+
+    public static void setInputDevice(String deviceName) {
+        if (!AudioManager.Input.exists(deviceName)) {
+            SculkMicMod.LOGGER.warn("The input device " + deviceName + " doesn't exist! Settings it to default.");
+            setInputDevice(AudioManager.Input.defaultDeviceName());
+        } else {
+            INPUT_DEVICE.set(deviceName);
+        }
+        GlobalEventHandler.MICROPHONE_LISTENER.reloadMicrophone();
+        return;
     }
 }

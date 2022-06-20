@@ -14,7 +14,7 @@ import net.minecraftforge.event.TickEvent;
 
 public class MicrophoneListener extends VibrationPacketSender {
 
-    private final static MicrophoneHandler handler = new MicrophoneHandler();
+    private final static MicrophoneHandler HANDLER = new MicrophoneHandler();
 
     public MicrophoneListener(int timeBetweenPacketsInTicks) {
         super(timeBetweenPacketsInTicks);
@@ -27,7 +27,7 @@ public class MicrophoneListener extends VibrationPacketSender {
         super.tick(e);
 
         double threshold = SculkMicConfig.THRESHOLD.get();
-        boolean playerIsLoud = handler.getCurrentLevel() > threshold;
+        boolean playerIsLoud = HANDLER.getCurrentLevel() > threshold;
 
         if (playerIsLoud) {
             if (SculkMicConfig.ICON.get() != 0) {
@@ -38,10 +38,18 @@ public class MicrophoneListener extends VibrationPacketSender {
         } else ModScreenIcon.THRESHOLD_ALERT.hide();
     }
 
+    public void reloadMicrophone() {
+        SculkMicMod.LOGGER.info("Restarting microphone...");
+        HANDLER.stop();
+        if (HANDLER.start()) {
+            SculkMicMod.LOGGER.info("Microphone '" + HANDLER.getDevice() + "' has been activated.");
+        } else SculkMicMod.LOGGER.error("Something went wrong trying to restart the microphone.");
+    }
+
     public void kill() {
         LocalPlayer player = Minecraft.getInstance().player;
-        if (handler.isRunning()) {
-            handler.stop();
+        if (HANDLER.isRunning()) {
+            HANDLER.stop();
             SculkMicMod.LOGGER.info("Microphone has been closed and listener has been unregistered.");
             if (player != null)
                 Chat.sendMessage(Component.translatable("microphone.info.closed").getString(), player);
@@ -52,14 +60,14 @@ public class MicrophoneListener extends VibrationPacketSender {
     }
 
     public MicrophoneHandler getHandler() {
-        return handler;
+        return HANDLER;
     }
 
     @Override
     protected int getFrequency() {
-        double floor = handler.getMinimumLevel();
+        double floor = HANDLER.getMinimumLevel();
         double roof = 100;
-        float current = handler.getCurrentLevel();
+        float current = HANDLER.getCurrentLevel();
 
         double factor = (current - floor) / (roof - floor);
         return (int)Math.round(factor * 15);
@@ -67,23 +75,23 @@ public class MicrophoneListener extends VibrationPacketSender {
 
     private void validateMicrophone() {
 
-        if (shouldBeRunning() && !handler.isRunning()) {
+        if (shouldBeRunning() && !HANDLER.isRunning()) {
             tryStart();
         }
 
-        if (!shouldBeRunning() && handler.isRunning()) {
+        if (!shouldBeRunning() && HANDLER.isRunning()) {
             tryStop();
         }
     }
 
     private void tryStart(){
         LocalPlayer player = Minecraft.getInstance().player;
-        if (handler.start()) {
-            SculkMicMod.LOGGER.info("Microphone has been activated.");
+        if (HANDLER.start()) {
+            SculkMicMod.LOGGER.info("Microphone '" + HANDLER.getDevice() + "' has been activated.");
             if (player != null)
                 Chat.sendMessage(Component.translatable("microphone.info.opened").getString(), player);
         } else {
-            SculkMicMod.LOGGER.error("Microphone is unavailable! Microphone has been disabled.");
+            SculkMicMod.LOGGER.error("Microphone '" + HANDLER.getDevice() + "' is unavailable! It has been disabled.");
             if (player != null) {
                 Chat.sendMessage(Component.translatable("microphone.error.unavailable").getString(), player);
             }
@@ -93,7 +101,7 @@ public class MicrophoneListener extends VibrationPacketSender {
 
     private void tryStop(){
         LocalPlayer player = Minecraft.getInstance().player;
-        handler.stop();
+        HANDLER.stop();
         if (player != null)
             Chat.sendMessage(Component.translatable("microphone.info.closed").getString(), player);
     }

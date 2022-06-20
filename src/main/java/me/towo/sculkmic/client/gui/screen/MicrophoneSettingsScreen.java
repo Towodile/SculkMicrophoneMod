@@ -6,8 +6,6 @@ import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
 import me.towo.sculkmic.client.voice.microphone.MicrophoneHandler;
 import me.towo.sculkmic.common.utils.ModColors;
 import me.towo.sculkmic.common.utils.ModMath;
-import net.minecraft.client.GraphicsStatus;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -15,30 +13,17 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.OptionsList;
 import net.minecraft.client.gui.screens.OptionsSubScreen;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.GpuWarnlistManager;
-import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.FormattedCharSequence;
 
 import java.util.List;
 
 public class MicrophoneSettingsScreen extends OptionsSubScreen {
-    private static final OptionInstance<?>[] SMALL_OPTIONS = new OptionInstance[] {
-            ModOption.ICON_POSITION
-    };
     private final MicrophoneHandler microphone;
     private OptionsList list;
-    private float lastVolume;
     public MicrophoneSettingsScreen(Screen lastScreen, Options options, MicrophoneHandler microphoneHandler) {
         super(lastScreen, options, Component.translatable("options.microphoneTitle"));
-        GpuWarnlistManager gpuWarnlistManager = lastScreen.getMinecraft().getGpuWarnlistManager();
-        gpuWarnlistManager.resetWarnings();
-        if (options.graphicsMode().get() == GraphicsStatus.FABULOUS) {
-            gpuWarnlistManager.dismissWarning();
-        }
-
         microphone = microphoneHandler;
     }
 
@@ -47,22 +32,17 @@ public class MicrophoneSettingsScreen extends OptionsSubScreen {
         this.list = new OptionsList(this.minecraft, this.width, this.height, 32, this.height - 32, 25);
 
         this.list.addBig(ModOption.ENABLE_MIC_LISTENING);
+        this.list.addBig(ModOption.INPUT_DEVICE);
         this.list.addBig(ModOption.SCULK_THRESHOLD);
-        this.list.addSmall(SMALL_OPTIONS);
+        this.list.addSmall(new OptionInstance[] {ModOption.ICON_POSITION});
 
         this.addWidget(this.list);
 
         // DONE
-        this.addRenderableWidget(new Button(this.width / 2, this.height - 27, 100, 20, CommonComponents.GUI_DONE, (p_96827_) -> {
+        this.addRenderableWidget(new Button(this.width / 2 - 100, this.height - 27, 200, 20, CommonComponents.GUI_DONE, (p_232810_) -> {
             this.minecraft.options.save();
+            SculkMicConfig.saveStoredToConfig();
             this.minecraft.setScreen(this.lastScreen);
-            SculkMicConfig.saveStoredToConfig();
-        }));
-
-        // APPLY
-        this.addRenderableWidget(new Button(this.width / 2 - 100, this.height - 27, 100, 20, Component.translatable("options.mic.apply"), (p_96827_) -> {
-            this.minecraft.options.save();
-            SculkMicConfig.saveStoredToConfig();
         }));
     }
 
@@ -75,36 +55,8 @@ public class MicrophoneSettingsScreen extends OptionsSubScreen {
         if (list != null) {
             this.renderTooltip(p_96813_, list, p_96814_, p_96815_);
         }
-        drawText(p_96813_);
+
         drawMeter(ModOption.SCULK_THRESHOLD, p_96813_, 5);
-    }
-
-    private void drawText(PoseStack matrix) {
-        float level = microphone.getCurrentLevel();
-        String displayedVolume = level + "";
-        int volumeColor = ModColors.REGULAR;
-        int statusColor = ModColors.REGULAR;
-        if (level > SculkMicConfig.THRESHOLD.get()) {
-            volumeColor = ModColors.SCULK;
-            if (lastVolume < SculkMicConfig.THRESHOLD.get()) {
-                Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.SCULK_CLICKING, 1.0F));
-            }
-        }
-
-        if (!microphone.isRunning()) {
-            volumeColor = ModColors.INACTIVE;
-            statusColor = ModColors.ERROR;
-        }
-
-        int x = (this.width/4) + 30;
-        int y = this.height/2;
-        Minecraft.getInstance().font.drawWordWrap(Component.literal(Component.translatable("options.mic.test.current_level").getString() + displayedVolume), 20, y, x*5, volumeColor);
-        if (!microphone.isRunning()) Minecraft.getInstance().font.drawWordWrap(Component.translatable("options.mic.test.no_mic"), 20, y + 20, x*5, statusColor);
-        lastVolume = microphone.getCurrentLevel();
-
-        if (SculkMicConfig.hasStoredChanges()) {
-            Minecraft.getInstance().font.drawWordWrap(Component.translatable("options.mic.unsaved_changes"), width/2 - 100, y+ 40, 200, ModColors.REGULAR);;
-        }
     }
 
     private void drawMeter(OptionInstance<?> option, PoseStack pose, int height) {
@@ -112,6 +64,12 @@ public class MicrophoneSettingsScreen extends OptionsSubScreen {
         assert widget != null;
         int width = (int) (ModMath.factor(0, 120, microphone.getCurrentLevel()) * widget.getWidth());
         fill(pose, widget.x, widget.y + widget.getHeight(),  widget.x + width, widget.y + widget.getHeight() + height, ModColors.SCULK);
+
+        if (microphone.getCurrentLevel() > SculkMicConfig.THRESHOLD.get()) {
+            widget.setFGColor(ModColors.SCULK);
+        } else if (microphone.isRunning()) {
+            widget.setFGColor(ModColors.REGULAR);
+        } else widget.setFGColor(ModColors.INACTIVE);
     }
 
     @Override

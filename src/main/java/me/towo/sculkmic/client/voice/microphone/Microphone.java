@@ -1,6 +1,9 @@
 package me.towo.sculkmic.client.voice.microphone;
 
 import javax.sound.sampled.*;
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Microphone extends Thread{
 
@@ -10,13 +13,33 @@ public class Microphone extends Thread{
     public float level;
     public float minLevel;
     public float maxLevel;
-    private float lastLevel;
+    public List<ByteArrayOutputStream> recordedData;
 
-    private TargetDataLine line;
-    private AudioFormat format;
-    private DataLine.Info info;
+    private final TargetDataLine line;
+    private final DataLine.Info info;
+    private final AudioFormat format;
+    private final Mixer device;
+
     private boolean run = false;
+    private boolean record = false;
 
+    /**
+     * Creates a Microphone based on the given input device and audio format.
+     * @param device A {@link Mixer} that holds info about an input device on this computer.
+     * @throws LineUnavailableException If the line of the given device is unavailable.
+     * @throws IllegalArgumentException If the given device does not support audio recording on TargetDataLine
+     */
+    public Microphone(Mixer device) throws LineUnavailableException, IllegalArgumentException {
+        this.device = device;
+        this.format = new AudioFormat(42000.0f, 16, 1, true, false);
+        info = new DataLine.Info(TargetDataLine.class, format);
+        line = (TargetDataLine) device.getLine(info);
+        recordedData = new ArrayList<>();
+    }
+
+    /**
+     * Starts the microphone.
+     */
     @Override
     public void run(){
         tryOpenAndStart();
@@ -48,28 +71,25 @@ public class Microphone extends Thread{
 
     private void tryOpenAndStart() {
         run = true;
-
-        format = new AudioFormat(42000.0f, 16, 1, true, false);
-        info = new DataLine.Info(TargetDataLine.class, format);
         if (!AudioSystem.isLineSupported(info)) {
             System.out.println("SCULK MIC: The TargetDataLine is unavailable");
-            System.exit(1);
+            return;
         }
 
         try {
-            line = (TargetDataLine) AudioSystem.getLine(info);
             line.open(format);
             line.start();
         } catch (LineUnavailableException ex) {
             System.out.println("SCULK MIC: The TargetDataLine is Unavailable.");
-            System.exit(1);
+            return;
         }
 
 
         byte[] tempBuffer = new byte[6000];
         try {
             while (run) {
-                if (line.read(tempBuffer, 0, tempBuffer.length) > 0) {
+                int bytesRead = line.read(tempBuffer, 0, tempBuffer.length);
+                if (bytesRead > 0) {
                     level = calculateRMSLevel(tempBuffer);
 
                     if (level < minLevel) {
@@ -84,19 +104,38 @@ public class Microphone extends Thread{
                         maxLevel = level;
                     }
 
-                    lastLevel = level;
+                    if (record) {
+                        ByteArrayOutputStream section = new ByteArrayOutputStream();
+                        section.write(tempBuffer, 0, bytesRead);
+                        recordedData.add(section);
+                    }
                 }
             }
         } catch (Exception e) {
             System.out.println("SCULK MIC: Something went wrong while recording!");
             System.err.println(e);
-            System.exit(2);
+            return;
         }
     }
 
-    public void setNewDevice() {
-        throw new UnsupportedOperationException();
+    public void startRecording() {
+        recordedData.clear();
+        record = true;
     }
+
+    /**
+     * @return The recording.
+     */
+    public Recording stopRecording() {
+        record = false;
+        return new Recording(format, recordedData.toArray(new ByteArrayOutputStream[0]));
+    }
+
+    public Mixer.Info getDevice() {
+        return device.getMixerInfo();
+    }
+
+
 
     /**
      * @author <a href="https://danfoad.co.uk/blog/volume-meter-for-microphone-input-volume/">Dan Foad</a>

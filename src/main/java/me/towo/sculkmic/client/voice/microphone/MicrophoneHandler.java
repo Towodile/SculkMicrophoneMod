@@ -1,6 +1,11 @@
 package me.towo.sculkmic.client.voice.microphone;
 
+import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
+import me.towo.sculkmic.client.voice.AudioManager;
+
 import javax.annotation.Nullable;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
 
 public class MicrophoneHandler {
 
@@ -33,7 +38,13 @@ public class MicrophoneHandler {
     public boolean start() {
 
         stop();
-        microphone = new Microphone();
+        try {
+            Mixer mixer = AudioManager.Input.get(SculkMicConfig.INPUT_DEVICE.get());
+            microphone = new Microphone(mixer);
+        } catch (LineUnavailableException e) {
+            return false;
+        }
+
         if (!microphone.available()) {
             return false;
         }
@@ -47,6 +58,7 @@ public class MicrophoneHandler {
      */
     public void stop() {
         if (isRunning()) {
+            assert microphone != null;
             microphone.closeAndStop();
             microphone = null;
         }
@@ -56,4 +68,9 @@ public class MicrophoneHandler {
         return microphone != null && microphone.isAlive();
     }
 
+    public String getDevice() {
+        if (microphone == null)
+            return null;
+        return microphone.getDevice().getName();
+    }
 }

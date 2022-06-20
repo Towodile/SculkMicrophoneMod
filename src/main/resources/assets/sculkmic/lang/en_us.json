@@ -9,10 +9,7 @@
   "options.mic.sensitivityValue": "%s percent",
   "options.mic.threshold": "Sculk Threshold",
   "options.mic.thresholdValue": "%s",
-  "options.mic.apply": "Apply",
-  "options.mic.unsaved_changes": "Changes are currently unregistered. Hit apply to see how your changes affect your volume.",
-  "options.mic.test.current_level": "Your current volume: ",
-  "options.mic.test.no_mic": "Microphone is currently not running.",
+  "options.mic.device": "Input Device",
 
   "options.mic.icon": "Icon",
   "options.mic.icon.off": "OFF",
