@@ -2,7 +2,7 @@ package me.towo.sculkmic.client.userpreferences;
 
 import com.mojang.serialization.Codec;
 import me.towo.sculkmic.client.gui.screen.MicrophoneSettingsScreen;
-import me.towo.sculkmic.client.voice.AudioManager;
+import me.towo.sculkmic.client.sound.AudioManager;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
 import net.minecraft.network.chat.Component;

@@ -1,4 +1,4 @@
-package me.towo.sculkmic.client.voice;
+package me.towo.sculkmic.client.sound;
 
 import me.towo.sculkmic.server.network.ServerboundSculkVibrationPacket;
 import me.towo.sculkmic.server.network.packet.PacketHandler;

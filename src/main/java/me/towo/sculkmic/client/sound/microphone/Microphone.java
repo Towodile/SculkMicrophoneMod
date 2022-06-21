@@ -1,4 +1,4 @@
-package me.towo.sculkmic.client.voice.microphone;
+package me.towo.sculkmic.client.sound.microphone;
 
 import javax.sound.sampled.*;
 import java.io.ByteArrayOutputStream;

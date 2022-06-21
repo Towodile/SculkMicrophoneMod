@@ -1,4 +1,4 @@
-package me.towo.sculkmic.client.voice;
+package me.towo.sculkmic.client.sound;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;

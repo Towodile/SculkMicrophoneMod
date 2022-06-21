@@ -1,7 +1,7 @@
-package me.towo.sculkmic.client.voice.microphone;
+package me.towo.sculkmic.client.sound.microphone;
 
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
-import me.towo.sculkmic.client.voice.AudioManager;
+import me.towo.sculkmic.client.sound.AudioManager;
 
 import javax.annotation.Nullable;
 import javax.sound.sampled.LineUnavailableException;

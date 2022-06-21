@@ -3,7 +3,7 @@ package me.towo.sculkmic.client.gui.screen;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.towo.sculkmic.client.userpreferences.ModOption;
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
-import me.towo.sculkmic.client.voice.microphone.MicrophoneHandler;
+import me.towo.sculkmic.client.sound.microphone.MicrophoneHandler;
 import me.towo.sculkmic.common.utils.ModColors;
 import me.towo.sculkmic.common.utils.ModMath;
 import net.minecraft.client.OptionInstance;

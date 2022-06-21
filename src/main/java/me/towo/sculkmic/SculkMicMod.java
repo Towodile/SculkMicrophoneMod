@@ -2,7 +2,7 @@ package me.towo.sculkmic;
 
 
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
-import me.towo.sculkmic.client.voice.microphone.MicrophoneListener;
+import me.towo.sculkmic.client.sound.microphone.MicrophoneListener;
 import me.towo.sculkmic.common.compatibility.CompatibilityRegister;
 import me.towo.sculkmic.common.init.ModGameEvent;
 import me.towo.sculkmic.server.network.packet.PacketHandler;

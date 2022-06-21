@@ -1,7 +1,7 @@
 package me.towo.sculkmic.client.userpreferences;
 
 import me.towo.sculkmic.SculkMicMod;
-import me.towo.sculkmic.client.voice.AudioManager;
+import me.towo.sculkmic.client.sound.AudioManager;
 import me.towo.sculkmic.common.init.GlobalEventHandler;
 import net.minecraftforge.common.ForgeConfigSpec;
 
