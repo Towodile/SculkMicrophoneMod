@@ -38,11 +38,17 @@ public class ModOption {
                     Codec.INT.xmap(IconStatus::byId, IconStatus::getId)), IconStatus.byId(SculkMicConfig.ICON.get()),
             (value) -> SculkMicConfig.ICON.set(value.getId()));
 
-
     @SubscribeEvent
     public static void onMouseRelease(ScreenEvent.MouseReleasedEvent e) {
         if (e.getScreen() instanceof MicrophoneSettingsScreen) {
             SculkMicConfig.saveStoredToConfig();
         }
+    }
+
+    public static void setInitialValues(){
+        ENABLE_MIC_LISTENING.set(SculkMicConfig.ENABLED.get());
+        INPUT_DEVICE.set(SculkMicConfig.INPUT_DEVICE.get());
+        SCULK_THRESHOLD.set((int)Math.round(SculkMicConfig.THRESHOLD.get()));
+        ICON_POSITION.set(IconStatus.byId(SculkMicConfig.ICON.get()));
     }
 }

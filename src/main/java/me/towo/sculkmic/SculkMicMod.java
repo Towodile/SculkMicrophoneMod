@@ -2,6 +2,7 @@ package me.towo.sculkmic;
 
 
 import me.towo.sculkmic.client.sound.microphone.MicrophoneListener;
+import me.towo.sculkmic.client.userpreferences.ModOption;
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
 import me.towo.sculkmic.common.init.ModGameEvent;
 import me.towo.sculkmic.server.network.packet.PacketHandler;
@@ -38,6 +39,7 @@ public class SculkMicMod
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
+        ModOption.setInitialValues();
         MinecraftForge.EVENT_BUS.register(new MicrophoneListener(40));
     }
 
