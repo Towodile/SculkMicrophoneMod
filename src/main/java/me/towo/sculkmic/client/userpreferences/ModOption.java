@@ -35,7 +35,7 @@ public class ModOption {
 
     public static final OptionInstance<IconStatus> ICON_POSITION = new OptionInstance<>("options.mic.icon", OptionInstance.noTooltip(), OptionInstance.forOptionEnum(),
             new OptionInstance.Enum<>(Arrays.asList(IconStatus.values()),
-                    Codec.INT.xmap(IconStatus::byId, IconStatus::getId)), IconStatus.TOP_LEFT,
+                    Codec.INT.xmap(IconStatus::byId, IconStatus::getId)), IconStatus.byId(SculkMicConfig.ICON.get()),
             (value) -> SculkMicConfig.ICON.set(value.getId()));
 
 

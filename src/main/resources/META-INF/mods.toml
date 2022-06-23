@@ -1,16 +1,18 @@
 modLoader="javafml"
 loaderVersion="[40,)"
 license="CC BY-NC-SA 4.0"
+logoFile="logo.png"
 [[mods]]
 modId="sculkmic"
 version="${file.jarVersion}"
-displayName="Sculk Microphone Detection"
-logoFile="examplemod.png"
+displayName="§3Sculk §7Microphone"
 credits="Towo"
 authors="Towo"
 description='''
-Adds microphone support for activating sculk sensors! Just talk loud enough and a nearby sculk sensor should activate!
-A sculk sensor's comparator output is also affected by the volume of your input.
+This mod adds:
+- Vibration listener activation (Sensor, Warden) when talking into your microphone.
+    - A comparator's output will be determined by the volume of your voice.
+- Configurable settings (client-side and server-side)
 '''
 
 [[dependencies.sculkmic]]
@@ -26,10 +28,3 @@ A sculk sensor's comparator output is also affected by the volume of your input.
     versionRange="[1.19,1.20)"
     ordering="NONE"
     side="BOTH"
-
-#[[dependencies.sculkmic]]
-#modId="voicechat"
-#mandatory=true
-#versionRange="[${voicechat_dependency},)"
-#ordering="AFTER"
-#side="BOTH"

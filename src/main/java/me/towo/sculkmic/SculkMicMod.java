@@ -1,9 +1,8 @@
 package me.towo.sculkmic;
 
 
-import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
 import me.towo.sculkmic.client.sound.microphone.MicrophoneListener;
-import me.towo.sculkmic.common.compatibility.CompatibilityRegister;
+import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
 import me.towo.sculkmic.common.init.ModGameEvent;
 import me.towo.sculkmic.server.network.packet.PacketHandler;
 import me.towo.sculkmic.server.userpreferences.ServerSculkMicConfig;
@@ -44,7 +43,6 @@ public class SculkMicMod
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(PacketHandler::init);
-        new CompatibilityRegister().findAll();
         ModGameEvent.register();
     }
 }
