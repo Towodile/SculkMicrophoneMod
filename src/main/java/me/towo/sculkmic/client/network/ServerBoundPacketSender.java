@@ -1,14 +1,13 @@
-package me.towo.sculkmic.client.sound;
+package me.towo.sculkmic.client.network;
 
-import me.towo.sculkmic.server.network.ServerboundSculkVibrationPacket;
-import me.towo.sculkmic.server.network.packet.PacketHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public abstract class VibrationPacketSender {
+public abstract class ServerBoundPacketSender {
+
     private final int timeout;
 
     /**
@@ -21,7 +20,7 @@ public abstract class VibrationPacketSender {
      */
     private final AtomicBoolean canSendPacket;
 
-    public VibrationPacketSender(int timeBetweenPacketsInTicks){
+    protected ServerBoundPacketSender(int timeBetweenPacketsInTicks) {
         this.timeout = timeBetweenPacketsInTicks;
         canSendPacket = new AtomicBoolean(false);
     }
@@ -44,15 +43,6 @@ public abstract class VibrationPacketSender {
         passedTicks++;
     }
 
-    protected abstract int getFrequency();
-
-    /**
-     * This method is called everytime {@link #passedTicks} reaches the {@link #timeout} limit while {@link #canSendPacket} is true.
-     */
-    private void sendPacket() {
-        PacketHandler.INSTANCE.sendToServer(new ServerboundSculkVibrationPacket(getFrequency()));
-    }
-
     /**
      * This method schedules sending a packet by setting {@link #canSendPacket} to true, meaning once enough time has passed, a packet will be sent.
      * <br><br>
@@ -61,4 +51,9 @@ public abstract class VibrationPacketSender {
     public void schedulePacket() {
         canSendPacket.compareAndSet(false, true);
     }
+    
+    /**
+     * This method is called everytime {@link #passedTicks} reaches the {@link #timeout} limit while {@link #canSendPacket} is true.
+     */
+    protected abstract void sendPacket();
 }

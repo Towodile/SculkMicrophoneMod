@@ -1,9 +1,9 @@
 package me.towo.sculkmic.client.gui.screen;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import me.towo.sculkmic.client.sound.microphone.MicrophoneHandler;
 import me.towo.sculkmic.client.userpreferences.ModOption;
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
-import me.towo.sculkmic.client.sound.microphone.MicrophoneHandler;
 import me.towo.sculkmic.common.utils.ModColors;
 import me.towo.sculkmic.common.utils.ModMath;
 import net.minecraft.client.Minecraft;
@@ -15,7 +15,6 @@ import net.minecraft.client.gui.components.OptionsList;
 import net.minecraft.client.gui.screens.OptionsSubScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
-import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;

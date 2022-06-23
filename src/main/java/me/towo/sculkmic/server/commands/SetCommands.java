@@ -50,7 +50,7 @@ public class SetCommands {
 
     private int setDefaultRedstoneStrength(CommandSourceStack source, int strength) throws CommandSyntaxException {
         ServerSculkMicConfig.DEFAULT_COMPARATOR_STRENGTH.set(strength);
-        Component msg = Component.literal("Default comparator output successfully set to" + strength);
+        Component msg = Component.literal("Default comparator output successfully set to " + strength);
         source.sendSuccess(msg, true);
         return 1;
     }

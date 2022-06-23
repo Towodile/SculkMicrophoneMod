@@ -4,7 +4,7 @@ import me.towo.sculkmic.SculkMicMod;
 import me.towo.sculkmic.client.gui.init.ModScreenIcon;
 import me.towo.sculkmic.client.userpreferences.IconStatus;
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
-import me.towo.sculkmic.client.sound.VibrationPacketSender;
+import me.towo.sculkmic.client.network.VibrationPacketSender;
 import me.towo.sculkmic.common.utils.Chat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
