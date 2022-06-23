@@ -1,8 +1,7 @@
 
-
-# Sculk Microphone
+<img src="https://i.postimg.cc/sfhVzsKQ/logo.png" alt="logo" width="1000"/>
 A Minecraft Forge mod by Towo. <br>
-*Best experienced with low sensitivity microphones.*
+Allows sculk-related blocks and entities to listen to your microphone!
 
 ## Downloads
 [CurseForge](https://www.curseforge.com/minecraft/mc-mods/sculk-microphone/files/all) 
