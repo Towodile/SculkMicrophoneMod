@@ -22,18 +22,18 @@ Allows sculk-related blocks and entities to listen to your microphone!
 - Customisable options.
 - Configurable with commands.
 	
-![Example using Simple Voice Chat to indicate talking](https://i.giphy.com/media/t9tWlZaPS6yJKNoUao/giphy.webp)
-![Example using Simple Voice Chat to indicate talking](https://i.giphy.com/media/ghaaaska1fdGEwVheC/giphy.webp)
-<br> Above GIFs use the Simple Voice Chat mod to indicate the player is talking.
+![Sculk activation](https://media.giphy.com/media/zu6h6DEYGMfm2nSLzn/giphy.gif)
+![Warden noticing player](https://media.giphy.com/media/n968ZshGd1qS4QBiYk/giphy.gif)
+
 
 ## How it works
 Simply run the mod, and talk into your microphone! Any nearby sculk sensor/warden should activate. If not, try editing your settings.
 
 ### Settings
 - **Microphone** <br>This options simply allows you to disable the microphone whenever you wish.
-- **Sculk Sensor Threshold** <br>This value will determine at what volume level a sculk sensor will activate / a Warden will hear you.
-
-*After editing your settings, be sure to hit 'Apply' or 'Done' to apply your changes!*
+- **Sculk Threshold** <br>This value will determine at what volume level a sculk sensor will activate / a Warden will hear you. Below the button you can see a moving bar; this is your volume level.
+- **Icon** <br>Whenever your volume is above the given threshold, an icon will appear on-screen. The position of the icon is configurable. This can also be disabled.
+- **Input Device** <br>The device used for recording your voice.
 
 ### Commands
 Somethings are only configurable with commands. These are often things that affect all players in a server.
