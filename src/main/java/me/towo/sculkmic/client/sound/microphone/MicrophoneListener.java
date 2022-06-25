@@ -39,11 +39,13 @@ public class MicrophoneListener extends VibrationPacketSender {
     }
 
     public void reloadMicrophone() {
-        SculkMicMod.LOGGER.info("Restarting microphone...");
-        HANDLER.stop();
-        if (HANDLER.start()) {
-            SculkMicMod.LOGGER.info("Microphone '" + HANDLER.getDevice() + "' has been activated.");
-        } else SculkMicMod.LOGGER.error("Something went wrong trying to restart the microphone.");
+        if (shouldBeRunning()) {
+            SculkMicMod.LOGGER.info("Restarting microphone...");
+            HANDLER.stop();
+            if (HANDLER.start()) {
+                SculkMicMod.LOGGER.info("Microphone '" + HANDLER.getDevice() + "' has been activated.");
+            } else SculkMicMod.LOGGER.error("Something went wrong trying to restart the microphone.");
+        }
     }
 
     public void kill() {
@@ -72,7 +74,6 @@ public class MicrophoneListener extends VibrationPacketSender {
         double factor = (current - floor) / (roof - floor);
         return (int)Math.round(factor * 15);
     }
-
     private void validateMicrophone() {
 
         if (shouldBeRunning() && !HANDLER.isRunning()) {
@@ -86,12 +87,18 @@ public class MicrophoneListener extends VibrationPacketSender {
 
     private void tryStart(){
         LocalPlayer player = Minecraft.getInstance().player;
-        if (HANDLER.start()) {
+        boolean success;
+
+
+        success = HANDLER.start();
+
+        if (success) {
             SculkMicMod.LOGGER.info("Microphone '" + HANDLER.getDevice() + "' has been activated.");
             if (player != null)
                 Chat.sendMessage(Component.translatable("microphone.info.opened").getString(), player);
-        } else {
-            SculkMicMod.LOGGER.error("Microphone '" + HANDLER.getDevice() + "' is unavailable! It has been disabled.");
+        }
+        else {
+            SculkMicMod.LOGGER.error("Microphone '" + HANDLER.getDevice() + "' could not be started! Disabling microphone...");
             if (player != null) {
                 Chat.sendMessage(Component.translatable("microphone.error.unavailable").getString(), player);
             }

@@ -1,12 +1,10 @@
 {
-  "gui.microphone_settings": "Microphone Settings...",
+  "gui.microphone_settings": "Sculk Mic. Settings...",
 
 
-  "options.microphoneTitle": "Microphone Settings §o(Sculk Microphone)",
+  "options.microphoneTitle": "Sculk Microphone Settings",
   "options.mic.enable": "Microphone",
   "options.mic.show_info": "Show Icon",
-  "options.mic.sensitivity": "Sensitivity",
-  "options.mic.sensitivityValue": "%s percent",
   "options.mic.threshold": "Sculk Threshold",
   "options.mic.thresholdValue": "%s",
   "options.mic.device": "Input Device",

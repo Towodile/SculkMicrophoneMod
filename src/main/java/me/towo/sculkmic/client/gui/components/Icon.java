@@ -4,12 +4,18 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.RenderStateShard;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 @Mod.EventBusSubscriber(Dist.CLIENT)
@@ -20,6 +26,7 @@ public class Icon {
     private int x;
     private int y;
     private boolean visible;
+
     public Icon(ResourceLocation resource, int width, int height) {
         this.texture = resource;
         this.width = width;
@@ -28,7 +35,6 @@ public class Icon {
         this.y = 0;
         this.visible = false;
     }
-
     public void create() {
         IconList.add(this);
     }
@@ -57,7 +63,7 @@ public class Icon {
     }
 
     @SubscribeEvent
-    static void draw(RenderGameOverlayEvent.Pre e) {
+    static void drawOnGameOverlay(RenderGameOverlayEvent.Pre e) {
         if (Minecraft.getInstance().level == null)
             return;
 
@@ -74,7 +80,6 @@ public class Icon {
             Gui.blit(matrix, x, y, 0, 0, width, height, width, height);
         }
     }
-
     private static class IconList {
         private static final ArrayList<Icon> list = new ArrayList<>();
 

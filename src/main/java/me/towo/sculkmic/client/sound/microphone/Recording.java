@@ -20,6 +20,9 @@ public class Recording extends Thread {
         data = recordedBytes;
     }
 
+    /**
+     * Starts the thread and plays the recording.
+     */
     public void run() {
         try {
             line.open(format);

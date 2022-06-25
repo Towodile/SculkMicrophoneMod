@@ -1,5 +1,7 @@
 package me.towo.sculkmic.client.sound.microphone;
 
+import org.spongepowered.asm.mixin.injection.struct.TargetNotSupportedException;
+
 import javax.sound.sampled.*;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ public class Microphone extends Thread{
     public List<ByteArrayOutputStream> recordedData;
 
     private final TargetDataLine line;
-    private final DataLine.Info info;
+    private DataLine.Info info;
     private final AudioFormat format;
     private final Mixer device;
 
@@ -30,9 +32,15 @@ public class Microphone extends Thread{
      * @throws IllegalArgumentException If the given device does not support audio recording on TargetDataLine
      */
     public Microphone(Mixer device) throws LineUnavailableException, IllegalArgumentException {
+        this.setName("Microphone Thread");
         this.device = device;
         this.format = new AudioFormat(42000.0f, 16, 1, true, false);
         info = new DataLine.Info(TargetDataLine.class, format);
+        for (Line.Info dinfo : device.getTargetLineInfo()) {
+            if (AudioSystem.isLineSupported(dinfo)) {
+                info = (DataLine.Info) dinfo;
+            }
+        }
         line = (TargetDataLine) device.getLine(info);
         recordedData = new ArrayList<>();
     }
@@ -41,8 +49,12 @@ public class Microphone extends Thread{
      * Starts the microphone.
      */
     @Override
-    public void run(){
-        tryOpenAndStart();
+    public void run() {
+        try {
+            tryOpenAndStart();
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void closeAndStop() {
@@ -69,52 +81,41 @@ public class Microphone extends Thread{
     }
 
 
-    private void tryOpenAndStart() {
+    private void tryOpenAndStart() throws LineUnavailableException, TargetNotSupportedException {
         run = true;
         if (!AudioSystem.isLineSupported(info)) {
-            System.out.println("SCULK MIC: The TargetDataLine is unavailable");
-            return;
+            throw new TargetNotSupportedException("This target line is not supported!");
         }
 
-        try {
-            line.open(format);
-            line.start();
-        } catch (LineUnavailableException ex) {
-            System.out.println("SCULK MIC: The TargetDataLine is Unavailable.");
-            return;
-        }
+
+        line.open(format);
+        line.start();
 
 
         byte[] tempBuffer = new byte[6000];
-        try {
-            while (run) {
-                int bytesRead = line.read(tempBuffer, 0, tempBuffer.length);
-                if (bytesRead > 0) {
-                    level = calculateRMSLevel(tempBuffer);
+        while (run) {
+            int bytesRead = line.read(tempBuffer, 0, tempBuffer.length);
+            if (bytesRead > 0) {
+                level = calculateRMSLevel(tempBuffer);
 
-                    if (level < minLevel) {
-                        minLevel = level;
-                    }
+                if (level < minLevel) {
+                    minLevel = level;
+                }
 
-                    if (minLevel < level) {
-                        minLevel += .3f;
-                    }
+                if (minLevel < level) {
+                    minLevel += .3f;
+                }
 
-                    if (level > maxLevel) {
-                        maxLevel = level;
-                    }
+                if (level > maxLevel) {
+                    maxLevel = level;
+                }
 
-                    if (record) {
-                        ByteArrayOutputStream section = new ByteArrayOutputStream();
-                        section.write(tempBuffer, 0, bytesRead);
-                        recordedData.add(section);
-                    }
+                if (record) {
+                    ByteArrayOutputStream section = new ByteArrayOutputStream();
+                    section.write(tempBuffer, 0, bytesRead);
+                    recordedData.add(section);
                 }
             }
-        } catch (Exception e) {
-            System.out.println("SCULK MIC: Something went wrong while recording!");
-            System.err.println(e);
-            return;
         }
     }
 

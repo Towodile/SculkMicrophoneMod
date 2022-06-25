@@ -107,10 +107,6 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 repositories {
     mavenCentral()
     maven {
-        name = "henkelmax.public"
-        url = 'https://maven.maxhenkel.de/repository/public'
-    }
-    maven {
         name = "Modrinth"
         url = "https://api.modrinth.com/maven"
         content {

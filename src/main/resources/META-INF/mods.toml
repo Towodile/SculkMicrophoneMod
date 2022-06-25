@@ -6,7 +6,8 @@ logoFile="logo.png"
 modId="sculkmic"
 version="${file.jarVersion}"
 displayName="§3Sculk §7Microphone"
-credits="Towo"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/sculk-microphone"
+#credits="Towo"
 authors="Towo"
 description='''
 This mod adds:

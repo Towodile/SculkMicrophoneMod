@@ -1,6 +1,5 @@
 package me.towo.sculkmic.client.network;
 
-import me.towo.sculkmic.client.network.ServerBoundPacketSender;
 import me.towo.sculkmic.server.network.ServerboundSculkVibrationPacket;
 import me.towo.sculkmic.server.network.packet.PacketHandler;
 

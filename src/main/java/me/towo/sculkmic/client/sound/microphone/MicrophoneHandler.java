@@ -1,7 +1,12 @@
 package me.towo.sculkmic.client.sound.microphone;
 
+import me.towo.sculkmic.SculkMicMod;
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
 import me.towo.sculkmic.client.sound.AudioManager;
+import me.towo.sculkmic.common.utils.Chat;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.network.chat.Component;
 
 import javax.annotation.Nullable;
 import javax.sound.sampled.LineUnavailableException;
@@ -11,6 +16,13 @@ public class MicrophoneHandler {
 
     @Nullable
     private Microphone microphone;
+
+    private final Thread.UncaughtExceptionHandler exceptionHandler = new Thread.UncaughtExceptionHandler() {
+        @Override
+        public void uncaughtException(Thread t, Throwable e) {
+            throw new RuntimeException(e);
+        }
+    };
 
     public float getCurrentLevel() {
         if (isRunning()) {
@@ -41,6 +53,7 @@ public class MicrophoneHandler {
         try {
             Mixer mixer = AudioManager.Input.get(SculkMicConfig.INPUT_DEVICE.get());
             microphone = new Microphone(mixer);
+            microphone.setUncaughtExceptionHandler(exceptionHandler);
         } catch (LineUnavailableException e) {
             return false;
         }
@@ -49,7 +62,11 @@ public class MicrophoneHandler {
             return false;
         }
 
-        microphone.start();
+        try {
+            microphone.start();
+        } catch (RuntimeException e) {
+            return false;
+        }
         return true;
     }
 
