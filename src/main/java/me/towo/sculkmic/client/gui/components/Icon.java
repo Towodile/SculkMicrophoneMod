@@ -4,18 +4,12 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.RenderStateShard;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.checkerframework.checker.nullness.qual.NonNull;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 @Mod.EventBusSubscriber(Dist.CLIENT)
@@ -63,7 +57,7 @@ public class Icon {
     }
 
     @SubscribeEvent
-    static void drawOnGameOverlay(RenderGameOverlayEvent.Pre e) {
+    static void draw(RenderGameOverlayEvent.Pre e) {
         if (Minecraft.getInstance().level == null)
             return;
 

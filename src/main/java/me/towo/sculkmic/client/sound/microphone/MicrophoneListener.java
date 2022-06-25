@@ -26,6 +26,9 @@ public class MicrophoneListener extends VibrationPacketSender {
         validateMicrophone();
         super.tick(e);
 
+        if (!HANDLER.isRunning())
+            return;
+
         double threshold = SculkMicConfig.THRESHOLD.get();
         boolean playerIsLoud = HANDLER.getCurrentLevel() > threshold;
 

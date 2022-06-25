@@ -50,11 +50,7 @@ public class Microphone extends Thread{
      */
     @Override
     public void run() {
-        try {
-            tryOpenAndStart();
-        } catch (LineUnavailableException e) {
-            throw new RuntimeException(e);
-        }
+        tryStart();
     }
 
     public void closeAndStop() {
@@ -80,15 +76,16 @@ public class Microphone extends Thread{
         } return true;
     }
 
+    public void open() throws LineUnavailableException {
+      line.open(format);
+    }
 
-    private void tryOpenAndStart() throws LineUnavailableException, TargetNotSupportedException {
+    private void tryStart() {
         run = true;
         if (!AudioSystem.isLineSupported(info)) {
             throw new TargetNotSupportedException("This target line is not supported!");
         }
 
-
-        line.open(format);
         line.start();
 
 

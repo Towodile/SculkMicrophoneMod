@@ -17,13 +17,6 @@ public class MicrophoneHandler {
     @Nullable
     private Microphone microphone;
 
-    private final Thread.UncaughtExceptionHandler exceptionHandler = new Thread.UncaughtExceptionHandler() {
-        @Override
-        public void uncaughtException(Thread t, Throwable e) {
-            throw new RuntimeException(e);
-        }
-    };
-
     public float getCurrentLevel() {
         if (isRunning()) {
             assert microphone != null;
@@ -48,12 +41,10 @@ public class MicrophoneHandler {
      * Will try to start the microphone. If one is already running, it will restart it.
      */
     public boolean start() {
-
         stop();
         try {
             Mixer mixer = AudioManager.Input.get(SculkMicConfig.INPUT_DEVICE.get());
             microphone = new Microphone(mixer);
-            microphone.setUncaughtExceptionHandler(exceptionHandler);
         } catch (LineUnavailableException e) {
             return false;
         }
@@ -63,10 +54,12 @@ public class MicrophoneHandler {
         }
 
         try {
-            microphone.start();
-        } catch (RuntimeException e) {
+            microphone.open();
+        } catch (LineUnavailableException e) {
             return false;
         }
+
+        microphone.start();
         return true;
     }
 

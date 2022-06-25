@@ -39,7 +39,8 @@ public class OptionScreenExtensions {
             ResourceLocation hovered = new ResourceLocation(SculkMicMod.ID, "textures/gui/settings_hover.png");
             ImageButton btn = new ImageButton(icon, hovered,
                     musicSoundsBtn.x + musicSoundsBtn.getWidth(), musicSoundsBtn.y, btnSize,
-                    (button) -> Minecraft.getInstance().setScreen(new MicrophoneSettingsScreen(Minecraft.getInstance().screen, Minecraft.getInstance().options, GlobalEventHandler.MICROPHONE_LISTENER.getHandler())));
+                    (button) -> Minecraft.getInstance().setScreen(new MicrophoneSettingsScreen(Minecraft.getInstance().screen, Minecraft.getInstance().options, GlobalEventHandler.MICROPHONE_LISTENER.getHandler())),
+                    1.3, 0, 0);
 
             e.addListener(btn);
         }

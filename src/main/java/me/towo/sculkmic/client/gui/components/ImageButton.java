@@ -15,17 +15,19 @@ public class ImageButton extends Button {
     private final @Nullable ResourceLocation hoveredImage;
     private final double offsetX;
     private final double offsetY;
+    private final double multiplier;
 
-    public ImageButton(ResourceLocation normalImage, @Nullable ResourceLocation hoveredImage, int x, int y, int size, OnPress onPress, double offsetX, double offsetY) {
+    public ImageButton(ResourceLocation normalImage, @Nullable ResourceLocation hoveredImage, int x, int y, int size, OnPress onPress, double iconSizeMultiplier, double offsetX, double offsetY) {
         super(x, y, size, size, Component.empty(), onPress);
         this.image = normalImage;
         this.hoveredImage = hoveredImage;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
+        this.multiplier = iconSizeMultiplier;
     }
 
     public ImageButton(ResourceLocation normalImage, @Nullable ResourceLocation hoveredImage, int x, int y, int size, OnPress onPress) {
-        this(normalImage, hoveredImage, x, y, size, onPress, 0, 0);
+        this(normalImage, hoveredImage, x, y, size, onPress, 0, 0, 1);
     }
 
     @Override
@@ -40,8 +42,8 @@ public class ImageButton extends Button {
 
         RenderSystem.setShaderTexture(0, img);
         Minecraft.getInstance().textureManager.bindForSetup(img);
-        int iWidth = (int)(width / 1.5);
-        int iHeight = (int)(height / 1.5);
+        int iWidth = (int)((width / 1.5) * multiplier);
+        int iHeight = (int)((height / 1.5) * multiplier);
 
         Gui.blit(matrix, (int) ((width - iWidth)/2 + offsetX + x), (int) ((height - iHeight)/2 + offsetY + y), 0, 0, iWidth, iHeight, iWidth, iHeight);
     }
