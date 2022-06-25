@@ -30,6 +30,11 @@ Allows sculk-related blocks and entities to listen to your microphone!
 Simply run the mod, and talk into your microphone! Any nearby sculk sensor/warden should activate. If not, try editing your settings.
 
 ### Settings
+The settings can be found on the options screen, right next to the "Music & Sounds" option.
+<img src="https://user-images.githubusercontent.com/89427486/175787834-b91a34a4-6305-4b26-91b8-583bbb590eae.png" width="500"/>
+
+Alternatively, they can be found in the Mods menu under 'config'.
+
 - **Microphone** <br>This options simply allows you to disable the microphone whenever you wish.
 - **Sculk Threshold** <br>This value will determine at what volume level a sculk sensor will activate / a Warden will hear you. Below the button you can see a moving bar; this is your volume level.
 - **Icon** <br>Whenever your volume is above the given threshold, an icon will appear on-screen. The position of the icon is configurable. This can also be disabled.
