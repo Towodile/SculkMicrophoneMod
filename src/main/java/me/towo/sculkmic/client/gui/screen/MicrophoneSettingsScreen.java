@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import me.towo.sculkmic.client.sound.microphone.MicrophoneHandler;
 import me.towo.sculkmic.client.userpreferences.ModOption;
 import me.towo.sculkmic.client.userpreferences.SculkMicConfig;
+import me.towo.sculkmic.common.init.GlobalEventHandler;
 import me.towo.sculkmic.common.utils.ModColors;
 import me.towo.sculkmic.common.utils.ModMath;
 import net.minecraft.client.Minecraft;
@@ -20,10 +21,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.FormattedCharSequence;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.ConfigGuiHandler;
+import net.minecraftforge.fml.ModLoadingContext;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+@OnlyIn(value = Dist.CLIENT)
 public class MicrophoneSettingsScreen extends OptionsSubScreen {
     private final MicrophoneHandler microphone;
     private OptionsList list;
@@ -31,6 +37,12 @@ public class MicrophoneSettingsScreen extends OptionsSubScreen {
     public MicrophoneSettingsScreen(Screen lastScreen, Options options, MicrophoneHandler microphoneHandler) {
         super(lastScreen, options, Component.translatable("options.microphoneTitle"));
         microphone = microphoneHandler;
+    }
+
+    public static void setAsConfigScreen(){
+        ModLoadingContext.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory.class, () -> new ConfigGuiHandler.ConfigGuiFactory((client, screen)
+                -> new MicrophoneSettingsScreen(screen, Minecraft.getInstance().options,
+                GlobalEventHandler.MICROPHONE_LISTENER.getHandler())));
     }
 
     @Override
