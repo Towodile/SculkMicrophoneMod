@@ -19,27 +19,27 @@ import java.util.Optional;
 @OnlyIn(Dist.CLIENT) @Mod.EventBusSubscriber(Dist.CLIENT)
 public class ModOption {
 
-    public static final OptionInstance<Boolean> ENABLE_MIC_LISTENING = OptionInstance.createBoolean("options.mic.enable", SculkMicConfig.ENABLED.get(),
+    public static final OptionInstance<Boolean> ENABLE_MIC_LISTENING = OptionInstance.createBoolean("options.mic.enable", SculkMicConfig.ENABLED.getDefault(),
             SculkMicConfig.ENABLED::set);
 
     public static final OptionInstance<String> INPUT_DEVICE = new OptionInstance<>("options.mic.device", OptionInstance.noTooltip(),
             (p_231919_, p_231920_) -> Component.literal(p_231920_),
             new OptionInstance.LazyEnum<>(AudioManager.Input::getAllDeviceNames,
                     (value) -> !AudioManager.Input.exists(value) ? Optional.empty() : Optional.of(value), Codec.STRING),
-            SculkMicConfig.INPUT_DEVICE.get(),
+            SculkMicConfig.INPUT_DEVICE.getDefault(),
             SculkMicConfig::setInputDevice);
 
     public static final OptionInstance<Integer> SCULK_THRESHOLD = new OptionInstance<>("options.mic.threshold", OptionInstance.noTooltip(),
-            (p_231962_, p_231963_) -> Options.genericValueLabel(p_231962_, Component.translatable("options.mic.thresholdValue", p_231963_)), new OptionInstance.IntRange(0, 120), (int)Math.round(SculkMicConfig.THRESHOLD.get()),
+            (p_231962_, p_231963_) -> Options.genericValueLabel(p_231962_, Component.translatable("options.mic.thresholdValue", p_231963_)), new OptionInstance.IntRange(0, 120), (int)Math.round(SculkMicConfig.THRESHOLD.getDefault()),
             (value) -> SculkMicConfig.store(SculkMicConfig.THRESHOLD, (double)value)); // store instead of set, as rapidly trying to update the config will crash the game.
 
     public static final OptionInstance<IconStatus> ICON_POSITION = new OptionInstance<>("options.mic.icon", OptionInstance.noTooltip(), OptionInstance.forOptionEnum(),
             new OptionInstance.Enum<>(Arrays.asList(IconStatus.values()),
-                    Codec.INT.xmap(IconStatus::byId, IconStatus::getId)), IconStatus.byId(SculkMicConfig.ICON.get()),
+                    Codec.INT.xmap(IconStatus::byId, IconStatus::getId)), IconStatus.byId(SculkMicConfig.ICON.getDefault()),
             (value) -> SculkMicConfig.ICON.set(value.getId()));
 
     @SubscribeEvent
-    public static void onMouseRelease(ScreenEvent.MouseReleasedEvent e) {
+    public static void onMouseRelease(ScreenEvent.MouseButtonReleased e) {
         if (e.getScreen() instanceof MicrophoneSettingsScreen) {
             SculkMicConfig.saveStoredToConfig();
         }

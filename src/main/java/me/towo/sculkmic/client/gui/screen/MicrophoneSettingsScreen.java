@@ -23,7 +23,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.ConfigGuiHandler;
+import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.fml.ModLoadingContext;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,7 +40,7 @@ public class MicrophoneSettingsScreen extends OptionsSubScreen {
     }
 
     public static void setAsConfigScreen(){
-        ModLoadingContext.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory.class, () -> new ConfigGuiHandler.ConfigGuiFactory((client, screen)
+        ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((client, screen)
                 -> new MicrophoneSettingsScreen(screen, Minecraft.getInstance().options,
                 GlobalEventHandler.MICROPHONE_LISTENER.getHandler())));
     }

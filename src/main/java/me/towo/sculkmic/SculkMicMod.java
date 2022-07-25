@@ -31,11 +31,11 @@ public class SculkMicMod
     {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        bus.addListener(this::commonSetup);
-        bus.addListener(this::clientSetup);
-
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SculkMicConfig.SPEC, SculkMicConfig.FILE_NAME);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerSculkMicConfig.SPEC, "sculkmicmod-server.toml");
+
+        bus.addListener(this::commonSetup);
+        bus.addListener(this::clientSetup);
 
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -44,8 +44,6 @@ public class SculkMicMod
         ModOption.setInitialValues();
         MinecraftForge.EVENT_BUS.register(new MicrophoneListener(40));
         event.enqueueWork(() -> DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> MicrophoneSettingsScreen::setAsConfigScreen));
-
-
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

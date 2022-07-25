@@ -20,6 +20,6 @@ public final class PacketHandler {
         int index = 0;
         INSTANCE.messageBuilder(ServerboundSculkVibrationPacket.class, index++, NetworkDirection.PLAY_TO_SERVER)
                 .encoder(ServerboundSculkVibrationPacket::encode).decoder(ServerboundSculkVibrationPacket::new)
-                .consumer(ServerboundSculkVibrationPacket::handle).add();
+                .consumerNetworkThread(ServerboundSculkVibrationPacket::handle).add();
     }
 }

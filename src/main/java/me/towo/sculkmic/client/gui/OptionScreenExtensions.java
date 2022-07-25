@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.Mod;
 public class OptionScreenExtensions {
 
     @SubscribeEvent
-    public static void init(ScreenEvent.InitScreenEvent.Post e) {
+    public static void init(ScreenEvent.Init.Post e) {
         if (e.getScreen() instanceof OptionsScreen) {
 
             Button musicSoundsBtn = null;

@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -57,7 +57,7 @@ public class Icon {
     }
 
     @SubscribeEvent
-    static void draw(RenderGameOverlayEvent.Pre e) {
+    static void draw(RenderGuiOverlayEvent.Pre e) {
         if (Minecraft.getInstance().level == null)
             return;
 
